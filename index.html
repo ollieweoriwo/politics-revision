@@ -711,6 +711,35 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
   .icon-btn { width: 40px; height: 40px; }
   a.tag { padding-block: 8px; }
 }
+
+/* ---------- v5: past-paper plans, vertical bars ---------- */
+.came-up li { display: block; }
+.cq-row { display: flex; align-items: baseline; gap: 14px; }
+.cq-row .cq { flex: 1; }
+.cq-y { flex: none; font-size: .78rem; font-weight: 600; color: var(--muted); width: 74px; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .cq-row { flex-wrap: wrap; gap: 4px 10px; } .cq-row .cq { flex-basis: 100%; order: 2; } .cq-y { width: auto; } }
+.plan { margin: 8px 0 2px; }
+.qitem .plan { flex-basis: 100%; }
+.came-up .plan { margin-left: 88px; }
+@media (max-width: 560px) { .came-up .plan { margin-left: 0; } }
+.plan summary { cursor: pointer; font-size: .86rem; font-weight: 500; color: var(--ink-2); padding: 4px 0; width: fit-content; }
+.plan summary:hover { color: var(--ink); }
+.plan[open] summary { margin-bottom: 8px; }
+.plan-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.plan-cols > div { padding: 12px 16px; min-width: 0; }
+.plan-cols > div + div { border-left: 1px solid var(--line); }
+@media (max-width: 560px) { .plan-cols { grid-template-columns: 1fr; } .plan-cols > div + div { border-left: 0; border-top: 1px solid var(--line); } }
+.plan h4 { margin: 0 0 8px; font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 8px; }
+.plan h4::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--p1); }
+.plan-cols > div + div h4::before { background: var(--p2); }
+.plan ul { margin: 0; padding: 0 0 0 16px; display: flex; flex-direction: column; gap: 5px; font-size: .9rem; color: var(--ink-2); }
+.plan-j { margin: 10px 0 4px; font-size: .92rem; color: var(--ink-2); }
+.plan-j b { display: block; font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin-bottom: 2px; }
+.plan[open] .plan-cols, .plan[open] .plan-j { animation: rise 200ms var(--ease) both; }
+.chart .vbar { fill: var(--chart-b); transform-box: fill-box; transform-origin: bottom; }
+@keyframes growY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@supports (animation-timeline: view()) { .chart .vbar { animation: growY auto var(--ease) both; animation-timeline: --chart; animation-range: entry 30% cover 45%; } }
+@media (prefers-reduced-motion: reduce) { .chart .vbar, .plan[open] .plan-cols, .plan[open] .plan-j { animation: none !important; } }
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
@@ -2584,6 +2613,16 @@ window.RECALL = [
 ];
 /* A one-line judgement for each key debate, keyed by the debate question. Shown under the two columns. */
 window.VERDICTS = {
+  'Is it now time for an English Parliament?': 'Probably not: England\u2019s size would unbalance the Union. Strengthening metro mayors and regional devolution answers the democratic gap with less risk.',
+  'Has constitutional reform since 1997 been a success?': 'A qualified success: devolution, the HRA and the Supreme Court have lasted and achieved their aims, but reform was piecemeal and left the Lords, England and Westminster elections largely untouched.',
+  'Has the government\'s control of the House of Commons weakened in recent years?': 'It has become more conditional rather than simply weaker: big majorities in 2019 and 2024 restored control, but rebellions in 2022 and 2025 show it now depends on keeping MPs onside.',
+  'Are backbenchers in the Commons increasingly effective?': 'Yes at scrutiny, less so at law-making: elected committee chairs and urgent questions have real impact, but whips and patronage still pass most government bills unchanged.',
+  'Are rights in the UK poorly protected?': 'Reasonably well protected in practice but not secure: courts and the HRA work, yet a determined Parliament can override them, as the Safety of Rwanda Act showed.',
+  'Do think tanks, lobbyists and corporations have more influence than pressure groups?': 'They have more quiet, early access to policy-making; pressure groups have more public leverage. Influence depends on which party is in power.',
+  'Is the Labour Party more internally divided than the Conservative Party?': 'Not since 2016: the Conservatives\u2019 four leadership contests and Reform UK threat point to deeper division, though Labour\u2019s divisions are more visible in government.',
+  'Have the main parties radically changed from their historical origins?': 'They have evolved rather than broken with their origins: policies and methods change to win elections while core values stay recognisable.',
+  'Have referendums since 1997 been used for political purposes rather than to support democracy?': 'Often called for tactical reasons, but they still delivered genuine democratic legitimacy, especially for devolution and the Good Friday Agreement.',
+  'Are general election outcomes mostly decided by campaigns and manifestos?': 'Mostly not: competence, leaders and long-term factors set the result, but campaigns can swing close elections, as 2017 showed.',
   'Should the UK adopt a codified constitution?': 'Probably not yet: flexibility and parliamentary democracy have mostly held, and Miller II shows the current system can check the executive. The strongest case for codifying is entrenching rights against a large majority.',
   'Has devolution strengthened or threatened the Union?': 'On balance it has strengthened it: the 2014 No vote and peace in Northern Ireland show devolution containing nationalism, though it has also given independence movements a lasting platform.',
   'How effective is Parliament at scrutinising the executive?': 'More effective at exposing and modifying policy than at controlling it. Its real power depends on backbench unity, which the 2025 welfare revolt and May’s 2019 defeats show can override even a large majority.',
@@ -2613,6 +2652,445 @@ window.VERDICTS = {
   'Is the world now multipolar?': 'Moving towards it: the US remains the only military superpower, but China’s economic rise and BRICS expansion point to an emerging multipolar order.',
   'Does regionalism threaten state sovereignty?': 'Only where states choose to pool it: the EU is the exception, and Brexit shows even pooled sovereignty can be taken back.'
 };
+/* Expanded content for the weak topics: Parliament, the Constitution and Paper 1 UK Politics.
+   Adds overview sections, terms, examples, debates, diagrams, past-paper questions with plans, and quiz facts. */
+(function () {
+  const T = {}; TOPICS.forEach(t => { T[t.id] = t; });
+  const add = (id, o) => {
+    const t = T[id];
+    if (o.overview) t.overview.push(...o.overview);
+    if (o.terms) t.terms.push(...o.terms);
+    if (o.examples) t.examples.push(...o.examples);
+    if (o.debates) t.debates.push(...o.debates);
+    if (o.diagrams) t.diagrams.push(...o.diagrams);
+  };
+  const tbl = (head, rows, note) => '<div class="tbl-wrap"><table class="tbl stack"><thead><tr>' + head.map(h => '<th scope="col">' + h + '</th>').join('') +
+    '</tr></thead><tbody>' + rows.map(r => '<tr>' + r.map((c, i) => i === 0 ? '<th scope="row">' + c + '</th>' : '<td data-label="' + head[i] + '">' + c + '</td>').join('') + '</tr>').join('') +
+    '</tbody></table></div>' + (note ? '<p class="dg-note">' + note + '</p>' : '');
+
+  /* ---------------- Constitution ---------------- */
+  add('constitution', {
+    overview: [
+      { h: 'The constitution under strain (2016–2026)', p: [
+        '<b>Brexit</b> exposed the gaps: who could trigger Article 50 (Miller I, 2017), whether the PM could suspend Parliament (Miller II, 2019), and whether Westminster could ignore devolved consent (the 2020 Withdrawal Agreement Act passed without it).',
+        '<b>Section 35</b> of the Scotland Act was used for the first time in January 2023 to block the Gender Recognition Reform (Scotland) Bill, showing Westminster\'s legal supremacy over devolved law.',
+        '<b>Parliament vs the courts</b>: after the Supreme Court ruled the Rwanda plan unlawful (2023), Parliament passed the Safety of Rwanda Act 2024 declaring Rwanda safe. Sovereignty let Parliament overrule the courts\' finding of fact.',
+        '<b>UK Internal Market Act 2020</b>: devolved governments argued it clawed back powers returning from the EU.'
+      ]},
+      { h: 'Reform proposals to know', p: [
+        '<b>English Parliament</b>: answers the West Lothian question but would cover 85% of the UK population and could dominate a federal UK.',
+        '<b>English devolution</b>: metro mayors and combined authorities instead. Labour\'s 2024–25 English Devolution plans aim to give every area a strategic authority.',
+        '<b>Lords reform</b>: hereditary peers removed (Hereditary Peers Act 2026); further ideas include a retirement age, a size cap or an elected chamber.',
+        '<b>Electoral reform</b>: votes at 16 for all UK elections (announced 2025); calls for PR grew after the 2024 result.',
+        '<b>Codification or a British Bill of Rights</b>: the Conservatives\' Bill of Rights Bill to replace the HRA was dropped in 2023.'
+      ]},
+      { h: 'Is the constitution working?', p: [
+        '<b>Yes</b>: flexible and evolutionary; the system adapted to Brexit, coalition and three PMs in one year (2022) without collapse; courts and Parliament checked the executive (Miller II).',
+        '<b>No</b>: rules rely on conventions that can be ignored (Sewel); a large majority can change the constitution by ordinary Act; uneven devolution leaves England without a voice.',
+        'Judge using a clear criterion: <b>stability</b>, <b>accountability</b>, <b>rights protection</b> or <b>fairness between nations</b>.'
+      ]}
+    ],
+    terms: [
+      ['West Lothian question', 'The anomaly that Scottish, Welsh and NI MPs can vote on England-only matters, while English MPs cannot vote on devolved matters in those nations.'],
+      ['Barnett formula', 'The formula, dating from 1978, that sets how public spending changes in England feed through to block grants for Scotland, Wales and Northern Ireland.'],
+      ['Quasi-federalism', 'A system that is legally unitary but works in practice like a federation because devolved bodies are so entrenched politically.'],
+      ['Legislative consent motion', 'A vote by a devolved legislature agreeing (or refusing) that Westminster may legislate on a devolved matter, linked to the Sewel convention.'],
+      ['Section 35 order', 'A power in the Scotland Act 1998 letting the UK government block a Scottish bill that affects reserved matters; first used in 2023.'],
+      ['Good Friday Agreement', 'The 1998 peace deal in Northern Ireland creating power-sharing devolution, approved by 71% in a referendum.'],
+      ['Combined authority', 'A body of neighbouring English councils that share powers, often led by an elected metro mayor.'],
+      ['Constitutional Reform Act 2005', 'Act that created the Supreme Court, the Judicial Appointments Commission and reformed the Lord Chancellor\'s role.'],
+      ['Human Rights Act 1998', 'Act incorporating the ECHR into UK law so rights can be enforced in UK courts.'],
+      ['Codification', 'Bringing constitutional rules together into one written, authoritative document.']
+    ],
+    examples: [
+      { t: 'Gender Recognition Reform (Scotland) Bill (2023)', d: 'The UK government used a section 35 order for the first time to block the bill passed by Holyrood.', use: 'Westminster supremacy over devolved law; tension in the Union.' },
+      { t: 'Good Friday Agreement (1998)', d: 'Approved by 71% in Northern Ireland on 81% turnout; created the power-sharing Assembly.', use: 'Devolution as a success in bringing peace.' },
+      { t: 'Metro mayors (Andy Burnham)', d: 'Elected mayors of combined authorities, e.g. Greater Manchester, with powers over transport, housing and policing.', use: 'English devolution without an English Parliament.' },
+      { t: 'Safety of Rwanda Act 2024', d: 'Parliament legislated that Rwanda is a safe country after the Supreme Court found it was not.', use: 'Parliamentary sovereignty overriding the courts.' }
+    ],
+    debates: [
+      { q: 'Is it now time for an English Parliament?',
+        yes: ['Answers the West Lothian question and ends unequal representation.', 'Gives England a distinct democratic voice like Scotland and Wales.', 'Clearer accountability: who decides what for England.'],
+        no: ['England is 85% of the UK population and would dominate the other nations.', 'Could push towards break-up of the UK.', 'Would not bring power closer to people; metro mayors do that better.', 'EVEL was abandoned in 2021 with little demand to restore it.'] },
+      { q: 'Has constitutional reform since 1997 been a success?',
+        yes: ['Devolution has lasted and brought decisions closer to people; NI peace.', 'HRA and the Supreme Court strengthened rights and the separation of powers.', 'Proportional systems for devolved bodies made results fairer.'],
+        no: ['Reform is unfinished: no elected Lords, no English settlement, FPTP for Westminster.', 'Low turnout in devolved elections; voter ID may reduce turnout.', 'HRA remains politically contested; the Supreme Court is accused of being political.'] }
+    ],
+    diagrams: ['sources-table']
+  });
+
+  /* ---------------- Parliament ---------------- */
+  add('parliament', {
+    overview: [
+      { h: 'Backbenchers: how they actually influence government', p: [
+        '<b>Rebellions</b>: Cameron withdrew House of Lords reform in 2012 after 91 Conservative MPs rebelled; Starmer\'s 2025 welfare bill was rewritten after over 120 Labour MPs objected.',
+        '<b>Taking control of the timetable</b>: in 2019 backbenchers passed the Benn Act (EU Withdrawal (No. 2) Act) forcing the PM to seek a Brexit extension.',
+        '<b>Select committees</b>: since the Wright reforms chairs are elected and higher-profile; the Business and Trade Committee and others drove the Post Office Horizon scandal response.',
+        '<b>Private members\' bills and Ten Minute Rule bills</b>: rarely pass without government time, but can change law (Abortion Act 1967, assisted dying bill 2025).',
+        '<b>Limits</b>: whips, patronage and the payroll vote; most legislation passes as the government wants.'
+      ]},
+      { h: 'Scrutiny tools beyond PMQs', p: [
+        '<b>Urgent questions</b>: the Speaker can force a minister to come to the Commons the same day. Their use rose sharply under Speaker Bercow (from 2009).',
+        '<b>Humble addresses</b>: a motion asking the monarch to order the release of papers. Used in 2017 to force publication of Brexit impact assessments.',
+        '<b>Liaison Committee</b>: the chairs of all select committees question the PM at length, usually three times a year.',
+        '<b>Public Accounts Committee</b>: chaired by an opposition MP, it examines value for money (HS2, Hinckley Point C).',
+        '<b>E-petitions</b>: the 2019 "Revoke Article 50" petition passed 6 million signatures and was debated, but policy did not change.'
+      ]},
+      { h: 'Has government control of the Commons weakened?', p: [
+        'Control depends on <b>majority size</b> and <b>party unity</b>. Small or no majorities (2010–15 coalition, 2017–19 minority) made governments weak; large ones (2019, 2024) strong.',
+        'But even large majorities face more rebellious backbenchers than in the past: Johnson lost his premiership in 2022 with an 80-seat majority; Starmer made major welfare concessions in 2025.',
+        'Governments still control most Commons time, initiate almost all legislation and use secondary legislation and the royal prerogative.'
+      ]}
+    ],
+    terms: [
+      ['Urgent question', 'A question the Speaker grants that forces a minister to answer in the Commons the same day.'],
+      ['Humble address', 'A Commons motion asking the monarch to direct the government to release documents; binding in practice.'],
+      ['Liaison Committee', 'The committee of all select committee chairs, which questions the Prime Minister.'],
+      ['Public Accounts Committee', 'The select committee, chaired by an opposition MP, that scrutinises value for money in government spending.'],
+      ['Backbench Business Committee', 'Created in 2010 to give backbenchers control over the topics of 35 days\' debate each session.'],
+      ['Ten Minute Rule bill', 'A private member\'s bill introduced with a short speech; mainly used to raise awareness.'],
+      ['Reasoned amendment', 'An amendment setting out reasons to decline a bill a second reading, often used to show rebellion.'],
+      ['Free vote', 'A vote where MPs are not whipped and can vote by conscience, e.g. assisted dying.'],
+      ['Hung parliament', 'A Commons where no party has an overall majority.'],
+      ['Lords Appointments Commission', 'Independent body that recommends crossbench peers and vets nominations for propriety.'],
+      ['Royal Assent', 'The monarch\'s formal approval that turns a bill into an Act.'],
+      ['Government defeat', 'When the government loses a vote in either House.']
+    ],
+    examples: [
+      { t: 'Lords reform rebellion (2012)', d: '91 Conservative MPs voted against the timetable for the coalition\'s Lords reform bill; it was dropped.', use: 'Backbench power even in a coalition with a majority.' },
+      { t: 'Benn Act (2019)', d: 'Backbenchers took control of Commons business and passed a law forcing Johnson to request a Brexit extension.', use: 'Parliament controlling the executive when it lacks a majority.' },
+      { t: 'Post Office Horizon scandal (2024)', d: 'After select committee scrutiny and public pressure, Parliament passed the Post Office (Horizon System) Offences Act 2024 quashing convictions.', use: 'Scrutiny turning into law.' },
+      { t: 'Revoke Article 50 petition (2019)', d: 'Over 6 million signatures, the most ever; debated, but the government did not change course.', use: 'Limits of e-petitions.' },
+      { t: 'Internal Market Bill (2020)', d: 'The Lords removed clauses that would have broken international law; the government dropped them.', use: 'The Lords as an effective revising chamber.' }
+    ],
+    debates: [
+      { q: 'Has the government\'s control of the House of Commons weakened in recent years?',
+        yes: ['Backbenchers are more rebellious: 2022 resignations removed Johnson; 2025 welfare revolt.', 'Wright reforms, urgent questions and humble addresses give MPs more tools.', 'Hung and small-majority Parliaments (2010, 2017) showed how quickly control can go.'],
+        no: ['Large majorities in 2019 and 2024 restored executive dominance.', 'Government controls the timetable and almost all legislation.', 'Royal prerogative and secondary legislation bypass the Commons.'] },
+      { q: 'Are backbenchers in the Commons increasingly effective?',
+        yes: ['Elected select committee chairs give real scrutiny power.', 'Urgent questions and PMQs hold ministers to account in public.', 'Willingness to rebel has grown as party discipline weakens.'],
+        no: ['Patronage and whips keep most MPs loyal; around 100+ are on the payroll.', 'Committee recommendations are not binding.', 'Rebellions are occasional; most manifesto bills pass unchanged.'] }
+    ],
+    diagrams: ['majority-chart', 'scrutiny-table']
+  });
+
+  /* ---------------- Democracy and participation ---------------- */
+  add('democracy', {
+    overview: [
+      { h: 'Rights in context: are rights well protected?', p: [
+        '<b>Protection</b>: HRA 1998, Equality Act 2010, common-law liberties, judicial review, an independent judiciary and groups like Liberty.',
+        '<b>Weaknesses</b>: Parliament can override rights (Safety of Rwanda Act 2024 disapplied parts of the HRA); the Public Order Act 2023 and Police, Crime, Sentencing and Courts Act 2022 restricted protest.',
+        '<b>Since Brexit</b> the EU Charter of Fundamental Rights no longer applies; some politicians want to leave the ECHR altogether.',
+        '<b>Collective vs individual rights</b>: anti-terror laws and protest restrictions are justified by collective security; critics say individual liberty suffers.'
+      ]},
+      { h: 'Pressure groups: what decides influence?', p: [
+        '<b>Status</b>: insider groups (BMA, NFU) are consulted before policy is made.',
+        '<b>Methods</b>: media campaigns, celebrity, lobbying, legal challenges, direct action. Direct action can backfire (Just Stop Oil; Palestine Action was proscribed as a terrorist group in 2025).',
+        '<b>Resources</b>: money, membership and expertise.',
+        '<b>Government attitude</b>: unions gained more access under Labour; groups aligned with government priorities succeed more.',
+        '<b>Public mood</b>: sympathetic causes succeed quickly (Snowdrop, Rashford).'
+      ]},
+      { h: 'Think tanks, lobbyists and corporations', p: [
+        '<b>Think tanks</b>: the IEA shaped Truss\'s 2022 mini-budget; Policy Exchange influenced Cameron; IPPR and Demos shaped New Labour; Labour Together and the Tony Blair Institute have influenced Starmer.',
+        '<b>Lobbyists</b>: well-funded and well-connected. The Greensill scandal (2021) saw David Cameron lobby ministers by text for a firm that later collapsed.',
+        '<b>Corporations</b>: huge resources and leverage, e.g. threatening to move investment.',
+        'Critics see this as <b>elitism</b>; supporters say it brings expertise into policy.'
+      ]}
+    ],
+    terms: [
+      ['Equality Act 2010', 'Law protecting people from discrimination based on nine protected characteristics.'],
+      ['Public Order Act 2023', 'Law giving police more powers to restrict protests, including new offences of "locking on".'],
+      ['Collective rights', 'Rights held by groups, such as trade unions\' right to strike.'],
+      ['Individual rights', 'Rights held by each person, such as free speech or a fair trial.'],
+      ['E-petition', 'An online petition to Parliament; 100,000 signatures means it will be considered for debate.'],
+      ['Proscription', 'Banning an organisation under terrorism law, making membership or support a crime.'],
+      ['Greensill scandal', 'The 2021 controversy over David Cameron lobbying ministers for Greensill Capital.'],
+      ['Liberty', 'A cause group campaigning for civil liberties and human rights in the UK.']
+    ],
+    examples: [
+      { t: 'Greensill lobbying (2021)', d: 'Former PM David Cameron texted ministers to lobby for Greensill Capital; investigations found no rules broken but tightened guidance.', use: 'Influence of lobbyists; elitism.' },
+      { t: 'Truss mini-budget and the IEA (2022)', d: 'Many of the mini-budget\'s free-market ideas came from think tanks such as the IEA.', use: 'Think tanks shaping policy; then the backlash.' },
+      { t: 'Palestine Action proscribed (2025)', d: 'The direct-action group was banned under terrorism law after damaging RAF aircraft.', use: 'Direct action leading to loss of influence; rights vs security.' },
+      { t: 'Bill of Rights Bill dropped (2023)', d: 'The Conservative plan to replace the HRA was abandoned.', use: 'Rights protection survives; HRA politically contested.' }
+    ],
+    debates: [
+      { q: 'Are rights in the UK poorly protected?',
+        yes: ['Parliament can override rights by ordinary law (Safety of Rwanda Act 2024).', 'Protest powers widened (Public Order Act 2023).', 'Some parties want to leave the ECHR; EU Charter no longer applies.'],
+        no: ['HRA, Equality Act and judicial review give real protection.', 'Courts check ministers (Rwanda ruling 2023; Belmarsh).', 'Strong pressure groups and free media expose abuses.'] },
+      { q: 'Do think tanks, lobbyists and corporations have more influence than pressure groups?',
+        yes: ['Close links to parties: IEA and Truss; Labour Together and Starmer.', 'Lobbyists have money and access (Greensill).', 'Corporations can threaten jobs and investment.'],
+        no: ['Insider groups like the BMA and NFU are formally consulted.', 'Mass campaigns can force U-turns (Rashford 2020).', 'Think tank influence fades fast when ideas fail (mini-budget 2022).'] }
+    ]
+  });
+
+  /* ---------------- Political parties ---------------- */
+  add('parties', {
+    overview: [
+      { h: 'Divisions inside the parties today', p: [
+        '<b>Labour</b>: left (Corbyn-era, Socialist Campaign Group) vs centre (Starmer). Splits over welfare cuts (2025), the two-child limit and Gaza. Corbyn was expelled from the parliamentary party in 2020 and stood as an independent in 2024.',
+        '<b>Conservatives</b>: One Nation vs New Right, Brexit (ERG), and now how to respond to Reform UK. Four leadership contests between 2019 and 2024 show deep division.',
+        '<b>Lib Dems</b>: more pragmatic than ideological; campaign hard in "Blue Wall" seats.',
+        'Divisions are usually worse in <b>opposition</b> and when a party is <b>losing</b>: unity often follows electoral success.'
+      ]},
+      { h: 'Have the parties moved away from their origins?', p: [
+        '<b>Labour</b>: from Clause IV socialism to New Labour\'s Third Way; Starmer kept much of New Labour\'s centrism but nationalised rail and created GB Energy.',
+        '<b>Conservatives</b>: from One Nation paternalism to Thatcherism, then a more populist, Brexit-focused party under Johnson.',
+        '<b>Core values persist</b>: Labour still stresses public services and workers\' rights; Conservatives still favour lower taxes and tradition.'
+      ]}
+    ],
+    terms: [
+      ['Faction', 'An organised group within a party with its own views, e.g. the ERG or Momentum.'],
+      ['European Research Group', 'A Eurosceptic Conservative faction that pushed for a hard Brexit.'],
+      ['Momentum', 'A left-wing grassroots group formed in 2015 to support Corbyn\'s Labour leadership.'],
+      ['Populism', 'Politics that sets "the people" against a corrupt "elite".'],
+      ['Blue Wall', 'Traditionally Conservative seats in the south of England, many lost to the Lib Dems in 2024.'],
+      ['Leadership election', 'The process by which party members and/or MPs choose a party leader.']
+    ],
+    examples: [
+      { t: 'Conservative leadership turmoil (2019–2024)', d: 'Leadership contests in 2019, 2022 (twice) and 2024; three PMs in 2022.', use: 'Conservatives deeply divided.' },
+      { t: 'Labour expels Corbyn\'s whip (2020)', d: 'Corbyn lost the Labour whip after his response to the EHRC antisemitism report.', use: 'Labour divided between left and centre.' },
+      { t: 'ERG and Brexit (2019)', d: 'ERG MPs voted against May\'s deal three times.', use: 'Factions defeating their own leader.' }
+    ],
+    debates: [
+      { q: 'Is the Labour Party more internally divided than the Conservative Party?',
+        yes: ['Old vs New Labour split still shapes policy fights.', '2025 welfare revolt and suspensions over the two-child limit.', 'Long-running divisions over foreign policy (Iraq, Gaza).'],
+        no: ['Conservatives had four leadership contests 2019–24 and three PMs in 2022.', 'Europe and now Reform UK divide the Conservatives.', 'Labour was remarkably united in winning in 2024.'] },
+      { q: 'Have the main parties radically changed from their historical origins?',
+        yes: ['Labour dropped common ownership (Clause IV, 1995).', 'Conservatives moved from One Nation to Thatcherism and populism.', 'Lib Dems are more pragmatic than classical or modern liberal.'],
+        no: ['Labour still champions public services and unions.', 'Conservatives still favour tradition, markets and lower taxes.', 'Changes are adaptations to win votes, not a break with core values.'] }
+    ]
+  });
+
+  /* ---------------- Electoral systems and referendums ---------------- */
+  add('elections', {
+    overview: [
+      { h: 'Referendums since 1997: democracy or tactics?', p: [
+        '<b>Supporting democracy</b>: devolution (1997), the Good Friday Agreement (1998) and Scottish independence (2014) gave legitimacy to major constitutional change; 2014 had 84.6% turnout.',
+        '<b>Political purposes</b>: the 2011 AV referendum was a coalition compromise; the 2016 EU referendum was called partly to manage Conservative splits and the threat from UKIP.',
+        '<b>Problems</b>: low turnout (2011 Welsh powers 35.6%; AV 42%), simplified questions, and results that Parliament must then interpret.',
+        'Referendums are <b>advisory</b> in law because Parliament is sovereign, but politically almost impossible to ignore.'
+      ]}
+    ],
+    terms: [
+      ['Advisory referendum', 'A referendum whose result is not legally binding, as with all UK referendums because of parliamentary sovereignty.'],
+      ['Turnout threshold', 'A minimum turnout or vote share required for a referendum result to count; used in Scotland in 1979.'],
+      ['Electoral Commission', 'The independent body that regulates elections, referendums and party finance.'],
+      ['Regional assembly referendum', 'The 2004 North East vote that rejected an elected regional assembly by 78%.']
+    ],
+    examples: [
+      { t: '1997 devolution referendums', d: 'Scotland voted 74% for a parliament; Wales voted 50.3% yes on 50% turnout.', use: 'Referendums legitimising constitutional change; narrow Welsh mandate.' },
+      { t: 'North East referendum (2004)', d: '78% rejected an elected regional assembly, ending plans for English regional government.', use: 'Limits of English devolution.' },
+      { t: 'Welsh powers referendum (2011)', d: '63.5% voted yes to full law-making powers, on only 35.6% turnout.', use: 'Low turnout weakens legitimacy.' }
+    ],
+    debates: [
+      { q: 'Have referendums since 1997 been used for political purposes rather than to support democracy?',
+        yes: ['2016 EU referendum called to manage Conservative divisions and UKIP.', '2011 AV referendum was a coalition bargain on a system few wanted.', 'Governments choose when to hold them and the question.'],
+        no: ['Devolution and Good Friday referendums gave real legitimacy.', '2014 and 2016 had very high turnout and engagement.', 'They settle questions parties cannot (Scottish independence).'] }
+    ],
+    diagrams: ['referendums-table']
+  });
+
+  /* ---------------- Voting behaviour ---------------- */
+  add('voting', {
+    overview: [
+      { h: 'Campaigns and manifestos', p: [
+        '<b>2017</b>: May\'s "dementia tax" social care plan backfired and was U-turned mid-campaign; Labour\'s "For the many, not the few" manifesto helped it gain 30 seats.',
+        '<b>2019</b>: "Get Brexit Done" gave a simple message; Corbyn\'s ambitious manifesto failed to overcome his unpopularity.',
+        '<b>2024</b>: Labour ran a cautious "Change" campaign; Sunak\'s early election call and D-Day exit hurt the Conservatives.',
+        'Many voters decide before the campaign, so campaigns often <b>reinforce</b> rather than change views, but they matter in close contests.'
+      ]},
+      { h: 'Class and region', p: [
+        '<b>Class</b> still matters through turnout and values: older working-class voters swung to the Conservatives in 2019 and to Reform in 2024.',
+        '<b>Region</b>: Labour regained Scotland in 2024 (37 seats, SNP down to 9); Lib Dems won the southern Blue Wall; Reform did best in eastern and coastal England.',
+        'Edexcel 2025 asked about <b>at least three general elections</b>: use 1979, 1997 and 2019 or 2024 with figures.'
+      ]}
+    ],
+    terms: [
+      ['Dementia tax', 'The nickname for May\'s 2017 social care plan, dropped mid-campaign after a backlash.'],
+      ['Ground war', 'Local campaigning: door-knocking, leaflets and getting voters to the polls.'],
+      ['Air war', 'National campaigning through the media, broadcasts and leaders\' debates.'],
+      ['Youthquake', 'The claim that young voters surged to Labour in 2017.'],
+      ['Regional voting', 'Patterns where parties are strong in particular parts of the UK.']
+    ],
+    examples: [
+      { t: 'Dementia tax U-turn (2017)', d: 'May changed her social care policy days after the manifesto launch; the Conservatives lost their majority.', use: 'Campaigns and manifestos can decide results.' },
+      { t: 'Labour regains Scotland (2024)', d: 'Labour won 37 Scottish seats as the SNP fell from 48 to 9.', use: 'Regional voting changes quickly.' },
+      { t: 'Blue Wall (2024)', d: 'The Lib Dems won 72 seats, many in affluent southern Conservative seats.', use: 'Region and education reshaping voting.' }
+    ],
+    debates: [
+      { q: 'Are general election outcomes mostly decided by campaigns and manifestos?',
+        yes: ['2017: the dementia tax cost May her majority.', 'Labour\'s 2017 manifesto energised young voters.', 'Clear slogans like "Get Brexit Done" (2019) cut through.'],
+        no: ['Most voters decide before the campaign; long-term factors and valence matter more.', 'Leaders\' images outweigh manifestos (Corbyn 2019).', 'Events and economic credibility (Black Wednesday, the 2022 mini-budget) set the result.'] }
+    ]
+  });
+
+  /* ---------------- Diagrams ---------------- */
+  DIAGRAMS['sources-table'] = { title: 'The five sources, with examples', html: tbl(
+    ['Source', 'Examples', 'Legally binding?'],
+    [['Statute law', 'HRA 1998, Scotland Act 1998, Constitutional Reform Act 2005', 'Yes'],
+     ['Common law', 'Residual liberties, the royal prerogative, judicial precedent', 'Yes'],
+     ['Conventions', 'Collective responsibility, Salisbury, Sewel', 'No: enforced politically'],
+     ['Authoritative works', 'Dicey, Bagehot, Erskine May', 'No: guidance'],
+     ['Treaties', 'ECHR, Withdrawal Agreement, Good Friday Agreement', 'Only once made law by Parliament']]) };
+  DIAGRAMS['scrutiny-table'] = { title: 'Ways backbenchers hold government to account', html: tbl(
+    ['Tool', 'How it works', 'Example'],
+    [['Rebellion', 'Vote against or threaten to', 'Lords reform dropped (2012); welfare U-turn (2025)'],
+     ['Select committees', 'Investigate and report; elected chairs', 'Post Office Horizon scandal'],
+     ['Urgent questions', 'Force a minister to answer that day', 'Frequent since 2009'],
+     ['Humble address', 'Force release of documents', 'Brexit impact assessments (2017)'],
+     ['Private members\' bills', 'Backbenchers propose laws', 'Abortion Act 1967; assisted dying (2025)'],
+     ['Taking control of business', 'Majority of MPs sets the agenda', 'Benn Act (2019)']]) };
+  DIAGRAMS['referendums-table'] = { title: 'UK-level and national referendums since 1997', html: tbl(
+    ['Year', 'Question', 'Result', 'Turnout'],
+    [['1997', 'Scottish Parliament', '74% yes', '60%'],
+     ['1997', 'Welsh Assembly', '50.3% yes', '50%'],
+     ['1998', 'Good Friday Agreement (NI)', '71% yes', '81%'],
+     ['2004', 'North East regional assembly', '78% no', '48%'],
+     ['2011', 'Welsh law-making powers', '63.5% yes', '36%'],
+     ['2011', 'Alternative Vote (UK)', '67.9% no', '42%'],
+     ['2014', 'Scottish independence', '55.3% no', '85%'],
+     ['2016', 'EU membership (UK)', '51.9% leave', '72%']]) };
+  // Government majority after each election (hung parliaments shown as 0)
+  (function () {
+    const rows = [['1997', 179], ['2001', 167], ['2005', 66], ['2010', 0], ['2015', 12], ['2017', 0], ['2019', 80], ['2024', 174]];
+    const w = 560, h = 230, pl = 40, pb = 30, pt = 12, max = 200, bw = 36;
+    const step = (w - pl - 10) / rows.length;
+    let s = '<div class="chart-wrap"><svg viewBox="0 0 ' + w + ' ' + h + '" class="chart" role="img" aria-label="Government majority after each general election">';
+    [0, 50, 100, 150, 200].forEach(v => { const y = pt + (1 - v / max) * (h - pt - pb); s += '<line x1="' + pl + '" x2="' + (w - 10) + '" y1="' + y + '" y2="' + y + '" class="grid"/><text x="' + (pl - 6) + '" y="' + (y + 4) + '" class="axis" text-anchor="end">' + v + '</text>'; });
+    rows.forEach((r, i) => {
+      const x = pl + i * step + (step - bw) / 2, bh = (r[1] / max) * (h - pt - pb), y = h - pb - bh;
+      if (r[1]) s += '<rect x="' + x + '" y="' + y + '" width="' + bw + '" height="' + bh + '" rx="3" class="vbar"/><text x="' + (x + bw / 2) + '" y="' + (y - 5) + '" class="val" text-anchor="middle">' + r[1] + '</text>';
+      else s += '<text x="' + (x + bw / 2) + '" y="' + (h - pb - 6) + '" class="val" text-anchor="middle">hung</text>';
+      s += '<text x="' + (x + bw / 2) + '" y="' + (h - 10) + '" class="axis" text-anchor="middle">' + r[0] + '</text>';
+    });
+    DIAGRAMS['majority-chart'] = { title: 'Government majority after each general election', html: s + '</svg></div><p class="dg-note">Hung parliaments: 2010 (coalition) and 2017 (minority with DUP support). Big majorities make Commons control easier, but 2022 and 2025 showed rebellions still matter.</p>' };
+  })();
+
+  /* ---------------- Past-paper questions with plans ---------------- */
+  const P = (topic, type, real, q, f, a, j) => ({ topic, type, real, q, plan: { f, a, j } });
+  const past = [
+    P('parliament', 'source30', '2026', 'Using the source, evaluate the view that the Executive now dominates Parliament.',
+      ['Large majority and whips control the legislative programme', 'Presidential style, No.10 machine and special advisers', 'Royal prerogative: treaties and military action without a vote', 'Lords cannot ultimately block bills (Parliament Acts, Salisbury)'],
+      ['Backbench revolts force U-turns (2025 welfare)', 'Party can remove the PM (May, Johnson, Truss)', 'Lords defeated the Starmer government 208 times in its first session', 'Electorate is the final check'],
+      'Dominance is real but conditional on party unity and popularity: define "dominates" and focus on "now".'),
+    P('parliament', 'source30', '2026', 'Using the source, evaluate the view that committees in the House of Commons are highly effective.',
+      ['Wright reforms: elected chairs, more independence', 'Public Accounts Committee on value for money', 'Backbench Business Committee shapes the agenda', 'Liaison Committee questions the PM in depth'],
+      ['Membership reflects government majority', 'Weak powers to compel witnesses (Mike Ashley, Patel)', 'Only around 40% of recommendations accepted', 'PMs have skipped Liaison sessions'],
+      'Effective at exposing and pressuring, less so at forcing change: "highly" is too strong.'),
+    P('parliament', 'source30', '2024', 'Using the source, evaluate the view that there should be an elected House of Lords.',
+      ['Unelected chamber lacks legitimacy', 'Not all peers are experts; patronage', 'Oversized chamber', 'An elected chamber would be a stronger check'],
+      ['Expertise and crossbench independence', 'Valuable revising role (Internal Market Bill 2020)', 'No government majority in the Lords', 'Election could cause gridlock or strengthen party control'],
+      'Reform size and appointments rather than elect: legitimacy gains risk losing expertise and Commons primacy.'),
+    P('parliament', 'essay30', '2024', 'Evaluate the view that the government\'s control of the House of Commons has weakened in recent years.',
+      ['More rebellious backbenchers', 'Wright reforms and Backbench Business Committee', 'Urgent questions and humble addresses', 'Hung parliaments 2010 and 2017'],
+      ['Elective dictatorship: government sets the timetable', 'Royal prerogative', 'Presidential PMs', 'Large majorities in 2019 and 2024'],
+      'Control varies with majority and unity: weakened in 2017–19, restored after 2019, contested again in 2025.'),
+    P('parliament', 'essay30', '2025', 'Evaluate the view that backbenchers in the House of Commons are increasingly effective at carrying out their roles.',
+      ['Select committees stronger since Wright', 'PMQs and urgent questions', 'Willingness to challenge legislation', 'Party discipline breaking down'],
+      ['Committee weaknesses remain', 'Patronage and whips', 'Executive usually gets its manifesto through', 'Recent rebelliousness may be a blip'],
+      'More effective at scrutiny than at changing laws; judge which role matters most.'),
+    P('constitution', 'source30', '2024', 'Using the source, evaluate the view that constitutional reform since 1997 has been a success.',
+      ['Devolution established and popular', 'Fairer electoral systems for devolved bodies', 'HRA protected rights', 'Constitutional Reform Act separated powers'],
+      ['Devolution has not rebuilt faith in the Union', 'Low devolved turnout; voter ID', 'HRA still controversial', 'Supreme Court accused of being political'],
+      'Successful in its own aims but incomplete: judge against a clear criterion such as accountability.'),
+    P('constitution', 'source30', '2025', 'Using the source, evaluate the view that the UK\'s constitution is not working effectively.',
+      ['Not accessible: spread across sources', 'Weak checks on the executive', 'Reforms created new problems', 'Unsuited to 21st-century democracy'],
+      ['Flexible and evolutionary', 'Real pressures on ministers (courts, Parliament)', 'Stable Westminster system', 'Sovereign Parliament can fix problems'],
+      'Works for stability and flexibility; weaker on checks when a government has a large majority.'),
+    P('constitution', 'source30', '2025', 'Using the source, evaluate the view that it is now time for an English Parliament.',
+      ['Symmetry prevents resentment', 'Clearer accountability', 'Recognises English identity', 'West Lothian question'],
+      ['England would dominate the Union', 'Could lead to break-up', 'Would not bring power closer to people', 'Little public demand; question exaggerated'],
+      'Metro mayors and regional devolution are the more workable answer; an English Parliament risks the Union.'),
+    P('constitution', 'essay30', '2026', 'Evaluate the view that devolution has been a success.',
+      ['Flexible, ongoing; brings democracy closer', 'Popular; no main party wants to abolish it', 'Peace in Northern Ireland', 'Contained independence (2014)'],
+      ['Asymmetric and unfair (West Lothian)', 'Policy coordination problems (COVID)', 'Platform for nationalist parties', 'Constitutional conflict (section 35, NI suspensions)'],
+      'Define success (democracy, unity, policy) in the introduction and judge against it thematically.'),
+    P('relations', 'essay30', '2024', 'Evaluate the view that sovereignty does not lie in Parliament alone.',
+      ['Devolution limits Parliament politically', 'Elective dictatorship: executive holds political sovereignty', 'HRA judgments constrain Parliament', 'Referendums show popular sovereignty'],
+      ['Parliament can make or unmake any law', 'The executive still needs Parliament to legislate', 'Declarations of incompatibility are not binding', 'Parliament creates referendums and sets the question'],
+      'Legally Parliament alone; politically sovereignty is shared. Separate the two clearly.'),
+    P('pm', 'essay30', '2025', 'Evaluate the view that Prime Ministers now have too much power.',
+      ['Spatial leadership', 'Personalised campaigns and a personal mandate', 'Growth of special advisers', 'Presidential media style'],
+      ['No separation from Parliament: depends on confidence', 'Power shared with Cabinet', 'PMs removed by party or Cabinet', 'Presidential style needs a big majority'],
+      'Power is large but fragile: recent PMs show it depends on circumstances.'),
+    P('democracy', 'source30', '2025', 'Using the source, evaluate the view that rights in the UK are poorly protected.',
+      ['Parties want to scrap the HRA or leave the ECHR', 'EU Charter lost after Brexit', 'Laws override rights', 'Social and economic rights not covered'],
+      ['Wide legislation protects rights', 'Courts and common-law liberties', 'Parties generally support rights', 'Pressure groups campaign for rights'],
+      'Protection is real but depends on Parliament choosing not to override it.'),
+    P('democracy', 'source30', '2025', 'Using the source, evaluate the view that the most important factor in deciding the influence of pressure groups is the methods they use.',
+      ['Media campaigns', 'Direct action and shock tactics', 'Raising public awareness', 'Donations to parties'],
+      ['Insider status matters more', 'Government attitude', 'A rational case beats tactics', 'Direct action can backfire'],
+      'Status and government sympathy usually outweigh methods.'),
+    P('democracy', 'essay30', '2024', 'Evaluate the view that think tanks, lobbyists and corporations have greater influence than pressure groups.',
+      ['Think tanks shape party policy (IEA, IPPR, Labour Together)', 'Lobbyists have money and access', 'Corporations have leverage'],
+      ['Insider pressure groups are consulted', 'Mass campaigns force U-turns', 'Think tank ideas can fail quickly'],
+      'They have more access at the start of policy-making; pressure groups more public leverage.'),
+    P('elections', 'source30', '2024', 'Using the source, evaluate the view that referendums since 1997 have not supported democracy but have been used for other political purposes.',
+      ['Held to benefit the governing party', 'AV referendum not meaningful', 'EU referendum to thwart UKIP', 'Used to gain popularity'],
+      ['Gave legitimacy to devolution and peace', 'High turnout and engagement (2014, 2016)', 'Settle issues parties cannot'],
+      'Both: motives were often tactical, but results still gave real democratic legitimacy.'),
+    P('parties', 'source30', '2024', 'Using the source, evaluate the view that the policies and ideas of the established political parties have now radically changed from their historical origins.',
+      ['Conservatives more populist than One Nation or New Right', 'Lib Dems more pragmatic', 'Old Labour irrelevant; New Labour dominates', 'Left and right less clear'],
+      ['Core values persist (public services; tradition and markets)', 'Changes are adaptations to win elections'],
+      'Evolution rather than radical change: methods change more than values.'),
+    P('parties', 'essay30', '2025', 'Evaluate the view that the Labour Party is more internally divided than the Conservative Party.',
+      ['Old vs New Labour still divides', 'Leadership splits', 'Foreign policy divisions', 'Conservatives tend to unite'],
+      ['Conservatives split since 1979 (One Nation vs New Right)', 'Europe has plagued them since the 1990s', 'Immigration, tax and green policy divisions', 'Labour united in 2024'],
+      'Division tracks power: the governing party\'s splits are more visible, opposition parties\' deeper.'),
+    P('voting', 'essay30', '2024', 'Evaluate the view that the outcomes of general elections are mostly decided by election campaigns and manifestos.',
+      ['Campaign mistakes are fatal (dementia tax 2017)', 'Manifestos set the offer', 'Promises can outweigh past mistakes'],
+      ['Campaigns rarely change minds', 'Leaders matter more', 'Long-term factors and valence'],
+      'Campaigns decide close elections; most are decided by competence and leaders beforehand.'),
+    P('voting', 'essay30', '2025', 'Evaluate the view, with reference to at least three general elections, that social class and region have very little impact on voting behaviour.',
+      ['Class dealignment', 'Age and ethnicity better predictors', 'Rational, issue-based voting', 'Leaders and campaigns matter more'],
+      ['Class still shapes voting and turnout', 'Region remains strong (Scotland, Blue Wall, Red Wall)', 'Class and region combine', 'Other factors reflect class'],
+      'Use 1979, 1997 and 2019/2024: class has weakened, region has strengthened.'),
+    P('nationalism', 'ideas24', '2024', 'To what extent is there more agreement than disagreement within nationalism in its views on the state?', [], [], ''),
+    P('nationalism', 'ideas24', '2024', 'To what extent is nationalism inclusive?', [], [], ''),
+    P('nationalism', 'ideas24', '2025', 'To what extent is nationalism divided over its views on the nation-state?', [], [], ''),
+    P('nationalism', 'ideas24', '2025', 'To what extent is there more disagreement than agreement within nationalism?', [], [], ''),
+    P('liberalism', 'ideas24', '2024', 'To what extent is liberalism divided over its approach to the economy?', [], [], ''),
+    P('conservatism', 'ideas24', '2024', 'To what extent is there more agreement than disagreement within conservatism?', [], [], ''),
+    P('socialism', 'ideas24', '2025', 'To what extent is socialism united in its view of human nature?', [], [], ''),
+    P('liberalism', 'ideas24', '2025', 'To what extent is liberalism united in its ideas about democracy?', [], [], '')
+  ];
+  // Replace duplicates of existing real questions, keep practice questions after the real ones
+  const seen = new Set(past.map(p => p.q.toLowerCase()));
+  const practice = EXAM.questions.filter(q => !seen.has(q.q.toLowerCase()));
+  past.forEach(p => { if (!p.plan.f.length) delete p.plan; });
+  EXAM.questions = past.concat(practice);
+
+  /* ---------------- Quiz facts ---------------- */
+  RECALL.push(
+    { t: 'parliament', q: 'How many Conservative MPs rebelled in 2012, forcing Cameron to drop Lords reform?', a: '91', x: 'Shows backbench power within a coalition majority.' },
+    { t: 'parliament', q: 'Which 2019 backbench law forced Johnson to request a Brexit extension?', a: 'The Benn Act (EU Withdrawal (No. 2) Act 2019)', x: 'Backbenchers took control of Commons business.' },
+    { t: 'parliament', q: 'What Commons device forced the release of Brexit impact assessments in 2017?', a: 'A humble address', x: 'Binding in practice on the government.' },
+    { t: 'parliament', q: 'Which committee of select committee chairs questions the PM?', a: 'The Liaison Committee', x: 'Longer and more detailed than PMQs.' },
+    { t: 'parliament', q: 'Which Act in 2024 quashed convictions after the Post Office Horizon scandal?', a: 'Post Office (Horizon System) Offences Act 2024', x: 'Scrutiny and public pressure turned into law.' },
+    { t: 'parliament', q: 'Which e-petition passed 6 million signatures in 2019?', a: 'Revoke Article 50', x: 'Debated, but government policy did not change.' },
+    { t: 'parliament', q: 'Which 2010 reforms created elected select committee chairs and the Backbench Business Committee?', a: 'The Wright reforms', x: 'Named after Tony Wright MP.' },
+    { t: 'parliament', q: 'What was the government\'s majority after the 2019 election?', a: '80', x: 'Johnson still fell in 2022.' },
+    { t: 'constitution', q: 'When was section 35 of the Scotland Act first used, and on what?', a: 'January 2023, to block the Gender Recognition Reform (Scotland) Bill', x: 'Westminster\'s legal supremacy over devolved law.' },
+    { t: 'constitution', q: 'What share voted yes to the Good Friday Agreement in 1998?', a: '71%', x: 'On 81% turnout in Northern Ireland.' },
+    { t: 'constitution', q: 'What did the North East vote in its 2004 referendum on a regional assembly?', a: '78% against', x: 'Ended plans for English regional assemblies.' },
+    { t: 'constitution', q: 'What is the West Lothian question?', a: 'MPs from devolved nations can vote on England-only laws, but not vice versa', x: 'Raised by Tam Dalyell in 1977.' },
+    { t: 'constitution', q: 'What sets how spending changes in England affect Scotland, Wales and NI?', a: 'The Barnett formula', x: 'Dating from 1978.' },
+    { t: 'constitution', q: 'Which Conservative plan to replace the HRA was dropped in 2023?', a: 'The Bill of Rights Bill', x: 'HRA survived.' },
+    { t: 'democracy', q: 'Which former PM was involved in the 2021 Greensill lobbying row?', a: 'David Cameron', x: 'Texted ministers on behalf of Greensill Capital.' },
+    { t: 'democracy', q: 'Which 2023 Act gave police more powers to restrict protest?', a: 'Public Order Act 2023', x: 'Created offences like "locking on".' },
+    { t: 'democracy', q: 'Which think tank is linked to Truss\'s 2022 mini-budget ideas?', a: 'The Institute of Economic Affairs (IEA)', x: 'Free-market think tank.' },
+    { t: 'democracy', q: 'Which direct-action group was proscribed as a terrorist organisation in 2025?', a: 'Palestine Action', x: 'Rights vs security debate.' },
+    { t: 'elections', q: 'What was turnout in the 2011 Welsh law-making powers referendum?', a: 'About 36%', x: '63.5% voted yes.' },
+    { t: 'elections', q: 'What share of Scots voted for a Scottish Parliament in 1997?', a: '74%', x: 'Turnout 60%.' },
+    { t: 'elections', q: 'How close was the 1997 Welsh devolution referendum?', a: '50.3% yes', x: 'On 50% turnout: a narrow mandate.' },
+    { t: 'voting', q: 'Which 2017 Conservative manifesto policy was nicknamed the "dementia tax"?', a: 'Social care funding reform', x: 'U-turned mid-campaign; May lost her majority.' },
+    { t: 'voting', q: 'How many Scottish seats did Labour win in 2024?', a: '37', x: 'SNP fell to 9.' },
+    { t: 'voting', q: 'What was Labour\'s 2017 slogan?', a: '"For the many, not the few"', x: 'Labour gained 30 seats.' },
+    { t: 'parties', q: 'Which Conservative faction pushed for a hard Brexit?', a: 'The European Research Group (ERG)', x: 'Voted against May\'s deal three times.' },
+    { t: 'parties', q: 'Which left-wing group was formed in 2015 to back Corbyn?', a: 'Momentum', x: 'Grassroots Labour faction.' },
+    { t: 'parties', q: 'How many Conservative leadership contests were there between 2019 and 2024?', a: 'Four (2019, two in 2022, 2024)', x: 'Evidence of deep division.' }
+  );
+})();
 (function () {
   'use strict';
   const main = document.getElementById('main');
@@ -2672,13 +3150,13 @@ window.VERDICTS = {
     const t = byId[id]; if (!t) return notFound();
     const i = TOPICS.indexOf(t), prev = TOPICS[i - 1], next = TOPICS[i + 1];
     const qs = EXAM.questions.filter(q => q.topic === id);
-    const toc = [['ov', 'Overview'], t.diagrams.length && ['dg', 'Diagrams and tables'], t.debates.length && ['deb', 'Key debates'], ['kt', 'Key terms'], ['ex', 'Examples'], qs.length && ['pq', 'Practice questions']].filter(Boolean);
+    const toc = [['ov', 'Overview'], t.diagrams.length && ['dg', 'Diagrams and tables'], t.debates.length && ['deb', 'Key debates'], ['kt', 'Key terms'], ['ex', 'Examples'], qs.some(q => !q.real) && ['pq', 'Practice questions']].filter(Boolean);
     const real = qs.filter(q => q.real);
     return '<div class="topic-head"><div class="crumbs"><a href="#home">Topics</a><span>/</span>' + ptag(t.paper) + '<span>' + esc(t.area) + '</span></div>' +
       '<h1 style="view-transition-name: topic-title">' + esc(t.title) + '</h1><p class="lede">' + esc(t.summary) + '</p>' +
       '<div class="head-actions"><button class="btn" data-quiz-start="' + id + '">Quiz this topic</button><a class="link" href="#exam">How to answer exam questions</a></div>' +
-      (real.length ? '<aside class="came-up" aria-label="Real exam questions"><h2>Came up in June ' + real[0].real + '</h2><ul>' +
-        real.map(q => '<li><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></li>').join('') + '</ul></aside>' : '') +
+      (real.length ? '<aside class="came-up" aria-label="Past paper questions"><h2>Past paper questions</h2><ul>' +
+        real.slice().sort((a, b) => b.real - a.real).map(q => '<li><div class="cq-row"><span class="cq-y">June ' + q.real + '</span><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></div>' + planHtml(q) + '</li>').join('') + '</ul></aside>' : '') +
       '</div>' + jumpbar(toc, 'topic-' + id) +
       '<div class="topic-layout"><nav class="toc" aria-label="On this page"><span class="toc-ind" aria-hidden="true"></span><div class="toc-h">On this page</div>' +
       toc.map(x => '<a href="#topic-' + id + '" data-jump="' + x[0] + '" data-spy="' + x[0] + '">' + x[1] + '</a>').join('') +
@@ -2696,7 +3174,7 @@ window.VERDICTS = {
       t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl></section>' +
       '<section id="s-ex"><div class="sec-h"><h2>Examples</h2><a href="#sources" data-src-topic="' + id + '">Open in source bank</a></div><div class="ex-grid">' +
       t.examples.map(e => exCard(e)).join('') + '</div></section>' +
-      (qs.length ? '<section id="s-pq"><div class="sec-h"><h2>Practice questions</h2><a href="#exam">How to answer them</a></div><div class="qlist">' + qs.map(qRow).join('') + '</div></section>' : '') +
+      (qs.some(q => !q.real) ? '<section id="s-pq"><div class="sec-h"><h2>Practice questions</h2><a href="#exam">How to answer them</a></div><div class="qlist">' + qs.filter(q => !q.real).map(qRow).join('') + '</div></section>' : '') +
       '<div class="pager">' + (prev ? '<a href="#topic-' + prev.id + '"><small>Previous</small>' + esc(prev.title) + '</a>' : '<span></span>') +
       (next ? '<a href="#topic-' + next.id + '" style="text-align:right"><small>Next</small>' + esc(next.title) + '</a>' : '') + '</div></div></div>';
   }
@@ -2708,11 +3186,17 @@ window.VERDICTS = {
     return '<article class="ex"><h3>' + hl(e.t, q) + '</h3><p>' + hl(e.d, q) + '</p><div class="use"><b>Use for:</b> ' + hl(e.use, q) + '</div>' +
       (showTopic ? '<div>' + tag(e.tp) + '</div>' : '') + '</article>';
   }
+  function planHtml(q) {
+    if (!q.plan) return '';
+    const li = a => a.map(x => '<li>' + esc(x) + '</li>').join('');
+    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h4>For the view</h4><ul>' + li(q.plan.f) + '</ul></div><div><h4>Against the view</h4><ul>' + li(q.plan.a) +
+      '</ul></div></div><p class="plan-j"><b>Judgement</b>' + esc(q.plan.j) + '</p><p class="dg-note">Points based on the Pearson mark scheme\u2019s indicative content, in our own words.</p></details>';
+  }
   function qRow(q) {
     const ty = TYPES[q.type];
     return '<div class="qitem"><span class="q">' + esc(q.q) + '</span><span class="qmeta">' +
       (q.real ? '<span class="tag real">Real paper · June ' + q.real + '</span>' : '<span class="tag plain">Practice</span>') +
-      '<span class="tag plain">' + esc(ty.name.replace(/ question| essay/, '')) + '</span></span></div>';
+      '<span class="tag plain">' + esc(ty.name.replace(/ question| essay/, '')) + '</span></span>' + planHtml(q) + '</div>';
   }
 
   /* ---------- Shared filters ---------- */
@@ -2798,7 +3282,7 @@ window.VERDICTS = {
       '<div class="box"><h3>Across the paper</h3><ul>' + R.general.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
       '<div class="qlist" style="margin-top:14px">' + R.perQuestion.map(x => '<div class="qitem" style="display:block"><div class="q">' + esc(x.q) + '</div><div class="qtip">' + esc(x.tip) + '</div></div>').join('') + '</div></section>' +
       '<section id="s-mist"><div class="sec-h"><h2>Common mistakes</h2></div><div class="box"><ul>' + E.mistakes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></section>' +
-      '<section id="s-bank"><div class="sec-h"><h2>Question bank</h2></div><p class="dg-note" style="margin:-6px 0 12px">Questions marked "Real paper" came up in June 2026. The rest are practice questions written in the same style.</p>' +
+      '<section id="s-bank"><div class="sec-h"><h2>Question bank</h2></div><p class="dg-note" style="margin:-6px 0 12px">Questions marked "Real paper" came up in the 2024, 2025 or 2026 exams; open "Essay plan" for points on both sides. The rest are practice questions written in the same style.</p>' +
       '<div class="filters" style="margin-top:0">' + paperChips(state.pqPaper, 'pqPaper') + topicChips(state.pqPaper, state.pqTopic, 'pqTopic') + '</div><div class="qlist">' +
       EXAM.questions.filter(q => (!state.pqPaper || byId[q.topic].paper === state.pqPaper) && (!state.pqTopic || q.topic === state.pqTopic)).map(q => qRow(q)).join('') + '</div></section>';
   }
