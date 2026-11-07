@@ -740,6 +740,9 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
 @keyframes growY { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @supports (animation-timeline: view()) { .chart .vbar { animation: growY auto var(--ease) both; animation-timeline: --chart; animation-range: entry 30% cover 45%; } }
 @media (prefers-reduced-motion: reduce) { .chart .vbar, .plan[open] .plan-cols, .plan[open] .plan-j { animation: none !important; } }
+.plan-cols.one { grid-template-columns: 1fr; }
+.plan ol { margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 5px; font-size: .9rem; color: var(--ink-2); }
+.plan-cols.one h4::before { background: var(--p3); }
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
@@ -3091,6 +3094,122 @@ window.VERDICTS = {
     { t: 'parties', q: 'How many Conservative leadership contests were there between 2019 and 2024?', a: 'Four (2019, two in 2022, 2024)', x: 'Evidence of deep division.' }
   );
 })();
+/* Essay plans for ideology questions (agreement vs disagreement, with thinkers)
+   and Paper 3 Global Politics past questions 2024–2025 with plans. Points paraphrase the Pearson mark schemes. */
+(function () {
+  const byQ = {}; EXAM.questions.forEach(q => { byQ[q.q.toLowerCase()] = q; });
+  const I = (q, agree, disagree, thinkers, j) => ({ q, plan: { f: agree, a: disagree, th: thinkers, j }, kind: 'ideas' });
+
+  /* ---------- Ideology plans (24 marks: compare strands, use spec thinkers, judge the extent) ---------- */
+  const ideas = [
+    I('To what extent is liberalism divided over its approach to the economy?',
+      ['Both strands back a market economy and competition', 'Both defend private property and reject large-scale state ownership', 'Both want the economy to serve individual freedom'],
+      ['How free the market should be: laissez-faire vs regulated', 'Size of the state: minimal vs enabling', 'Modern liberals support welfare and Keynesian management'],
+      'Locke (property), Mill (limited state); Rawls (difference principle), Friedan (state action against discrimination)',
+      'Divided over means, united over ends: both want individual freedom, but disagree on how much the state should do to secure it.'),
+    I('To what extent is there more agreement than disagreement within conservatism?',
+      ['Traditional and One Nation share an organic society', 'Both prefer pragmatic change to abstract theory', 'Both see human nature as imperfect'],
+      ['New Right (neoliberal) sees society as atomistic', 'New Right is ideological rather than pragmatic', 'Neoliberals embrace rationalism and the market over imperfection'],
+      'Hobbes, Burke, Oakeshott (traditional and One Nation); Rand, Nozick (New Right)',
+      'More agreement between traditional and One Nation, but the New Right’s neoliberal wing is the major exception, so agreement is only partial.'),
+    I('To what extent is socialism united in its view of human nature?',
+      ['Generally optimistic view of human nature', 'Cooperation benefits people more than competition', 'Humans are social; community and collectivism are central'],
+      ['Third Way is less optimistic than other strands', 'Revolutionary socialists and social democrats differ on how far capitalism corrupts human nature', 'Third Way accepts more individualism (communitarianism over common humanity)'],
+      'Marx and Engels, Luxemburg (revolutionary); Webb, Crosland (social democracy); Giddens (Third Way)',
+      'United on the social, cooperative core; divided on how far capitalism and individualism have shaped people.'),
+    I('To what extent is liberalism united in its ideas about democracy?',
+      ['All liberals back government by consent over authoritarianism', 'All fear tyranny of the majority over the individual', 'All support constitutionalism, separation of powers and checks and balances'],
+      ['Disagree on how easily democracy sits with individual rights', 'Classical liberals feared mass participation and sometimes favoured a limited franchise', 'Modern liberals embrace wider participation as part of positive freedom'],
+      'Locke (consent), Mill (tyranny of the majority, plural voting), Wollstonecraft and Friedan (equal political rights), Rawls',
+      'United in principle (consent, limits on power), divided over how much mass democracy to trust: the split narrowed as liberals accepted universal suffrage.'),
+    I('To what extent is there more agreement than disagreement within nationalism in its views on the state?',
+      ['Most strands want a nation-state as the ideal political unit', 'Self-determination as the basis of legitimate statehood (liberal, anti-colonial)', 'The state should protect and express national identity'],
+      ['Liberal: democratic, consent-based state; expansionist: authoritarian state', 'Conservative nationalism values traditional institutions over popular sovereignty', 'Cultural nationhood need not need its own state (Herder)'],
+      'Rousseau, Mazzini (liberal); Herder (cultural); Maurras (integral); Garvey (anti-colonial)',
+      'Agreement that the state should serve the nation; deep disagreement over what kind of state and who it serves.'),
+    I('To what extent is nationalism inclusive?',
+      ['Civic, liberal nationalism is open to anyone sharing values (Rousseau)', 'Mazzini saw all nations as equal partners', 'Anti-colonial movements built broad coalitions against empire'],
+      ['Expansionist and integral nationalism exclude by ethnicity and loyalty (Maurras)', 'Conservative nationalism can require assimilation', 'Garvey’s Black nationalism is based on inherited identity'],
+      'Rousseau, Mazzini (inclusive); Herder (cultural); Maurras, Garvey (exclusive or identity-based)',
+      'Inclusive in its liberal and civic forms only; across the ideology as a whole it is more exclusive than inclusive.'),
+    I('To what extent is nationalism divided over its views on the nation-state?',
+      ['Liberal and anti-colonial nationalists see the nation-state as the vehicle for self-determination', 'Most strands see the nation-state as the natural unit of politics', 'Conservatives value it as a source of stability'],
+      ['Herder: cultural nations can exist without their own state', 'Expansionists want to extend the state over other nations', 'Pan-Africanism (Garvey) looks beyond existing nation-states'],
+      'Rousseau, Mazzini, Herder, Maurras, Garvey',
+      'Broad agreement on the nation-state’s importance, but real division over its limits, membership and whether it must exist at all.'),
+    I('To what extent is there more disagreement than agreement within nationalism?',
+      ['All see the nation as central to identity and politics', 'Most support self-determination', 'Most see nation-states as the ideal political unit'],
+      ['Membership: civic vs ethnic or cultural', 'Government: democratic vs authoritarian', 'Other nations: equal partners vs to be dominated'],
+      'Rousseau, Mazzini, Herder, Maurras, Garvey',
+      'More disagreement: nationalists share the importance of the nation but disagree on almost everything it requires.'),
+    I('To what extent is nationalism more regressive than progressive?',
+      ['Conservative nationalism looks back to tradition and a golden age', 'Expansionist nationalism seeks a glorious past and dominance (Maurras)', 'Romantic, mystical views of the nation (Herder’s Volk)'],
+      ['Liberal nationalism is rational and forward-looking (Rousseau, Mazzini)', 'Anti/post-colonial nationalism seeks liberation (Garvey)', 'Self-determination and democracy are progressive goals'],
+      'Herder, Maurras (regressive elements); Rousseau, Mazzini, Garvey (progressive)',
+      'Neither overall: define the terms first, then show the split runs between strands; liberal and anti-colonial strands carry more weight historically.'),
+    I('To what extent is there division within nationalism about supporting internationalism?',
+      ['Most respect other states’ sovereignty', 'Liberal nationalists support cooperation between nations (Mazzini)', 'Anti-colonial nationalists share solidarity across borders (Pan-Africanism)'],
+      ['Expansionist nationalism rejects internationalism and equality of nations', 'Conservative nationalists distrust supranational bodies', 'Socialist internationalism puts class above nation'],
+      'Mazzini (liberal internationalism), Garvey (Pan-Africanism), Maurras (expansionist), Herder',
+      'Division is real but uneven: expansionist nationalism is the outlier; most strands accept some international cooperation.')
+  ];
+  const sc = byQ['evaluate the view that the supreme court\u2019s influence over the executive and parliament has grown too large.'] || byQ["evaluate the view that the supreme court's influence over the executive and parliament has grown too large."];
+  if (sc) sc.plan = { f: ['Judicial review quashes elected government decisions (Rwanda 2023)', 'Declarations of incompatibility shape law-making (Steinfeld)', 'More judicial activism: Miller I and II', 'New constitutional territory (For Women Scotland 2025)'],
+    a: ['Judicial review upholds the rule of law and access to justice', 'Parliament stays sovereign: declarations are not binding', 'Its role grew because Parliament passed the HRA and devolution', 'Judicial review cases have fallen; signs of restraint (Begum)'],
+    j: 'Influence has grown but within limits Parliament set: separate its role over the executive from its role over Parliament.' };
+  ideas.forEach(x => { const q = byQ[x.q.toLowerCase()]; if (q) { q.plan = x.plan; q.kind = 'ideas'; } });
+
+  /* ---------- Paper 3 Global Politics past questions ---------- */
+  const E12 = (topic, real, q, pts, tip) => ({ topic, type: 'examine12', real, q, plan: { pts, tip } });
+  const E30 = (topic, real, q, f, a, j) => ({ topic, type: 'essay30', real, q, plan: { f, a, j } });
+  const p3 = [
+    E12('environment', '2024', 'Examine the differences between shallow-green ecology and deep-green ecology over how to tackle environmental issues.',
+      ['Shallow accepts slower growth; deep wants a radical shift away from growth', 'Shallow is enlightened anthropocentrism; deep is ecocentric', 'Shallow trusts green capitalism and technology; deep wants localised production and far less consumption'],
+      'Link to liberalism (shallow: cooperation within the system) and the failure of voluntary targets (Paris).'),
+    E12('gov-economic', '2024', 'Examine the weaknesses of both the IMF and the World Bank.',
+      ['US dominance: Washington headquarters and about 16.5% of IMF votes', 'Washington Consensus conditions: privatisation, deregulation, open markets', 'Lending to governments with poor human rights records, and repeated crises despite them'],
+      'Realists see them as tools of powerful states; liberals as flawed but useful institutions.'),
+    E12('gp-theories', '2024', 'Analyse how realism and liberalism differ over the main ideas of the anarchical society and society of states theory.',
+      ['Realists accept anarchy and that states recognise no higher authority', 'Liberals reject the idea that a power struggle is inevitable', 'Liberals see states sharing interests, norms and rules that form a society of states'],
+      'Use Hedley Bull’s anarchical society as the bridge between the two theories.'),
+    E30('power', '2024', 'Evaluate the view that states find the use of hard power to be more effective than soft power.',
+      ['Global military spending over $2 trillion; US about 40%', 'Sanctions on Iran and North Korea', 'Russia’s invasion of Ukraine (2022) and Western military aid', 'Regime change in Iraq and Afghanistan'],
+      ['Hard power often fails: Iraq and Afghanistan did not deliver lasting goals', 'Soft power builds lasting influence (US culture, universities, China’s Belt and Road)', 'Smart power combines both'],
+      'Hard power wins short-term security goals; soft and smart power sustain influence. Realism vs liberalism frames the judgement.'),
+    E30('sovereignty', '2024', 'Evaluate the view that the advantages of globalisation outweigh the disadvantages.',
+      ['Trade growth lifted hundreds of millions out of poverty', 'Greater awareness of human rights (CNN effect) and new courts', 'Political globalisation brings states together (UN)', 'Cultural exchange and connection'],
+      ['Western dominance of culture and values; backlash', 'Inequality within states and job losses', 'Spreads crises fast (2008 crash, COVID)', 'Human rights framed by Western perspectives'],
+      'Economic gains are large but unevenly shared: judge by who benefits.'),
+    E30('human-rights', '2024', 'Evaluate the view that global governance has been more united than divided in dealing with human rights.',
+      ['UDHR (1948) agreed by the General Assembly', 'Humanitarian interventions: Sierra Leone, Kosovo, Libya', 'Special tribunals (ICTY, ICTR)', 'ICC established in 2002'],
+      ['Universal human rights contested; sovereignty concerns', 'Intervention criticised as selective (Rwanda, Syria)', 'Major powers outside the ICC', 'P5 vetoes block action'],
+      'United on principles, divided on enforcement: action happens only when great powers agree.'),
+    E12('gov-political', '2025', 'Examine the similarities between the role and significance of the UN Security Council and the role and significance of NATO.',
+      ['Both post-war collective security bodies (1945 and 1949)', 'Both can and have taken significant military action', 'Both include powerful states, have restricted membership, and tackle wider global issues'],
+      'Note realist doubts: both reflect the interests of their most powerful members.'),
+    E12('power', '2025', 'Examine the differences between great powers and superpowers.',
+      ['Great power is a 19th-century term; superpower dates from 1944', 'Superpowers hold all great-power traits plus ideological reach and nuclear capability', 'Great powers project regionally (multipolarity); superpowers globally (bipolarity)'],
+      'Apply to today: the US as superpower; China as emerging superpower; UK and France as great powers.'),
+    E12('gp-theories', '2025', 'Analyse the differences between the realist and liberal views of the inevitability of war.',
+      ['Realists: war follows from selfish human nature', 'Realists: anarchy and the security dilemma make conflict likely', 'Liberals: complex interdependence and institutions make war avoidable'],
+      'Use the billiard ball model (realism) against interdependence and the democratic peace thesis (liberalism).'),
+    E30('regionalism', '2025', 'Evaluate the view that regional organisations have played a key role in addressing contemporary global issues.',
+      ['EU response to Russia’s invasion of Ukraine', 'Interdependence reduces conflict', 'Work on environment and human rights', 'Free trade and growth reduce poverty'],
+      ['Key decisions are taken globally (UNSC, G20, IMF)', 'Many regional bodies are only economic', 'Internal divisions limit action', 'The EU is the exception rather than the rule'],
+      'Key role mainly through the EU; most other regional bodies are too weak or divided.'),
+    E30('human-rights', '2025', 'Evaluate the view that international law and international human rights institutions have a significant impact on state sovereignty.',
+      ['More institutions: UN tribunals, ICC, ECtHR', 'ECtHR rulings change domestic law', 'Seen by some as Western-dominated neo-colonialism', 'States increasingly accept judgments and R2P'],
+      ['States ignore international law (Russia in Ukraine)', 'Great powers stay outside the ICC', 'No enforcement without state cooperation', 'Sovereignty still trumps law in practice'],
+      'Impact on weaker states, limited on great powers: sovereignty is unequal.'),
+    E30('power', '2025', 'Evaluate the view that world order since 2000 is more multipolar than unipolar.',
+      ['Rise of China, India and the EU', 'Russia’s military assertiveness and nuclear power', 'Veto powers and G20 show power spread', 'US soft power weakened (Iraq, Guantanamo, Trump)'],
+      ['US still has the largest economy (about $25 trillion GDP)', 'US military spending far ahead of rivals', 'Dollar dominance and global alliances', 'China lacks allies and global reach'],
+      'Moving towards multipolarity, but the US remains the only all-round superpower: arguably unipolar with multipolar features.')
+  ];
+  const seen = new Set(p3.map(x => x.q.toLowerCase()));
+  const real = EXAM.questions.filter(q => q.real), practice = EXAM.questions.filter(q => !q.real && !seen.has(q.q.toLowerCase()));
+  EXAM.questions = real.concat(p3, practice);
+})();
 (function () {
   'use strict';
   const main = document.getElementById('main');
@@ -3189,8 +3308,12 @@ window.VERDICTS = {
   function planHtml(q) {
     if (!q.plan) return '';
     const li = a => a.map(x => '<li>' + esc(x) + '</li>').join('');
-    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h4>For the view</h4><ul>' + li(q.plan.f) + '</ul></div><div><h4>Against the view</h4><ul>' + li(q.plan.a) +
-      '</ul></div></div><p class="plan-j"><b>Judgement</b>' + esc(q.plan.j) + '</p><p class="dg-note">Points based on the Pearson mark scheme\u2019s indicative content, in our own words.</p></details>';
+    const note = '<p class="dg-note">Points based on the Pearson mark scheme\u2019s indicative content, in our own words.</p>';
+    if (q.plan.pts) return '<details class="plan"><summary>Answer plan</summary><div class="plan-cols one"><div><h4>Three points to make</h4><ol>' + li(q.plan.pts) + '</ol></div></div>' +
+      '<p class="plan-j"><b>Analysis tip</b>' + esc(q.plan.tip) + '</p>' + note + '</details>';
+    const ideas = q.kind === 'ideas';
+    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h4>' + (ideas ? 'Agreement' : 'For the view') + '</h4><ul>' + li(q.plan.f) + '</ul></div><div><h4>' + (ideas ? 'Disagreement' : 'Against the view') + '</h4><ul>' + li(q.plan.a) +
+      '</ul></div></div>' + (q.plan.th ? '<p class="plan-j"><b>Thinkers to use</b>' + esc(q.plan.th) + '</p>' : '') + '<p class="plan-j"><b>Judgement</b>' + esc(q.plan.j) + '</p>' + note + '</details>';
   }
   function qRow(q) {
     const ty = TYPES[q.type];
