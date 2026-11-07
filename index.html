@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Politics Revision Hub</title>
+<title>Second Reading</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Key terms, topic overviews, sources and exam technique for Edexcel A Level Politics.">
 <script>
@@ -12,7 +12,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Schibsted+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: one clean reading column, hairline rules, black-on-white type. Colour appears only as small paper markers (green, red, blue). */
 :root {
@@ -23,8 +23,9 @@
   --lav: #7457c7; --lav-soft: #ebe4fb; --peach: #c66a2e; --peach-soft: #fde6d6; --butter-soft: #fbf0c6;
   --good: #2b8a62; --bad: #c4506a; --mark: #fbf0c6; --glow: rgba(160, 130, 240, .16);
   --chart-a: #cfdaf8; --chart-b: #9b86e6;
-  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --sans: "Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --r: 12px;
@@ -369,19 +370,17 @@ footer .wrap { padding-block: 28px; display: flex; justify-content: space-betwee
 @keyframes slideIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
 @keyframes reveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
-/* Page entrance: only the page header staggers in; sections below reveal as you reach them */
-main.enter > :not(section) { animation: rise 300ms var(--ease) both; }
-main.enter > :not(section):nth-child(2) { animation-delay: 50ms; }
-main.enter > :not(section):nth-child(3) { animation-delay: 100ms; }
-main.enter > :not(section):nth-child(n+4) { animation-delay: 150ms; }
-.enter .hero > * { animation: rise 300ms var(--ease) both; }
-.enter .hero > :nth-child(2) { animation-delay: 50ms; } .enter .hero > :nth-child(3) { animation-delay: 100ms; }
-.enter .hero > :nth-child(4) { animation-delay: 150ms; } .enter .hero > :nth-child(5) { animation-delay: 200ms; }
-.enter .hero { animation: none; }
-.enter .ov > *, .enter .modes > * { animation: rise 300ms var(--ease) both; }
-.enter .ov > :nth-child(2), .enter .modes > :nth-child(2) { animation-delay: 50ms; }
-.enter .ov > :nth-child(3), .enter .modes > :nth-child(3) { animation-delay: 100ms; }
-.enter .ov > :nth-child(n+4), .enter .modes > :nth-child(n+4) { animation-delay: 150ms; }
+/* Page entrance, cast by role: the heading leads, the lede supports, everything else is already there.
+   Home is the one first-visit moment and gets a slightly longer wave. */
+@keyframes lead { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes support { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.enter h1 { animation: lead 340ms var(--ease) both; }
+.enter h1 + .lede, .enter .topic-head .lede { animation: support 300ms var(--ease) 60ms both; }
+.enter .hero h1 { animation-duration: 520ms; }
+.enter .hero .lede { animation: support 480ms var(--ease) 90ms both; }
+.enter .hero-search { animation: support 440ms var(--ease) 150ms both; }
+.enter .hero .counts { animation: fade 400ms ease 220ms both; }
+.enter .crumbs { animation: fade 300ms ease both; }
 .q-in { animation: slideIn 220ms var(--ease) both; }
 .answer, .feedback { animation: rise 200ms var(--ease) both; }
 .opt.wrong { animation: shake 300ms var(--ease-in-out); }
@@ -390,21 +389,21 @@ main.enter > :not(section):nth-child(n+4) { animation-delay: 150ms; }
 .enter .hl-sweep { animation: sweep 700ms var(--ease) 300ms both; }
 
 /* Scroll-linked reveals (browsers without support simply show everything) */
+/* Scroll-linked reveals: one entrance per container, sized by role.
+   Home and exam sections rise as a whole; topic sections stay still so reading isn't disturbed,
+   and only their debate blocks and diagram contents (the data) move. */
+@keyframes rise-lg { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes rise-sm { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @supports (animation-timeline: view()) {
-  main > section, .topic-layout section, .dg, .deb > div, .cards3 > .box, .two > .box, .pager, .qlist {
-    animation: reveal auto var(--ease) both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 180px;
-  }
-  .topic-layout section .dg, .topic-layout section .deb > div, main > section .cards3 > .box, main > section .two > .box, section .qlist { animation-range: entry 40px entry 220px; }
+  main > section, .pager { animation: rise-lg auto var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 200px; }
+  .deb > div { animation: rise-sm auto var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 140px; }
   .dg { view-timeline: --chart block; }
   .chart .bar { animation: grow auto var(--ease) both; animation-timeline: --chart; animation-range: entry 30% cover 45%; }
+  .chart .bar.s0 { animation-range: entry 25% cover 40%; }
   .chart .ln { stroke-dasharray: var(--len, 1200); animation: draw auto var(--ease-in-out) both; animation-timeline: --chart; animation-range: entry 30% cover 50%; }
-  .chart .area, .chart .pt, .chart .val { animation: fade auto linear both; animation-timeline: --chart; animation-range: cover 35% cover 50%; }
-  .sec-h { view-timeline: --sec block; }
-  .sec-h h2::after { animation: grow auto var(--ease) both; animation-timeline: --sec; animation-range: entry 60% cover 30%; }
-  .tl li { animation: reveal auto var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
-  .flow-step { animation: reveal auto var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+  .chart .area, .chart .pt, .chart .val { animation: fade auto linear both; animation-timeline: --chart; animation-range: cover 38% cover 50%; }
+  .tl li { animation: fade auto linear both; animation-timeline: view(); animation-range: entry 20% entry 100%; }
+  .flow-step { animation: rise-sm auto var(--ease) both; animation-timeline: view(); animation-range: entry 10% entry 100%; }
 }
 
 /* Press feedback: one consistent, quick press on everything you click */
@@ -445,8 +444,8 @@ main.enter > :not(section):nth-child(n+4) { animation-delay: 150ms; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-property: color, background-color, border-color, opacity, box-shadow !important; }
-  main.enter > *, .enter .hero > *, .enter .ov > *, .enter .modes > *, .q-in, .answer, .feedback, .tabpanel.swap { animation: fade 200ms ease both !important; }
-  main > section, .topic-layout section, .dg, .deb > div, .cards3 > .box, .two > .box, .pager, .qlist, .tl li, .flow-step,
+  .enter h1, .enter .lede, .enter .hero-search, .enter .counts, .enter .crumbs, .q-in, .answer, .feedback, .tabpanel.swap { animation: fade 200ms ease both !important; }
+  main > section, .deb > div, .pager, .tl li, .flow-step,
   .chart .bar, .chart .ln, .chart .area, .chart .pt, .chart .val, .sec-h h2::after, .hl-sweep, .opt.wrong, .list-in > * { animation: none !important; }
   .chart .ln { stroke-dasharray: none; }
 }
@@ -454,7 +453,6 @@ main.enter > :not(section):nth-child(n+4) { animation-delay: 150ms; }
 /* ---------- Pastel accents (text and accents only; backgrounds stay white or black) ---------- */
 ::selection { background: var(--lav-soft); color: var(--ink); }
 .eyebrow { color: var(--lav); }
-.hero h1 .soft { background: linear-gradient(92deg, var(--p1), var(--p3) 55%, var(--lav)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hl-sweep { background: linear-gradient(var(--butter-soft), var(--butter-soft)) no-repeat 0 88% / 100% 34%; border-radius: 2px; padding: 0 2px; }
 @keyframes sweep { from { background-size: 0% 34%; } to { background-size: 100% 34%; } }
 .counts div:nth-child(1) b { color: var(--p1); } .counts div:nth-child(2) b { color: var(--p3); }
@@ -490,7 +488,6 @@ nav.main a.on { color: var(--lav); }
 .mode[aria-pressed="true"] { border-color: var(--lav); box-shadow: inset 0 0 0 1px var(--lav); background: var(--lav-soft); }
 .mode[aria-pressed="true"] b { color: var(--lav); }
 .opt:hover:not([disabled]) { border-color: var(--lav); } .opt:hover:not([disabled]) .ok { color: var(--lav); border-color: var(--lav); }
-.score { background: linear-gradient(92deg, var(--p1), var(--p3), var(--lav)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .sec-h { border-bottom-color: var(--line); }
 .sec-h h2::after { content: ""; display: block; width: 28px; height: 3px; border-radius: 2px; margin-top: 10px; background: linear-gradient(90deg, var(--p1), var(--p3), var(--lav)); transform-origin: left; }
 .mark-sq { background: linear-gradient(135deg, var(--p1-soft), var(--lav-soft)); }
@@ -509,13 +506,105 @@ html:not(.vt-theme)::view-transition-new(root) { animation: fade 200ms ease both
 html.vt-theme::view-transition-old(root), html.vt-theme::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
 @media (prefers-reduced-motion: reduce) { #confetti { display: none; } }
+
+/* ---------- Second Reading: type and colour refinement ----------
+   Editorial serif for headings, a news grotesque for reading, mono only for data.
+   Colour: ink and paper do the work; one lavender accent; paper colours appear only as small dots. */
+:root { --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E"); }
+body { font-family: var(--sans); caret-color: var(--lav); }
+html { scrollbar-color: var(--line-2) transparent; }
+h1, h2, .brand, .score, .ao b.big, .deb-q, .prompt { font-family: var(--serif); }
+h1 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.06; font-size: clamp(2.2rem, 5vw, 3.6rem); }
+h2 { font-weight: 500; letter-spacing: -0.01em; font-size: 1.6rem; }
+h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.005em; }
+.lede, .ov li, .deb li, .box li, .term dd, .ex p { text-wrap: pretty; }
+.brand { font-weight: 600; font-size: 1.12rem; letter-spacing: -0.01em; }
+.mark-sq { background: var(--ink); }
+a { text-underline-offset: .2em; text-decoration-thickness: 1px; }
+:focus-visible { outline-color: var(--lav); }
+.tbl td, .tbl th, .counts, .tl-y, .chart text { font-variant-numeric: tabular-nums; }
+
+/* Labels: sans, not a monospace costume */
+.tag, .paper .sub, .toc .toc-h, .setup h3, .deb-col h4, .quiz-top, .prompt small, .count-note, .pager small, .tlink span, .tbl thead th, .k, .flow-n, .legend, .tab-meta, .box-meta {
+  font-family: var(--sans) !important; letter-spacing: .01em; }
+.paper .sub, .toc .toc-h, .setup h3, .deb-col h4, .tbl thead th, .k { font-size: .74rem !important; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.prompt small { font-size: .78rem !important; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.tlink span, .count-note, .pager small { font-size: .82rem !important; }
+.tab-meta, .box-meta { color: var(--muted); font-size: .9rem; margin: 0 0 4px; }
+.box-meta { margin: -6px 0 12px; }
+
+/* Quiet colour: back to ink, with one accent */
+.hero h1 .soft { color: var(--muted); }
+.counts { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 22px 0 0; color: var(--muted); font-size: .95rem; }
+.counts b { font: inherit; font-weight: 600; color: var(--ink); letter-spacing: 0; }
+.counts span:not(:last-child)::after { content: ""; display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--line-2); margin-left: 20px; vertical-align: middle; }
+.score { color: var(--ink); font-weight: 500; letter-spacing: -0.03em; }
+.done-h { font-size: 1.1rem; font-family: var(--sans); font-weight: 600; color: var(--muted); }
+.ao .box b.big, .ao .box:nth-child(n) b.big { color: var(--ink); font-weight: 500; letter-spacing: -0.02em; }
+.tag, .tag.p1, .tag.p2, .tag.p3 { background: var(--subtle); color: var(--ink-2); border-color: transparent; }
+.tag.real { background: var(--p2-soft); color: var(--p2); }
+nav.main a.on { color: var(--ink); }
+.nav-pill { background: var(--hover); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.toggle input:checked { background: var(--ink); }
+.mode[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: var(--surface); }
+.mode[aria-pressed="true"] b { color: var(--ink); }
+.letter { color: var(--ink); border-bottom-color: var(--line-2); font-family: var(--serif); font-weight: 500; }
+.toc a.on { color: var(--ink); }
+.toc-ind { background: var(--ink); }
+.paper .sub { color: var(--muted); }
+.tlink:hover b { color: var(--ink); }
+.ov h3::before { display: none; }
+.ov li::before, .deb li::before, .box ul li::before { background: var(--line-2); }
+.sec-h h2::after { display: none; }
+.tabs { background: var(--subtle); }
+.tabs button[aria-selected="true"] { color: var(--ink); }
+.progress i, .progress-top i { background: var(--ink); }
+.progress-top i { opacity: .35; }
+.opt:hover:not([disabled]) { border-color: var(--ink); } .opt:hover:not([disabled]) .ok { color: var(--ink); border-color: var(--ink); }
+.wording { border-left: 1px solid var(--line-2); font-family: var(--serif); font-style: italic; font-size: 1.12rem; color: var(--ink-2); }
+.missed div { border-left-width: 1px; }
+.tl::before { background: var(--line-2); } .tl li::before { border-color: var(--ink); } .tl li:hover::before { background: var(--ink); } .tl-y { color: var(--ink); }
+.flow-n { color: var(--muted) !important; }
+.deb-col.yes { background: none; } .deb-col.no { background: none; }
+.deb-col.yes h4, .deb-col.no h4 { color: var(--ink); }
+
+.paper > .tag, .crumbs .tag { align-self: flex-start; }
+
+main > section { margin-top: 64px; }
+@media (max-width: 860px) {
+  .tools { display: contents; }
+  .brand { order: 1; }
+  .icon-btn { order: 2; margin-left: auto; }
+  .search { order: 3; flex: 1 1 100%; width: 100%; }
+  nav.main { order: 4; }
+}
+
+/* Drawn arrows instead of text glyphs */
+.sec-h a::after, .link::after, .quick .go::after { content: ""; width: .85em; height: .85em; margin-left: 6px; vertical-align: -1px; background: currentColor; -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat; }
+.tlink .arr { width: 15px; height: 15px; background: currentColor; -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat; }
+.flow-arrow { width: 14px; height: 14px; background: var(--line-2); -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat; flex: none; }
+.flow.cycle .flow-step:last-child::after { content: "Repeats"; color: var(--muted); font-family: var(--sans); }
+
+/* Home shortcuts as an index, not a row of cards */
+.quick { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; border-top: 1px solid var(--line); }
+@media (max-width: 640px) { .quick { grid-template-columns: 1fr; } }
+.quick a { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 22px 0; background: none; box-shadow: none !important; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; }
+.quick a b { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; letter-spacing: -0.01em; grid-column: 1; }
+.quick a span:not(.go) { grid-column: 1; }
+.quick .go { grid-column: 2; grid-row: 1 / span 2; align-self: center; margin: 0; padding: 0; color: var(--muted); font-size: .88rem; white-space: nowrap; transition: color 200ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .quick a:hover { transform: none; }
+  .quick a:hover .go { color: var(--ink); }
+  .quick a:hover b { color: var(--ink); }
+}
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home"><span class="mark-sq" aria-hidden="true"><i><b></b><b></b><b></b></i></span>Politics Revision</a>
+    <a class="brand" href="#home"><span class="mark-sq" aria-hidden="true"><i><b></b><b></b><b></b></i></span>Second Reading</a>
     <nav class="main" aria-label="Main">
       <span class="nav-pill" aria-hidden="true"></span>
       <a href="#home" data-nav="home">Topics</a>
@@ -1864,7 +1953,7 @@ TOPICS.push(
   function flow(steps, cls) {
     return '<div class="flow ' + (cls || '') + '">' + steps.map((s, i) =>
       '<div class="flow-step"><span class="flow-n">' + (s[2] || '') + '</span><b>' + s[0] + '</b>' + (s[1] ? '<span>' + s[1] + '</span>' : '') + '</div>' +
-      (i < steps.length - 1 ? '<div class="flow-arrow" aria-hidden="true">→</div>' : '')).join('') + '</div>';
+      (i < steps.length - 1 ? '<div class="flow-arrow" aria-hidden="true"></div>' : '')).join('') + '</div>';
   }
 
   function timeline(items) {
@@ -2418,13 +2507,13 @@ window.RECALL = [
       const areas = [...new Set(ts.map(t => t.area))];
       return '<div class="paper">' + ptag(p) + '<h2>' + PAPERS[p].long + '</h2>' +
         areas.map(a => '<div class="sub">' + a + '</div>' + ts.filter(t => t.area === a).map(t =>
-          '<a class="tlink" href="#topic-' + t.id + '"><div><b>' + esc(t.title) + '</b><span>' + t.terms.length + ' terms · ' + t.examples.length + ' examples</span></div><span class="arr" aria-hidden="true">→</span></a>').join('')).join('') + '</div>';
+          '<a class="tlink" href="#topic-' + t.id + '"><div><b>' + esc(t.title) + '</b><span>' + t.terms.length + ' terms · ' + t.examples.length + ' examples</span></div><span class="arr" aria-hidden="true"></span></a>').join('')).join('') + '</div>';
     };
-    return '<div class="hero"><div class="eyebrow">Edexcel A Level Politics · 9PL0</div>' +
+    return '<div class="hero">' +
       '<h1>A Level Politics, <span class="soft">without the clutter.</span></h1>' +
-      '<p class="lede">Read a topic overview, look up any <span class="hl-sweep">key term</span>, grab an example for an essay, or test yourself.</p>' +
+      '<p class="lede">Revision for Edexcel A Level Politics. Read a topic overview, look up any <span class="hl-sweep">key term</span>, grab an example for an essay, or test yourself.</p>' +
       '<div class="hero-search">' + ICON + '<input id="hsearch" type="search" placeholder="Try “Salisbury”, “Miller” or “veto”" autocomplete="off"></div>' +
-      '<div class="counts">' + [[TOPICS.length, 'topics'], [TERMS.length, 'key terms'], [EXAMPLES.length, 'examples'], [RECALL.length, 'quiz facts']].map(c => '<div><b data-count="' + c[0] + '">' + c[0] + '</b><span>' + c[1] + '</span></div>').join('') + '</div></div>' +
+      '<p class="counts">' + [[TOPICS.length, 'topics'], [TERMS.length, 'key terms'], [EXAMPLES.length, 'examples'], [RECALL.length, 'quiz facts']].map(c => '<span><b>' + c[0] + '</b> ' + c[1] + '</span>').join('') + '</p></div>' +
       '<section style="margin-top:64px"><div class="papers">' + [1, 2, 3].map(col).join('') + '</div></section>' +
       '<section><div class="quick">' +
       '<a href="#terms"><b>Key terms A–Z</b><span>Every definition, filterable. Hide definitions to test yourself.</span><span class="go">Browse terms</span></a>' +
@@ -2484,7 +2573,7 @@ window.RECALL = [
 
   /* ---------- Terms ---------- */
   function terms() {
-    return '<div class="eyebrow">Key terms</div><h1>Key terms A–Z</h1><p class="lede">' + TERMS.length + ' definitions across all three papers. Hide the definitions and click each one to reveal it.</p>' +
+    return '<h1>Key terms A–Z</h1><p class="lede">' + TERMS.length + ' definitions across all three papers. Hide the definitions and click each one to reveal it.</p>' +
       '<div class="filters"><input class="field" id="tq" type="search" placeholder="Filter terms or definitions" value="' + esc(state.termQ) + '">' +
       paperChips(state.termPaper, 'termPaper') + topicChips(state.termPaper, state.termTopic, 'termTopic') +
       '<div class="frow"><label class="toggle"><input type="checkbox" id="thide"' + (state.termHide ? ' checked' : '') + '> Hide definitions</label>' +
@@ -2512,7 +2601,7 @@ window.RECALL = [
 
   /* ---------- Sources ---------- */
   function sources() {
-    return '<div class="eyebrow">Source bank</div><h1>Examples for your essays</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
+    return '<h1>Examples for your essays</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
       '<div class="filters"><input class="field" id="sq" type="search" placeholder="Filter examples, e.g. Lords, veto, 2019" value="' + esc(state.srcQ) + '">' +
       paperChips(state.srcPaper, 'srcPaper') + topicChips(state.srcPaper, state.srcTopic, 'srcTopic') + '</div><div id="slist"></div>';
   }
@@ -2530,14 +2619,14 @@ window.RECALL = [
   function exam() {
     const E = EXAM, R = E.report2026;
     const ty = TYPES[examTab];
-    return '<div class="eyebrow">Exam technique</div><h1>How to write a top-band answer</h1><p class="lede">Structures for every question type, the mark scheme rules that cap your level, and what examiners said about June 2026.</p>' +
+    return '<h1>How to write a top-band answer</h1><p class="lede">Structures for every question type, the mark scheme rules that cap your level, and what examiners said about June 2026.</p>' +
       '<section><div class="sec-h"><h2>The three papers</h2></div><div class="cards3">' + E.papers.map(p =>
-        '<div class="box"><div class="eyebrow">' + p.n + ' · ' + p.time + ' · ' + p.marks + ' marks</div><h3 style="margin-top:8px">' + esc(p.t) + '</h3><ul>' + p.parts.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
+        '<div class="box"><h3>' + p.n + ': ' + esc(p.t) + '</h3><p class="meta box-meta">' + p.time + ' · ' + p.marks + ' marks</p><ul>' + p.parts.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
       '<section><div class="sec-h"><h2>Assessment objectives</h2></div><div class="ao">' + E.aos.map(a => '<div class="box"><b class="big">' + a[0] + '</b><h3>' + a[1] + '</h3><p class="meta" style="margin:6px 0 0">' + a[2] + '</p></div>').join('') + '</div>' +
       '<p class="dg-note">30-mark answers split marks equally: 10 per AO. 24-mark answers: 8 per AO. Paper 3’s 12-mark questions are AO1 and AO2 only.</p></section>' +
       '<section><div class="sec-h"><h2>Question types</h2></div><div class="tabs" role="tablist"><span class="tab-pill" aria-hidden="true"></span>' + E.types.map(x =>
         '<button role="tab" data-tab="' + x.id + '" aria-selected="' + (x.id === examTab) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
-      '<div class="tabpanel' + (tabSwap ? ' swap' : '') + '"><div class="eyebrow">' + esc(ty.where) + ' · ' + esc(ty.marks) + ' · ' + esc(ty.time) + '</div><div class="wording">' + esc(ty.wording) + '</div>' +
+      '<div class="tabpanel' + (tabSwap ? ' swap' : '') + '"><p class="tab-meta">' + esc(ty.where) + ' · ' + esc(ty.marks) + ' · ' + esc(ty.time) + '</p><div class="wording">' + esc(ty.wording) + '</div>' +
       '<div class="two"><div class="box"><h3>Plan and structure</h3><ol>' + ty.plan.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>' +
       '<div class="box"><h3>What gets marks</h3><ul>' + ty.tips.map(x => '<li>' + (x.startsWith('Mark scheme rule') ? '<b>' + esc(x.split(':')[0]) + ':</b>' + esc(x.slice(x.indexOf(':') + 1)) : esc(x)) + '</li>').join('') + '</ul></div></div></div></section>' +
       '<section><div class="sec-h"><h2>Level bands</h2></div><div class="two"><div class="box"><h3>30-mark questions</h3>' + bandTable(E.levels.l30) + '</div><div class="box"><h3>24-mark questions</h3>' + bandTable(E.levels.l24) + '</div></div>' +
@@ -2565,9 +2654,9 @@ window.RECALL = [
   function quizView() {
     if (quiz.run) return quizRun();
     const best = store.get('best', {});
-    return '<div class="eyebrow">Test yourself</div><h1>Quiz</h1><p class="lede">Pick a mode and topics. Wrong answers are listed at the end so you can revise them.</p>' +
+    return '<h1>Test yourself</h1><p class="lede">Pick a mode and topics. Wrong answers are listed at the end so you can revise them.</p>' +
       '<div class="setup"><div><h3>Mode</h3><div class="modes">' +
-      [['defs', 'Definition → term', 'Read a definition, choose the key term.'], ['terms', 'Term → definition', 'Read a term, choose the right definition.'],
+      [['defs', 'Definition to term', 'Read a definition, choose the key term.'], ['terms', 'Term to definition', 'Read a term, choose the right definition.'],
        ['recall', 'Example recall', 'Who, what, when: e.g. the biggest Commons defeat.'], ['mixed', 'Mixed', 'All three types together.']].map(m =>
         '<button class="mode" data-mode="' + m[0] + '" aria-pressed="' + (quiz.mode === m[0]) + '"><b>' + m[1] + '</b><span>' + m[2] + '</span></button>').join('') + '</div></div>' +
       '<div><h3>Topics</h3><div class="frow"><button class="chip" data-qt="" aria-pressed="' + (!quiz.topics.length) + '">All topics</button>' +
@@ -2605,7 +2694,7 @@ window.RECALL = [
     if (R.i >= R.qs.length) {
       const pct = Math.round((R.score / R.qs.length) * 100);
       const best = store.get('best', {}); if (best[quiz.mode] == null || pct > best[quiz.mode]) { best[quiz.mode] = pct; store.set('best', best); }
-      return '<div class="quiz-card q-in"><div class="eyebrow">Finished</div><div class="score" data-pct="' + pct + '" data-got="' + R.score + '" data-tot="' + R.qs.length + '">' + R.score + ' / ' + R.qs.length + '</div><p class="lede" style="margin-top:0">' +
+      return '<div class="quiz-card q-in"><h2 class="done-h">Quiz complete</h2><div class="score" data-pct="' + pct + '" data-got="' + R.score + '" data-tot="' + R.qs.length + '">' + R.score + ' / ' + R.qs.length + '</div><p class="lede" style="margin-top:0">' +
         (pct >= 80 ? 'Strong. Try a harder mix or a new topic.' : pct >= 50 ? 'Getting there. Revise the ones below, then go again.' : 'Worth another read of the topic pages, then retry.') + '</p>' +
         (R.missed.length ? '<h3 style="margin-top:20px">To revise</h3><div class="missed">' + R.missed.map(m => '<div>' + m + '</div>').join('') + '</div>' : '') +
         '<div class="btns"><button class="btn" data-act="again">Go again</button><button class="btn ghost" data-act="setup">Change settings</button></div></div>';
@@ -2643,7 +2732,7 @@ window.RECALL = [
     const ov = [];
     TOPICS.forEach(t => t.overview.forEach(o => o.p.forEach(p => { if (norm(p).includes(q)) ov.push({ t, h: o.h, p: strip(p) }); })));
     const total = tr.length + ex.length + tp.length + ov.length + rc.length;
-    return '<div class="eyebrow">Search</div><h1>“' + esc(gq.trim()) + '”</h1><p class="lede">' + total + ' results</p>' +
+    return '<h1>“' + esc(gq.trim()) + '”</h1><p class="lede">' + total + ' results</p>' +
       (tp.length ? '<section><div class="sec-h"><h2>Topics</h2></div><div class="quick">' + tp.map(t => '<a href="#topic-' + t.id + '"><b>' + esc(t.title) + '</b><span>' + hl(t.summary, q) + '</span></a>').join('') + '</div></section>' : '') +
       (tr.length ? '<section><div class="sec-h"><h2>Key terms</h2></div><dl class="term-list">' + tr.slice(0, 40).map(x => '<div class="term"><dt>' + hl(x.term, q) + '</dt><dd>' + hl(x.def, q) + '<div class="meta">' + tag(x.t) + '</div></dd></div>').join('') + '</dl></section>' : '') +
       (ex.length ? '<section><div class="sec-h"><h2>Examples</h2></div><div class="ex-grid">' + ex.slice(0, 30).map(e => exCard(e, q, true)).join('') + '</div></section>' : '') +
@@ -2673,7 +2762,7 @@ window.RECALL = [
     afterRender(changed);
     if (changed) { window.scrollTo({ top: 0, behavior: 'instant' }); last = h; }
     const t = h.startsWith('topic-') && byId[h.slice(6)];
-    document.title = t ? t.title + ' · Politics Revision Hub' : 'Politics Revision Hub';
+    document.title = t ? t.title + ' · Second Reading' : 'Second Reading';
     store.set('lastView', h);
   }
   function rerender() { const y = window.scrollY; route(); window.scrollTo({ top: y, behavior: 'instant' }); if (quiz.run) quiz.run.fresh = false; }
@@ -2708,7 +2797,7 @@ window.RECALL = [
     });
   }
   function afterRender(changed) {
-    if (changed && !reduced) { main.classList.remove('enter'); void main.offsetWidth; main.classList.add('enter'); if (location.hash === '' || location.hash === '#home') countUp(); }
+    if (changed && !reduced) { main.classList.remove('enter'); void main.offsetWidth; main.classList.add('enter'); }
     else if (!changed) main.classList.remove('enter');
     movePill(document.querySelector('nav.main'), '.nav-pill', 'a.on');
     movePill(main.querySelector('.tabs'), '.tab-pill', '[aria-selected="true"]');
