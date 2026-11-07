@@ -403,7 +403,7 @@ footer .wrap { padding-block: 28px; display: flex; justify-content: space-betwee
   .chart .ln { stroke-dasharray: var(--len, 1200); animation: draw auto var(--ease-in-out) both; animation-timeline: --chart; animation-range: entry 30% cover 50%; }
   .chart .area, .chart .pt, .chart .val { animation: fade auto linear both; animation-timeline: --chart; animation-range: cover 38% cover 50%; }
   .tl li { animation: fade auto linear both; animation-timeline: view(); animation-range: entry 20% entry 100%; }
-  .flow-step { animation: rise-sm auto var(--ease) both; animation-timeline: view(); animation-range: entry 10% entry 100%; }
+  .steps li { animation: rise-sm auto var(--ease) both; animation-timeline: view(); animation-range: entry 10% entry 100%; }
 }
 
 /* Press feedback: one consistent, quick press on everything you click */
@@ -445,7 +445,7 @@ footer .wrap { padding-block: 28px; display: flex; justify-content: space-betwee
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-property: color, background-color, border-color, opacity, box-shadow !important; }
   .enter h1, .enter .lede, .enter .hero-search, .enter .counts, .enter .crumbs, .q-in, .answer, .feedback, .tabpanel.swap { animation: fade 200ms ease both !important; }
-  main > section, .deb > div, .pager, .tl li, .flow-step,
+  main > section, .deb > div, .pager, .tl li, .steps li,
   .chart .bar, .chart .ln, .chart .area, .chart .pt, .chart .val, .sec-h h2::after, .hl-sweep, .opt.wrong, .list-in > * { animation: none !important; }
   .chart .ln { stroke-dasharray: none; }
 }
@@ -522,7 +522,7 @@ h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.005em; }
 .mark-sq { background: var(--ink); }
 a { text-underline-offset: .2em; text-decoration-thickness: 1px; }
 :focus-visible { outline-color: var(--lav); }
-.tbl td, .tbl th, .counts, .tl-y, .chart text { font-variant-numeric: tabular-nums; }
+
 
 /* Labels: sans, not a monospace costume */
 .tag, .paper .sub, .toc .toc-h, .setup h3, .deb-col h4, .quiz-top, .prompt small, .count-note, .pager small, .tlink span, .tbl thead th, .k, .flow-n, .legend, .tab-meta, .box-meta {
@@ -598,6 +598,119 @@ main > section { margin-top: 64px; }
   .quick a:hover .go { color: var(--ink); }
   .quick a:hover b { color: var(--ink); }
 }
+
+/* ---------- v4: critique fixes ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+::placeholder { color: var(--muted); opacity: 1; }
+:root { --p2-strong: #a3304a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --p2-strong: #f7b1bf; } }
+:root[data-theme="dark"] { --p2-strong: #f7b1bf; }
+.tag.real { color: var(--p2-strong); }
+.counts, .tl-y, .chart text, .score, .quiz-top, .sn, .pn, .mk { font-variant-numeric: tabular-nums; }
+.tbl td, .tbl th { font-variant-numeric: normal; }
+.qtip { max-width: 70ch; }
+
+/* Nav labels shorten on phones so every item fits */
+.nl-s { display: none; }
+@media (max-width: 860px) { .nl-l { display: none; } .nl-s { display: inline; } nav.main { overflow: visible; margin-inline: 0; justify-content: space-between; } nav.main a { padding: 6px 8px; } }
+
+/* Phone header: sticky, compact, slides away on scroll down and returns on scroll up */
+@media (max-width: 860px) {
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); transition: transform 250ms var(--ease), border-color 200ms ease; }
+  .top.hdr-hidden { transform: translateY(-100%); }
+  .top .wrap { padding-block: 10px 6px; }
+  .tools { display: contents; }
+  .brand { order: 1; }
+  .top .wrap { flex-wrap: wrap; }
+  .search { order: 2; flex: 1 1 0; width: auto; min-width: 0; max-width: none; }
+  .icon-btn { order: 3; margin-left: 0; }
+  nav.main { order: 4; width: 100%; }
+  body.is-home .search { visibility: hidden; }
+}
+@media (max-width: 420px) { .brand { font-size: 0; gap: 0; } .brand .mark-sq { width: 26px; height: 26px; } }
+
+/* Jump bar: section chips that stick under the header */
+.jumpbar { position: sticky; top: var(--hdr, 0px); z-index: 15; margin: 28px 0 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); transition: top 250ms var(--ease); }
+.jb-inner { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 8px 0; }
+.jb-inner::-webkit-scrollbar { display: none; }
+.jumpbar a { flex: none; text-decoration: none; font-size: .88rem; color: var(--muted); padding: 7px 12px; border-radius: 999px; transition: color 150ms ease, background-color 150ms ease; min-height: 36px; display: inline-flex; align-items: center; }
+.jumpbar a:hover { color: var(--ink); }
+.jumpbar a.on { color: var(--ink); background: var(--hover); }
+.topic-head + .jumpbar { display: none; }
+@media (max-width: 900px) { .topic-head + .jumpbar { display: block; margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); padding-inline: max(20px, env(safe-area-inset-left, 0px)); } }
+@media (max-width: 860px) { .jumpbar { margin-inline: calc(-1 * max(20px, env(safe-area-inset-left, 0px))); padding-inline: max(20px, env(safe-area-inset-left, 0px)); } }
+
+/* Topic header: actions and the real-questions panel */
+.head-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 24px; }
+.came-up { margin-top: 32px; border-top: 1px solid var(--ink); padding-top: 16px; max-width: 760px; }
+.came-up h2 { font-size: 1.15rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.came-up h2::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--p2); flex: none; }
+.came-up ul { list-style: none; margin: 0; padding: 0; }
+.came-up li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.came-up .cq { font-family: var(--serif); font-size: 1.08rem; line-height: 1.4; }
+@media (max-width: 560px) { .came-up li { flex-direction: column; gap: 6px; } }
+
+/* Debate verdict */
+.verdict { grid-column: 1 / -1; margin: 0; padding: 14px 20px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: .95rem; text-wrap: pretty; }
+.verdict b { display: block; font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin-bottom: 4px; }
+.deb-q { font-size: 1.15rem; font-weight: 500; margin-bottom: 14px; }
+
+/* Numbered process steps (replaces the arrow flow) */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px 10px; counter-reset: none; }
+.steps li { position: relative; padding: 14px 12px 12px; border-top: 2px solid var(--ink); display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.steps .sn { font-family: var(--serif); font-size: 1.4rem; line-height: 1; color: var(--muted); margin-bottom: 6px; }
+.steps b { font-size: .92rem; font-weight: 600; } .steps li > span:last-child:not(.sn) { font-size: .84rem; color: var(--muted); line-height: 1.4; }
+@media (max-width: 560px) {
+  .steps { grid-template-columns: 1fr; gap: 0; }
+  .steps li { border-top: 0; border-left: 2px solid var(--line-2); padding: 4px 0 14px 18px; display: grid; grid-template-columns: 30px 1fr; column-gap: 8px; }
+  .steps .sn { grid-row: span 2; font-size: 1.1rem; margin: 0; }
+}
+
+/* Comparison tables stack into labelled rows on phones */
+@media (max-width: 640px) {
+  .tbl.stack { min-width: 0; }
+  .tbl.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tbl.stack tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tbl.stack tbody tr:hover { background: none; }
+  .tbl.stack th[scope="row"] { display: block; border: 0; padding: 0 0 6px; white-space: normal; font-size: .98rem; }
+  .tbl.stack td { display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 1fr); gap: 10px; border: 0; padding: 3px 0; }
+  .tbl.stack td::before { content: attr(data-label); font-size: .78rem; font-weight: 600; color: var(--muted); }
+}
+
+/* Model paragraph: numbered markers instead of a colour code */
+.para { list-style: none; margin: 0; padding: 0; }
+.para-row { grid-template-columns: 28px minmax(0, 1fr); cursor: default; border-radius: 6px; transition: background-color 150ms ease; }
+.para-row:focus-visible { outline-offset: 0; }
+.pn, .mk { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line-2); font: 600 .72rem/1 var(--sans); color: var(--ink-2); }
+.mk { width: 17px; height: 17px; font-size: .64rem; vertical-align: 3px; margin-right: 4px; }
+.model-text { margin: 0; line-height: 1.75; color: var(--ink-2); }
+.model .seg { background: none; padding: 1px 2px; border-radius: 4px; transition: background-color 150ms ease, color 150ms ease; font-weight: 400; }
+.para-row.lit, .model .seg.lit { background: var(--lav-soft); color: var(--ink); }
+.para-row.lit .pn, .seg.lit .mk { border-color: var(--ink); color: var(--ink); }
+
+/* Quiz */
+.quickstart { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+.setup-h { font: 600 .74rem/1 var(--sans) !important; letter-spacing: .06em !important; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.pick { margin-top: 12px; }
+.pick summary { cursor: pointer; font-size: .92rem; color: var(--ink-2); padding: 6px 0; list-style-position: outside; }
+.pick[open] summary { margin-bottom: 8px; }
+.prompt:focus { outline: none; }
+.done-h:focus { outline: none; }
+.btn[data-armed] { border-color: var(--bad); color: var(--bad); }
+.missed .link { white-space: nowrap; margin-left: 6px; }
+.hint { color: var(--muted); font-size: .88rem; margin: 2px 0 0; }
+.empty { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.empty p { margin: 0; }
+.page-search { margin: 20px 0 0; }
+h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-spacing: 0; }
+
+/* Touch targets on phones */
+@media (max-width: 860px) {
+  nav.main a, .chip, .icon-btn { min-height: 40px; }
+  .chip { display: inline-flex; align-items: center; }
+  .icon-btn { width: 40px; height: 40px; }
+  a.tag { padding-block: 8px; }
+}
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
@@ -608,10 +721,10 @@ main > section { margin-top: 64px; }
     <nav class="main" aria-label="Main">
       <span class="nav-pill" aria-hidden="true"></span>
       <a href="#home" data-nav="home">Topics</a>
-      <a href="#terms" data-nav="terms">Key terms</a>
-      <a href="#sources" data-nav="sources">Source bank</a>
-      <a href="#exam" data-nav="exam">Exam technique</a>
-      <a href="#quiz" data-nav="quiz">Test yourself</a>
+      <a href="#terms" data-nav="terms"><span class="nl-l">Key terms</span><span class="nl-s">Terms</span></a>
+      <a href="#sources" data-nav="sources"><span class="nl-l">Source bank</span><span class="nl-s">Sources</span></a>
+      <a href="#exam" data-nav="exam"><span class="nl-l">Exam technique</span><span class="nl-s">Exam</span></a>
+      <a href="#quiz" data-nav="quiz"><span class="nl-l">Test yourself</span><span class="nl-s">Quiz</span></a>
     </nav>
     <div class="tools">
       <label class="search"><span hidden>Search everything</span>
@@ -1894,8 +2007,9 @@ TOPICS.push(
 /* Diagrams, tables and charts. Each returns HTML. Colours come from CSS tokens. */
 (function () {
   function table(head, rows, note) {
-    return '<div class="tbl-wrap"><table class="tbl"><thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') +
-      '</tr></thead><tbody>' + rows.map(r => '<tr>' + r.map((c, i) => (i === 0 ? '<th scope="row">' : '<td>') + c + (i === 0 ? '</th>' : '</td>')).join('') + '</tr>').join('') +
+    const lab = i => (head[i] || '').replace(/<[^>]+>/g, '');
+    return '<div class="tbl-wrap"><table class="tbl stack"><thead><tr>' + head.map(h => '<th scope="col">' + h + '</th>').join('') +
+      '</tr></thead><tbody>' + rows.map(r => '<tr>' + r.map((c, i) => i === 0 ? '<th scope="row">' + c + '</th>' : '<td data-label="' + lab(i) + '">' + c + '</td>').join('') + '</tr>').join('') +
       '</tbody></table></div>' + (note ? '<p class="dg-note">' + note + '</p>' : '');
   }
 
@@ -1951,9 +2065,9 @@ TOPICS.push(
 
   /* Flow of boxes: steps = [[title, sub]], arrows between */
   function flow(steps, cls) {
-    return '<div class="flow ' + (cls || '') + '">' + steps.map((s, i) =>
-      '<div class="flow-step"><span class="flow-n">' + (s[2] || '') + '</span><b>' + s[0] + '</b>' + (s[1] ? '<span>' + s[1] + '</span>' : '') + '</div>' +
-      (i < steps.length - 1 ? '<div class="flow-arrow" aria-hidden="true"></div>' : '')).join('') + '</div>';
+    return '<ol class="steps ' + (cls || '') + '">' + steps.map((s, i) =>
+      '<li><span class="sn">' + (i + 1) + '</span><b>' + s[0] + '</b>' + (s[1] ? '<span>' + s[1] + '</span>' : '') + '</li>').join('') + '</ol>' +
+      (cls === 'cycle' ? '<p class="dg-note">Then the cycle starts again from step 1.</p>' : '');
   }
 
   function timeline(items) {
@@ -2468,6 +2582,37 @@ window.RECALL = [
   { t: 'sovereignty', q: 'Which 1648 treaty established the principle of state sovereignty?', a: 'The Treaty (Peace) of Westphalia', x: 'Non-interference.' },
   { t: 'regionalism', q: 'Which EU regulation from 2018 is an example of the "Brussels effect"?', a: 'GDPR', x: 'Global companies follow EU data rules.' }
 ];
+/* A one-line judgement for each key debate, keyed by the debate question. Shown under the two columns. */
+window.VERDICTS = {
+  'Should the UK adopt a codified constitution?': 'Probably not yet: flexibility and parliamentary democracy have mostly held, and Miller II shows the current system can check the executive. The strongest case for codifying is entrenching rights against a large majority.',
+  'Has devolution strengthened or threatened the Union?': 'On balance it has strengthened it: the 2014 No vote and peace in Northern Ireland show devolution containing nationalism, though it has also given independence movements a lasting platform.',
+  'How effective is Parliament at scrutinising the executive?': 'More effective at exposing and modifying policy than at controlling it. Its real power depends on backbench unity, which the 2025 welfare revolt and May’s 2019 defeats show can override even a large majority.',
+  'Should the House of Lords be elected?': 'A stronger case exists for reform than for election: cutting size and patronage keeps the expertise while avoiding gridlock between two elected chambers.',
+  'Is the PM now effectively a president?': 'No. Presidential style is real, but a PM with no separate mandate can be removed by their own party, as Thatcher, May, Johnson and Truss all found.',
+  'Does the PM dominate the Cabinet?': 'Only conditionally. A popular PM with a big majority dominates, but power drains quickly when colleagues withdraw support, as Johnson’s fall in 2022 shows.',
+  'Has the Supreme Court become too political?': 'No. It rules on lawfulness, not policy, and Parliament keeps the last word, as the Safety of Rwanda Act 2024 shows. Its higher profile reflects the HRA and devolution that Parliament itself created.',
+  'Does the executive dominate Parliament?': 'Usually, but not always: executive dominance depends on majority size and party unity, and recent rebellions and Lords defeats show Parliament still constrains it.',
+  'Is nationalism inclusive or exclusive?': 'Both: liberal and civic nationalism are inclusive, while conservative and expansionist strands define membership more narrowly. The ideology is united by the nation, not by who belongs to it.',
+  'Is nationalism progressive or regressive?': 'Liberal and anti-colonial nationalism are largely progressive; conservative and expansionist nationalism largely regressive. The split runs between strands, not through nationalism as a whole.',
+  'Should the UK use more direct democracy?': 'Sparingly: referendums give legitimacy to major constitutional questions, but 2016 showed they can oversimplify complex issues and leave Parliament to resolve the result.',
+  'Do pressure groups enhance democracy?': 'Mostly yes, by giving a voice between elections, but unequal resources mean wealthy insider groups gain more access than outsiders, which weakens the pluralist case.',
+  'Should parties be state funded?': 'A limited extension of Short money is more defensible than full state funding, which would charge taxpayers for parties they oppose and could entrench the big parties.',
+  'Is the UK still a two-party system?': 'Two-party in government, multi-party in votes: over 40% voted for others in 2024, but FPTP still hands power to Labour or the Conservatives.',
+  'Should FPTP be replaced for Westminster?': 'The case for change is stronger after 2024’s record disproportionality, but voters rejected AV in 2011, so any reform would need a fresh mandate.',
+  'Is class still the most important factor in voting behaviour?': 'No longer. Class dealignment means age and education now predict votes better, though class still shapes the values behind them.',
+  'How much does the media influence how people vote?': 'It mostly reinforces existing views and sets the agenda. It matters most in close contests and for undecided voters, rather than changing most minds.',
+  'Are classical and modern liberals more united than divided?': 'More united: both share individualism, rationalism and consent. They disagree about means (the size of the state), not ends (individual freedom).',
+  'Is the New Right really conservative?': 'Partly: neoconservatism fits traditional conservatism, but neoliberalism’s abstract, market-driven rationalism sits uneasily with pragmatism and the organic society.',
+  'Has socialism abandoned its core principles?': 'Revised, not abandoned: the Third Way kept the commitment to equality of opportunity and collective provision while dropping common ownership.',
+  'Does realism better explain global politics today than liberalism?': 'Realism explains the big security crises better (Ukraine, UN vetoes), while liberalism better explains everyday cooperation on trade and climate. Most strong answers argue realism has the edge since 2022.',
+  'Has globalisation undermined state sovereignty?': 'Challenged rather than undermined: COVID border closures, Brexit and 2025 tariffs show states can still reassert control when they choose to.',
+  'Is the UN Security Council effective at maintaining peace?': 'Effective only when the P5 agree. The veto makes it powerless over conflicts involving a permanent member or its allies, as Ukraine and Gaza show.',
+  'Have the IMF and World Bank helped reduce poverty?': 'Mixed: they stabilised economies in crises, but structural adjustment and Western-weighted voting mean many in the global South see them as part of the problem.',
+  'Is the ICC an effective protector of human rights?': 'Limited: it can restrict leaders’ travel and has convicted some warlords, but without great-power membership or its own enforcement it depends on states’ cooperation.',
+  'Has global environmental governance been effective?': 'Better at agreement than delivery: Paris achieved near-universal participation, but voluntary targets and US withdrawals mean emissions are still rising.',
+  'Is the world now multipolar?': 'Moving towards it: the US remains the only military superpower, but China’s economic rise and BRICS expansion point to an emerging multipolar order.',
+  'Does regionalism threaten state sovereignty?': 'Only where states choose to pool it: the EU is the exception, and Brexit shows even pooled sovereignty can be taken back.'
+};
 (function () {
   'use strict';
   const main = document.getElementById('main');
@@ -2528,19 +2673,25 @@ window.RECALL = [
     const i = TOPICS.indexOf(t), prev = TOPICS[i - 1], next = TOPICS[i + 1];
     const qs = EXAM.questions.filter(q => q.topic === id);
     const toc = [['ov', 'Overview'], t.diagrams.length && ['dg', 'Diagrams and tables'], t.debates.length && ['deb', 'Key debates'], ['kt', 'Key terms'], ['ex', 'Examples'], qs.length && ['pq', 'Practice questions']].filter(Boolean);
+    const real = qs.filter(q => q.real);
     return '<div class="topic-head"><div class="crumbs"><a href="#home">Topics</a><span>/</span>' + ptag(t.paper) + '<span>' + esc(t.area) + '</span></div>' +
-      '<h1 style="view-transition-name: topic-title">' + esc(t.title) + '</h1><p class="lede">' + esc(t.summary) + '</p></div>' +
+      '<h1 style="view-transition-name: topic-title">' + esc(t.title) + '</h1><p class="lede">' + esc(t.summary) + '</p>' +
+      '<div class="head-actions"><button class="btn" data-quiz-start="' + id + '">Quiz this topic</button><a class="link" href="#exam">How to answer exam questions</a></div>' +
+      (real.length ? '<aside class="came-up" aria-label="Real exam questions"><h2>Came up in June ' + real[0].real + '</h2><ul>' +
+        real.map(q => '<li><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></li>').join('') + '</ul></aside>' : '') +
+      '</div>' + jumpbar(toc, 'topic-' + id) +
       '<div class="topic-layout"><nav class="toc" aria-label="On this page"><span class="toc-ind" aria-hidden="true"></span><div class="toc-h">On this page</div>' +
       toc.map(x => '<a href="#topic-' + id + '" data-jump="' + x[0] + '" data-spy="' + x[0] + '">' + x[1] + '</a>').join('') +
-      '<div class="toc-h">Practise</div><a href="#quiz" data-quiz-topic="' + id + '">Quiz this topic</a></nav><div>' +
+      '<div class="toc-h">Practise</div><a href="#quiz" data-quiz-start="' + id + '">Quiz this topic</a></nav><div>' +
       '<section id="s-ov"><div class="sec-h"><h2>Overview</h2></div><div class="ov">' + t.overview.map(o =>
         '<div><h3>' + esc(o.h) + '</h3><ul>' + o.p.map(p => '<li>' + p + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
       (t.diagrams.length ? '<section id="s-dg"><div class="sec-h"><h2>Diagrams and tables</h2></div>' + t.diagrams.map(d => DIAGRAMS[d] ?
         '<div class="dg"><h3>' + esc(DIAGRAMS[d].title) + '</h3>' + DIAGRAMS[d].html + '</div>' : '').join('') + '</section>' : '') +
       (t.debates.length ? '<section id="s-deb"><div class="sec-h"><h2>Key debates</h2></div><div class="deb">' + t.debates.map(d =>
-        '<div><div class="deb-q">' + esc(d.q) + '</div><div class="deb-cols"><div class="deb-col yes"><h4>Yes / agree</h4><ul>' +
+        '<div><h3 class="deb-q">' + esc(d.q) + '</h3><div class="deb-cols"><div class="deb-col yes"><h4>Yes / agree</h4><ul>' +
         d.yes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div><div class="deb-col no"><h4>No / disagree</h4><ul>' +
-        d.no.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></div></div>').join('') + '</div></section>' : '') +
+        d.no.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
+        (VERDICTS[d.q] ? '<p class="verdict"><b>Verdict</b>' + esc(VERDICTS[d.q]) + '</p>' : '') + '</div></div>').join('') + '</div></section>' : '') +
       '<section id="s-kt"><div class="sec-h"><h2>Key terms</h2><a href="#terms" data-terms-topic="' + id + '">Open in key terms list</a></div><dl class="term-list">' +
       t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl></section>' +
       '<section id="s-ex"><div class="sec-h"><h2>Examples</h2><a href="#sources" data-src-topic="' + id + '">Open in source bank</a></div><div class="ex-grid">' +
@@ -2548,6 +2699,10 @@ window.RECALL = [
       (qs.length ? '<section id="s-pq"><div class="sec-h"><h2>Practice questions</h2><a href="#exam">How to answer them</a></div><div class="qlist">' + qs.map(qRow).join('') + '</div></section>' : '') +
       '<div class="pager">' + (prev ? '<a href="#topic-' + prev.id + '"><small>Previous</small>' + esc(prev.title) + '</a>' : '<span></span>') +
       (next ? '<a href="#topic-' + next.id + '" style="text-align:right"><small>Next</small>' + esc(next.title) + '</a>' : '') + '</div></div></div>';
+  }
+  function jumpbar(items, base) {
+    return '<nav class="jumpbar" aria-label="Jump to section"><div class="jb-inner">' +
+      items.map(x => '<a href="#' + base + '" data-jump="' + x[0] + '" data-spy="' + x[0] + '">' + x[1] + '</a>').join('') + '</div></nav>';
   }
   function exCard(e, q, showTopic) {
     return '<article class="ex"><h3>' + hl(e.t, q) + '</h3><p>' + hl(e.d, q) + '</p><div class="use"><b>Use for:</b> ' + hl(e.use, q) + '</div>' +
@@ -2561,14 +2716,15 @@ window.RECALL = [
   }
 
   /* ---------- Shared filters ---------- */
-  const state = { termPaper: 0, termTopic: '', termQ: '', termHide: false, termSort: 'az', srcPaper: 0, srcTopic: '', srcQ: '', pqTopic: '' };
+  const state = { pqPaper: 0, termPaper: 0, termTopic: '', termQ: '', termHide: false, termSort: 'az', srcPaper: 0, srcTopic: '', srcQ: '', pqTopic: '' };
   function topicChips(paper, active, key) {
-    const ts = TOPICS.filter(t => !paper || t.paper === paper);
+    if (!paper) return '<p class="hint">Choose a paper to narrow by topic.</p>';
+    const ts = TOPICS.filter(t => t.paper === paper);
     return '<div class="frow"><button class="chip" data-f="' + key + '" data-v="" aria-pressed="' + (!active) + '">All topics</button>' +
       ts.map(t => '<button class="chip" data-f="' + key + '" data-v="' + t.id + '" aria-pressed="' + (active === t.id) + '">' + esc(t.title) + '</button>').join('') + '</div>';
   }
   function paperChips(active, key) {
-    return '<div class="frow">' + [0, 1, 2, 3].map(p => '<button class="chip" data-f="' + key + '" data-v="' + p + '" aria-pressed="' + (active === p) + '">' + (p ? PAPERS[p].name + ': ' + PAPERS[p].long : 'All papers') + '</button>').join('') + '</div>';
+    return '<div class="frow">' + [0, 1, 2, 3].map(p => '<button class="chip" data-f="' + key + '" data-v="' + p + '" aria-pressed="' + (active === p) + '">' + (p ? PAPERS[p].name : 'All papers') + '</button>').join('') + '</div>';
   }
 
   /* ---------- Terms ---------- */
@@ -2586,8 +2742,8 @@ window.RECALL = [
     const q = state.termQ.trim().toLowerCase();
     let list = TERMS.filter(x => (!state.termPaper || x.t.paper === state.termPaper) && (!state.termTopic || x.t.id === state.termTopic) &&
       (!q || x.term.toLowerCase().includes(q) || x.def.toLowerCase().includes(q)));
-    if (!list.length) { el.innerHTML = '<p class="empty">No terms match. Try a shorter word or clear the filters.</p>'; return; }
-    const row = x => '<div class="term' + (state.termHide ? ' hidden-def' : '') + '"><dt>' + hl(x.term, q) + '</dt><dd><div class="def" tabindex="0">' + hl(x.def, q) + '</div><div class="meta">' + tag(x.t) + '</div></dd></div>';
+    if (!list.length) { el.innerHTML = '<div class="empty"><p>No terms match. Try a shorter word, or clear the filters.</p><button class="btn ghost" data-act="clear-terms">Clear filters</button></div>'; return; }
+    const row = x => '<div class="term' + (state.termHide ? ' hidden-def' : '') + '"><dt>' + hl(x.term, q) + '</dt><dd><div class="def"' + (state.termHide ? ' tabindex="0" role="button" aria-expanded="false" aria-label="Show definition of ' + esc(x.term) + '"' : '') + '><span class="def-t">' + hl(x.def, q) + '</span></div><div class="meta">' + tag(x.t) + '</div></dd></div>';
     let html = '';
     if (state.termSort === 'az') {
       list = list.slice().sort((a, b) => a.term.localeCompare(b.term));
@@ -2601,7 +2757,7 @@ window.RECALL = [
 
   /* ---------- Sources ---------- */
   function sources() {
-    return '<h1>Examples for your essays</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
+    return '<h1>Source bank</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
       '<div class="filters"><input class="field" id="sq" type="search" placeholder="Filter examples, e.g. Lords, veto, 2019" value="' + esc(state.srcQ) + '">' +
       paperChips(state.srcPaper, 'srcPaper') + topicChips(state.srcPaper, state.srcTopic, 'srcTopic') + '</div><div id="slist"></div>';
   }
@@ -2610,8 +2766,8 @@ window.RECALL = [
     const q = state.srcQ.trim().toLowerCase();
     const list = EXAMPLES.filter(e => (!state.srcPaper || e.tp.paper === state.srcPaper) && (!state.srcTopic || e.tp.id === state.srcTopic) &&
       (!q || norm(e.t + ' ' + e.d + ' ' + e.use).includes(q)));
-    el.innerHTML = list.length ? '<p class="count-note" style="margin-bottom:12px">' + list.length + ' examples</p><div class="ex-grid list-in">' + list.map(e => exCard(e, q, true)).join('') + '</div>' :
-      '<p class="empty">No examples match. Clear the filters or try another word.</p>';
+    el.innerHTML = list.length ? '<h2 class="count-note" style="margin-bottom:12px">' + list.length + ' examples</h2><div class="ex-grid list-in">' + list.map(e => exCard(e, q, true)).join('') + '</div>' :
+      '<div class="empty"><p>No examples match. Try another word, or clear the filters.</p><button class="btn ghost" data-act="clear-src">Clear filters</button></div>';
   }
 
   /* ---------- Exam ---------- */
@@ -2620,30 +2776,31 @@ window.RECALL = [
     const E = EXAM, R = E.report2026;
     const ty = TYPES[examTab];
     return '<h1>How to write a top-band answer</h1><p class="lede">Structures for every question type, the mark scheme rules that cap your level, and what examiners said about June 2026.</p>' +
-      '<section><div class="sec-h"><h2>The three papers</h2></div><div class="cards3">' + E.papers.map(p =>
+      jumpbar([['papers', 'Papers'], ['aos', 'AOs'], ['types', 'Question types'], ['para', 'Paragraphs'], ['bands', 'Level bands'], ['link', 'Linking'], ['report', 'Examiners'], ['mist', 'Mistakes'], ['bank', 'Question bank']], 'exam') +
+      '<section id="s-papers"><div class="sec-h"><h2>The three papers</h2></div><div class="cards3">' + E.papers.map(p =>
         '<div class="box"><h3>' + p.n + ': ' + esc(p.t) + '</h3><p class="meta box-meta">' + p.time + ' · ' + p.marks + ' marks</p><ul>' + p.parts.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
-      '<section><div class="sec-h"><h2>Assessment objectives</h2></div><div class="ao">' + E.aos.map(a => '<div class="box"><b class="big">' + a[0] + '</b><h3>' + a[1] + '</h3><p class="meta" style="margin:6px 0 0">' + a[2] + '</p></div>').join('') + '</div>' +
+      '<section id="s-aos"><div class="sec-h"><h2>Assessment objectives</h2></div><div class="ao">' + E.aos.map(a => '<div class="box"><b class="big">' + a[0] + '</b><h3>' + a[1] + '</h3><p class="meta" style="margin:6px 0 0">' + a[2] + '</p></div>').join('') + '</div>' +
       '<p class="dg-note">30-mark answers split marks equally: 10 per AO. 24-mark answers: 8 per AO. Paper 3’s 12-mark questions are AO1 and AO2 only.</p></section>' +
-      '<section><div class="sec-h"><h2>Question types</h2></div><div class="tabs" role="tablist"><span class="tab-pill" aria-hidden="true"></span>' + E.types.map(x =>
-        '<button role="tab" data-tab="' + x.id + '" aria-selected="' + (x.id === examTab) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
-      '<div class="tabpanel' + (tabSwap ? ' swap' : '') + '"><p class="tab-meta">' + esc(ty.where) + ' · ' + esc(ty.marks) + ' · ' + esc(ty.time) + '</p><div class="wording">' + esc(ty.wording) + '</div>' +
+      '<section id="s-types"><div class="sec-h"><h2>Question types</h2></div><div class="tabs" role="tablist" aria-label="Question types"><span class="tab-pill" aria-hidden="true"></span>' + E.types.map(x =>
+        '<button role="tab" id="tab-' + x.id + '" aria-controls="tabpanel" tabindex="' + (x.id === examTab ? '0' : '-1') + '" data-tab="' + x.id + '" aria-selected="' + (x.id === examTab) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
+      '<div class="tabpanel' + (tabSwap ? ' swap' : '') + '" id="tabpanel" role="tabpanel" aria-labelledby="tab-' + examTab + '"><p class="tab-meta">' + esc(ty.where) + ' · ' + esc(ty.marks) + ' · ' + esc(ty.time) + '</p><div class="wording">' + esc(ty.wording) + '</div>' +
       '<div class="two"><div class="box"><h3>Plan and structure</h3><ol>' + ty.plan.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>' +
       '<div class="box"><h3>What gets marks</h3><ul>' + ty.tips.map(x => '<li>' + (x.startsWith('Mark scheme rule') ? '<b>' + esc(x.split(':')[0]) + ':</b>' + esc(x.slice(x.indexOf(':') + 1)) : esc(x)) + '</li>').join('') + '</ul></div></div></div></section>' +
-      '<section><div class="sec-h"><h2>Level bands</h2></div><div class="two"><div class="box"><h3>30-mark questions</h3>' + bandTable(E.levels.l30) + '</div><div class="box"><h3>24-mark questions</h3>' + bandTable(E.levels.l24) + '</div></div>' +
+      '<section id="s-para"><div class="sec-h"><h2>Building a paragraph</h2></div><div class="two"><div class="box"><h3>' + esc(E.paragraph.name) + '</h3><ol class="para">' +
+      E.paragraph.steps.map((s, i) => '<li class="para-row" data-seg="' + i + '" tabindex="0"><span class="pn">' + (i + 1) + '</span><span><b>' + s[0] + '</b> ' + esc(s[1]) + '</span></li>').join('') + '</ol></div>' +
+      '<div class="box model"><h3>Model paragraph</h3><p class="meta" style="margin:4px 0 12px">' + esc(E.model.q) + '</p><p class="model-text">' +
+      E.model.p.map((s, i) => '<span class="seg" data-seg="' + i + '"><sup class="mk" aria-label="' + s[0] + '">' + (i + 1) + '</sup>' + esc(s[1]) + '</span> ').join('') + '</p>' +
+      '<p class="dg-note">Numbers match the steps on the left. Hover or tap a step to highlight it.</p></div></div></section>' +
+      '<section id="s-bands"><div class="sec-h"><h2>Level bands</h2></div><div class="two"><div class="box"><h3>30-mark questions</h3>' + bandTable(E.levels.l30) + '</div><div class="box"><h3>24-mark questions</h3>' + bandTable(E.levels.l24) + '</div></div>' +
       '<p class="dg-note">Descriptor words from the mark scheme for comparative analysis, top to bottom: ' + E.levels.words.join(', ') + '.</p></section>' +
-      '<section><div class="sec-h"><h2>Building a paragraph</h2></div><div class="two"><div class="box"><h3>' + esc(E.paragraph.name) + '</h3><div class="para">' +
-      E.paragraph.steps.map((s, i) => '<div class="para-row"><span class="k c' + i + '">' + s[0] + '</span><span>' + esc(s[1]) + '</span></div>').join('') + '</div></div>' +
-      '<div class="box model"><h3>Model paragraph</h3><p class="meta" style="margin:4px 0 12px">' + esc(E.model.q) + '</p><div>' +
-      E.model.p.map((s, i) => '<span class="seg c' + i + '" title="' + s[0] + '">' + esc(s[1]) + '</span> ').join('') + '</div>' +
-      '<div class="legend" style="flex-wrap:wrap;margin-top:12px">' + E.model.p.map((s, i) => '<span><span class="k c' + i + '" style="font:500 .72rem var(--mono);text-transform:uppercase">' + s[0] + '</span></span>').join('') + '</div></div></div></section>' +
-      '<section><div class="sec-h"><h2>Linking phrases</h2></div><div class="cards3">' + E.linking.map(g => '<div class="box"><h3>' + esc(g.h) + '</h3><ul>' + g.l.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
-      '<section><div class="sec-h"><h2>What the examiners said (June 2026)</h2></div><p class="dg-note" style="margin:-6px 0 14px">Paraphrased from the ' + esc(R.src) + '.</p>' +
+      '<section id="s-link"><div class="sec-h"><h2>Linking phrases</h2></div><div class="cards3">' + E.linking.map(g => '<div class="box"><h3>' + esc(g.h) + '</h3><ul>' + g.l.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div></section>' +
+      '<section id="s-report"><div class="sec-h"><h2>What the examiners said (June 2026)</h2></div><p class="dg-note" style="margin:-6px 0 14px">Paraphrased from the ' + esc(R.src) + '.</p>' +
       '<div class="box"><h3>Across the paper</h3><ul>' + R.general.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
       '<div class="qlist" style="margin-top:14px">' + R.perQuestion.map(x => '<div class="qitem" style="display:block"><div class="q">' + esc(x.q) + '</div><div class="qtip">' + esc(x.tip) + '</div></div>').join('') + '</div></section>' +
-      '<section><div class="sec-h"><h2>Common mistakes</h2></div><div class="box"><ul>' + E.mistakes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></section>' +
-      '<section><div class="sec-h"><h2>Question bank</h2></div><p class="dg-note" style="margin:-6px 0 12px">Red tags are real June 2026 questions. The rest are practice questions written in the same style.</p>' +
-      '<div class="filters" style="margin-top:0">' + topicChips(0, state.pqTopic, 'pqTopic') + '</div><div class="qlist">' +
-      EXAM.questions.filter(q => !state.pqTopic || q.topic === state.pqTopic).map(q => qRow(q)).join('') + '</div></section>';
+      '<section id="s-mist"><div class="sec-h"><h2>Common mistakes</h2></div><div class="box"><ul>' + E.mistakes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></section>' +
+      '<section id="s-bank"><div class="sec-h"><h2>Question bank</h2></div><p class="dg-note" style="margin:-6px 0 12px">Questions marked "Real paper" came up in June 2026. The rest are practice questions written in the same style.</p>' +
+      '<div class="filters" style="margin-top:0">' + paperChips(state.pqPaper, 'pqPaper') + topicChips(state.pqPaper, state.pqTopic, 'pqTopic') + '</div><div class="qlist">' +
+      EXAM.questions.filter(q => (!state.pqPaper || byId[q.topic].paper === state.pqPaper) && (!state.pqTopic || q.topic === state.pqTopic)).map(q => qRow(q)).join('') + '</div></section>';
   }
   function bandTable(rows) {
     return '<div class="tbl-wrap"><table class="tbl" style="min-width:0"><tbody>' + rows.map(r => '<tr><th scope="row">' + r[0] + '</th><td style="font-family:var(--mono)">' + r[1] + '</td></tr>').join('') + '</tbody></table></div>';
@@ -2654,15 +2811,19 @@ window.RECALL = [
   function quizView() {
     if (quiz.run) return quizRun();
     const best = store.get('best', {});
-    return '<h1>Test yourself</h1><p class="lede">Pick a mode and topics. Wrong answers are listed at the end so you can revise them.</p>' +
-      '<div class="setup"><div><h3>Mode</h3><div class="modes">' +
+    const paperOn = p => { const ids = TOPICS.filter(t => t.paper === p).map(t => t.id); return quiz.topics.length === ids.length && ids.every(x => quiz.topics.includes(x)); };
+    const picked = quiz.topics.length ? quiz.topics.length + ' topic' + (quiz.topics.length > 1 ? 's' : '') + ' chosen' : 'All topics';
+    return '<h1>Test yourself</h1><p class="lede">Start a quick mixed quiz, or choose a mode and topics. Wrong answers are listed at the end so you can revise them.</p>' +
+      '<div class="quickstart"><button class="btn" data-act="quick">Quick quiz: 10 mixed questions</button><span class="dg-note">Keyboard: 1 to 4 to answer, Enter for next.</span></div>' +
+      '<div class="setup"><div><h2 class="setup-h">Mode</h2><div class="modes">' +
       [['defs', 'Definition to term', 'Read a definition, choose the key term.'], ['terms', 'Term to definition', 'Read a term, choose the right definition.'],
        ['recall', 'Example recall', 'Who, what, when: e.g. the biggest Commons defeat.'], ['mixed', 'Mixed', 'All three types together.']].map(m =>
         '<button class="mode" data-mode="' + m[0] + '" aria-pressed="' + (quiz.mode === m[0]) + '"><b>' + m[1] + '</b><span>' + m[2] + '</span></button>').join('') + '</div></div>' +
-      '<div><h3>Topics</h3><div class="frow"><button class="chip" data-qt="" aria-pressed="' + (!quiz.topics.length) + '">All topics</button>' +
-      [1, 2, 3].map(p => '<button class="chip" data-qp="' + p + '">' + PAPERS[p].name + ' only</button>').join('') + '</div><div class="frow" style="margin-top:8px">' +
-      TOPICS.map(t => '<button class="chip" data-qt="' + t.id + '" aria-pressed="' + quiz.topics.includes(t.id) + '">' + esc(t.title) + '</button>').join('') + '</div></div>' +
-      '<div><h3>Length</h3><div class="frow">' + [10, 20, 40].map(n => '<button class="chip" data-qn="' + n + '" aria-pressed="' + (quiz.n === n) + '">' + n + ' questions</button>').join('') + '</div></div>' +
+      '<div><h2 class="setup-h">Topics</h2><div class="frow"><button class="chip" data-qt="" aria-pressed="' + (!quiz.topics.length) + '">All topics</button>' +
+      [1, 2, 3].map(p => '<button class="chip" data-qp="' + p + '" aria-pressed="' + paperOn(p) + '">' + PAPERS[p].name + '</button>').join('') + '</div>' +
+      '<details class="pick"' + (quiz.openTopics ? ' open' : '') + '><summary>Choose individual topics <span class="dg-note">(' + picked + ')</span></summary><div class="frow">' +
+      TOPICS.map(t => '<button class="chip" data-qt="' + t.id + '" aria-pressed="' + quiz.topics.includes(t.id) + '">' + esc(t.title) + '</button>').join('') + '</div></details></div>' +
+      '<div><h2 class="setup-h">Length</h2><div class="frow">' + [10, 20, 40].map(n => '<button class="chip" data-qn="' + n + '" aria-pressed="' + (quiz.n === n) + '">' + n + ' questions</button>').join('') + '</div></div>' +
       '<div><button class="btn" data-act="start">Start quiz</button>' + (best[quiz.mode] != null ? '<span class="dg-note" style="margin-left:12px">Best in this mode: ' + best[quiz.mode] + '%</span>' : '') + '</div></div>';
   }
   function buildQuestions() {
@@ -2670,11 +2831,11 @@ window.RECALL = [
     const pool = TERMS.filter(x => inT(x.t.id));
     const recall = RECALL.filter(r => inT(r.t));
     const mk = (kind) => {
-      if (kind === 'recall') { const r = recall[Math.floor(Math.random() * recall.length)]; return r && { kind, r }; }
+      if (kind === 'recall') { const r = recall[Math.floor(Math.random() * recall.length)]; return r && { kind, r, t: r.t }; }
       const x = pool[Math.floor(Math.random() * pool.length)]; if (!x) return null;
       const same = TERMS.filter(o => o !== x && o.t === x.t), other = TERMS.filter(o => o !== x && o.t !== x.t);
       const distract = shuffle(same).concat(shuffle(other)).filter((o, i, a) => a.findIndex(z => z.term === o.term) === i && o.term !== x.term).slice(0, 3);
-      return { kind, x, opts: shuffle([x].concat(distract)) };
+      return { kind, x, t: x.t.id, opts: shuffle([x].concat(distract)) };
     };
     const out = [], used = new Set();
     let guard = 0;
@@ -2694,36 +2855,38 @@ window.RECALL = [
     if (R.i >= R.qs.length) {
       const pct = Math.round((R.score / R.qs.length) * 100);
       const best = store.get('best', {}); if (best[quiz.mode] == null || pct > best[quiz.mode]) { best[quiz.mode] = pct; store.set('best', best); }
-      return '<div class="quiz-card q-in"><h2 class="done-h">Quiz complete</h2><div class="score" data-pct="' + pct + '" data-got="' + R.score + '" data-tot="' + R.qs.length + '">' + R.score + ' / ' + R.qs.length + '</div><p class="lede" style="margin-top:0">' +
+      return '<div class="quiz-card q-in"><h2 class="done-h" tabindex="-1">Quiz complete</h2><div class="score" data-pct="' + pct + '" data-got="' + R.score + '" data-tot="' + R.qs.length + '">' + R.score + ' / ' + R.qs.length + '</div><p class="lede" style="margin-top:0">' +
         (pct >= 80 ? 'Strong. Try a harder mix or a new topic.' : pct >= 50 ? 'Getting there. Revise the ones below, then go again.' : 'Worth another read of the topic pages, then retry.') + '</p>' +
-        (R.missed.length ? '<h3 style="margin-top:20px">To revise</h3><div class="missed">' + R.missed.map(m => '<div>' + m + '</div>').join('') + '</div>' : '') +
-        '<div class="btns"><button class="btn" data-act="again">Go again</button><button class="btn ghost" data-act="setup">Change settings</button></div></div>';
+        (R.missed.length ? '<h3 style="margin-top:20px">To revise</h3><div class="missed">' + R.missed.map(m => '<div>' + m.html + ' <a class="link" href="#topic-' + m.t + '">' + esc(byId[m.t].title) + '</a></div>').join('') + '</div>' : '') +
+        '<div class="btns">' + (R.missed.length ? '<button class="btn" data-act="retry">Quiz my mistakes (' + R.missed.length + ')</button><button class="btn ghost" data-act="again">New quiz</button>' : '<button class="btn" data-act="again">Go again</button>') +
+        '<button class="btn ghost" data-act="setup">Change settings</button></div></div>';
     }
     const q = R.qs[R.i];
     let body = '';
     const top = '<div class="quiz-top"><span>Question ' + (R.i + 1) + ' of ' + R.qs.length + '</span><span>Score ' + R.score + '</span></div><div class="progress"><i style="transform:scaleX(' + (quiz.prevP || 0) + ')" data-to="' + (R.i / R.qs.length) + '"></i></div>';
     if (q.kind === 'recall') {
-      body = '<div class="prompt"><small>' + esc(byId[q.r.t].title) + ' · example recall</small>' + esc(q.r.q) + '</div>' +
+      body = '<div class="prompt" tabindex="-1"><small>' + esc(byId[q.r.t].title) + ' · example recall</small>' + esc(q.r.q) + '</div>' +
         (R.revealed ? '<div class="answer"><b>' + esc(q.r.a) + '</b><span>' + esc(q.r.x) + '</span></div><p class="dg-note">Did you get it?</p><div class="btns"><button class="btn good" data-act="self" data-v="1">Got it</button><button class="btn bad" data-act="self" data-v="0">Missed it</button></div>'
           : '<p class="dg-note">Say or write your answer, then check.</p><div class="btns"><button class="btn" data-act="reveal">Show answer</button></div>');
     } else {
       const isDef = q.kind === 'defs';
-      body = '<div class="prompt"><small>' + esc(q.x.t.title) + ' · ' + (isDef ? 'which term matches?' : 'which definition matches?') + '</small>' + esc(isDef ? q.x.def : q.x.term) + '</div><div class="opts">' +
+      body = '<div class="prompt" tabindex="-1"><small>' + esc(q.x.t.title) + ' · ' + (isDef ? 'which term matches?' : 'which definition matches?') + '</small>' + esc(isDef ? q.x.def : q.x.term) + '</div><div class="opts">' +
         q.opts.map((o, k) => {
           let cls = 'opt';
           if (R.picked != null) { if (o === q.x) cls += ' right'; else if (k === R.picked) cls += ' wrong'; }
           return '<button class="' + cls + '" data-act="pick" data-v="' + k + '"' + (R.picked != null ? ' disabled' : '') + '><span class="ok">' + 'ABCD'[k] + '</span><span>' + esc(isDef ? o.term : o.def) + '</span></button>';
         }).join('') + '</div>' +
-        (R.picked != null ? '<div class="feedback">' + (q.opts[R.picked] === q.x ? '<b style="color:var(--good)">Correct.</b>' : '<b style="color:var(--bad)">Not quite.</b> The answer is <b>' + esc(q.x.term) + '</b>.') + '</div><div class="btns"><button class="btn" data-act="next">Next question</button></div>' : '');
+        (R.picked != null ? '<div class="feedback" role="status">' + (q.opts[R.picked] === q.x ? '<b style="color:var(--good)">Correct.</b>' : '<b style="color:var(--bad)">Not quite.</b> The answer is <b>' + esc(q.x.term) + '</b>.') + '</div><div class="btns"><button class="btn" data-act="next">Next question</button></div>' : '');
     }
-    return '<div class="quiz-card' + (R.fresh ? ' q-in' : '') + '">' + top + body + '</div><div class="btns"><button class="btn ghost" data-act="setup">End quiz</button></div>';
+    return '<div class="quiz-card' + (R.fresh ? ' q-in' : '') + '">' + top + body + '</div><div class="btns"><button class="btn ghost" data-act="end"' + (R.armed ? ' data-armed="1"' : '') + '>' + (R.armed ? 'Click again to end and lose this quiz' : 'End quiz') + '</button></div>';
   }
 
   /* ---------- Search ---------- */
   let gq = '';
   function search() {
     const q = gq.trim().toLowerCase();
-    if (q.length < 2) return '<h1>Search</h1><p class="lede">Type at least two letters in the search box.</p>';
+    const field = '<div class="hero-search page-search">' + ICON + '<input id="psearch" type="search" aria-label="Search everything" placeholder="Search terms, examples, topics" value="' + esc(gq) + '" autocomplete="off"></div>';
+    if (q.length < 2) return '<h1>Search</h1>' + field + '<p class="lede">Type at least two letters.</p>';
     const tr = TERMS.filter(x => x.term.toLowerCase().includes(q) || x.def.toLowerCase().includes(q))
       .sort((a, b) => (b.term.toLowerCase().includes(q) - a.term.toLowerCase().includes(q)));
     const ex = EXAMPLES.filter(e => norm(e.t + ' ' + e.d + ' ' + e.use).includes(q));
@@ -2732,7 +2895,7 @@ window.RECALL = [
     const ov = [];
     TOPICS.forEach(t => t.overview.forEach(o => o.p.forEach(p => { if (norm(p).includes(q)) ov.push({ t, h: o.h, p: strip(p) }); })));
     const total = tr.length + ex.length + tp.length + ov.length + rc.length;
-    return '<h1>“' + esc(gq.trim()) + '”</h1><p class="lede">' + total + ' results</p>' +
+    return '<h1>Search</h1>' + field + '<p class="lede">' + total + ' results for “' + esc(gq.trim()) + '”</p>' +
       (tp.length ? '<section><div class="sec-h"><h2>Topics</h2></div><div class="quick">' + tp.map(t => '<a href="#topic-' + t.id + '"><b>' + esc(t.title) + '</b><span>' + hl(t.summary, q) + '</span></a>').join('') + '</div></section>' : '') +
       (tr.length ? '<section><div class="sec-h"><h2>Key terms</h2></div><dl class="term-list">' + tr.slice(0, 40).map(x => '<div class="term"><dt>' + hl(x.term, q) + '</dt><dd>' + hl(x.def, q) + '<div class="meta">' + tag(x.t) + '</div></dd></div>').join('') + '</dl></section>' : '') +
       (ex.length ? '<section><div class="sec-h"><h2>Examples</h2></div><div class="ex-grid">' + ex.slice(0, 30).map(e => exCard(e, q, true)).join('') + '</div></section>' : '') +
@@ -2756,11 +2919,15 @@ window.RECALL = [
     else if (h === 'search') html = search();
     else html = notFound();
     const changed = h !== last;
+    if (h !== 'search' && changed) { gsearch.value = ''; }
+    document.body.classList.toggle('is-home', nav === 'home' && !h.startsWith('topic-'));
     main.innerHTML = html;
     document.querySelectorAll('nav.main a').forEach(a => a.classList.toggle('on', a.dataset.nav === nav));
     renderTermList(); renderSrcList();
     afterRender(changed);
     if (changed) { window.scrollTo({ top: 0, behavior: 'instant' }); last = h; }
+    if (h === 'quiz' && changed && quiz.run) focusQuiz();
+    if (h === 'search' && wantFocus) { const c = wantFocus.caret; wantFocus = null; focusPage(c); }
     const t = h.startsWith('topic-') && byId[h.slice(6)];
     document.title = t ? t.title + ' · Second Reading' : 'Second Reading';
     store.set('lastView', h);
@@ -2807,11 +2974,11 @@ window.RECALL = [
     const links = main.querySelectorAll('[data-spy]');
     if (links.length && 'IntersectionObserver' in window) {
       spy = new IntersectionObserver(entries => {
-        entries.forEach(en => { if (en.isIntersecting) links.forEach(a => { const on = 's-' + a.dataset.spy === en.target.id; a.classList.toggle('on', on); if (on) placeToc(a); }); });
+        entries.forEach(en => { if (en.isIntersecting) links.forEach(a => { const on = 's-' + a.dataset.spy === en.target.id; a.classList.toggle('on', on); if (on) { placeToc(a); if (a.closest('.jumpbar')) { const sc = a.closest('.jb-inner'); sc.scrollTo({ left: a.offsetLeft - 16, behavior: reduced ? 'auto' : 'smooth' }); } } }); });
       }, { rootMargin: '-20% 0px -70% 0px' });
       links.forEach(a => { const s = document.getElementById('s-' + a.dataset.spy); if (s) spy.observe(s); });
-      links[0].classList.add('on');
-      const ind = main.querySelector('.toc-ind'); if (ind) { ind.style.transition = 'none'; placeToc(links[0]); void ind.offsetWidth; ind.style.transition = ''; }
+      links.forEach(a => { if (a.dataset.spy === links[0].dataset.spy) a.classList.add('on'); });
+      const ind = main.querySelector('.toc-ind'); if (ind) { ind.style.transition = 'none'; placeToc(main.querySelector('.toc [data-spy]')); void ind.offsetWidth; ind.style.transition = ''; }
     }
     const pi = main.querySelector('.progress i[data-to]');
     if (pi) { const to = +pi.dataset.to; quiz.prevP = to; requestAnimationFrame(() => requestAnimationFrame(() => { pi.style.transform = 'scaleX(' + to + ')'; })); }
@@ -2841,8 +3008,21 @@ window.RECALL = [
   /* ---------- Extra effects ---------- */
   // Reading progress bar
   const bar = document.getElementById('scrollbar'), topBar = document.querySelector('.top');
-  const onScroll = () => { const h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; topBar.classList.toggle('scrolled', scrollY > 4); };
-  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll);
+  let lastY = scrollY, hdrHidden = false;
+  const mobile = window.matchMedia('(max-width: 860px)');
+  function setHdr(hidden) {
+    hdrHidden = hidden; topBar.classList.toggle('hdr-hidden', hidden);
+    document.documentElement.style.setProperty('--hdr', hidden ? '0px' : topBar.offsetHeight + 'px');
+  }
+  function stickyOffset() { const jb = main.querySelector('.jumpbar'); return (hdrHidden ? 0 : topBar.offsetHeight) + (jb ? jb.offsetHeight : 0); }
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')'; topBar.classList.toggle('scrolled', scrollY > 4);
+    const dy = scrollY - lastY; lastY = scrollY;
+    if (mobile.matches && !topBar.contains(document.activeElement)) { if (dy > 6 && scrollY > 120 && !hdrHidden) setHdr(true); else if ((dy < -6 || scrollY < 60) && hdrHidden) setHdr(false); }
+    else if (hdrHidden) setHdr(false);
+  };
+  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', () => { setHdr(hdrHidden); onScroll(); });
+  setHdr(false);
 
   // Pastel confetti for a good quiz score
   function confetti() {
@@ -2879,17 +3059,21 @@ window.RECALL = [
     gq = v;
     clearTimeout(st);
     st = setTimeout(() => {
-      if (gq.trim().length >= 2) {
-        if (location.hash !== '#search') location.hash = 'search'; else rerender();
+      if (gq.trim().length >= 2 || location.hash === '#search') {
+        const ae = document.activeElement, fromPage = ae && (ae.id === 'psearch' || ae.id === 'hsearch'), caret = fromPage ? ae.selectionStart : null;
+        if (location.hash !== '#search') { if (fromPage) wantFocus = { caret }; location.hash = 'search'; } else rerender();
+        if (fromPage && location.hash === '#search') focusPage(caret);
       }
     }, 180);
   }
+  let wantFocus = null;
+  function focusPage(caret) { const f = document.getElementById('psearch'); if (f) { f.focus(); const c = caret == null ? f.value.length : caret; try { f.setSelectionRange(c, c); } catch (err) { /* ignore */ } } }
   gsearch.addEventListener('input', e => doSearch(e.target.value));
   gsearch.addEventListener('keydown', e => { if (e.key === 'Enter') { gq = gsearch.value; location.hash === '#search' ? rerender() : (location.hash = 'search'); } });
 
   main.addEventListener('input', e => {
     const id = e.target.id;
-    if (id === 'hsearch') { gsearch.value = e.target.value; doSearch(e.target.value); if (e.target.value.trim().length >= 2) setTimeout(() => gsearch.focus(), 200); }
+    if (id === 'hsearch' || id === 'psearch') { gsearch.value = e.target.value; doSearch(e.target.value); }
     if (id === 'tq') { state.termQ = e.target.value; renderTermList(); }
     if (id === 'sq') { state.srcQ = e.target.value; renderSrcList(); }
   });
@@ -2899,15 +3083,15 @@ window.RECALL = [
   main.addEventListener('click', e => {
     const b = e.target.closest('button, a, .def');
     if (!b) return;
-    if (b.classList.contains('def')) { b.classList.toggle('shown'); return; }
+    if (b.classList.contains('def')) { toggleDef(b); return; }
     const d = b.dataset;
-    if (d.jump) { e.preventDefault(); const el = document.getElementById('s-' + d.jump); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); return; }
+    if (d.jump) { e.preventDefault(); const el = document.getElementById('s-' + d.jump); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - stickyOffset() - 12, behavior: reduced ? 'auto' : 'smooth' }); return; }
+    if (d.quizStart) { e.preventDefault(); quiz.topics = [d.quizStart]; quiz.mode = 'mixed'; quiz.n = 10; quiz.prevP = 0; quiz.run = newRun(buildQuestions()); last = ''; location.hash = 'quiz'; return; }
     if (d.termsTopic) { const t = byId[d.termsTopic]; state.termPaper = t.paper; state.termTopic = t.id; state.termQ = ''; }
     if (d.srcTopic) { const t = byId[d.srcTopic]; state.srcPaper = t.paper; state.srcTopic = t.id; state.srcQ = ''; }
-    if (d.quizTopic) { quiz.topics = [d.quizTopic]; quiz.run = null; }
     if (d.f) {
       const k = d.f; let v = d.v;
-      if (k === 'termPaper' || k === 'srcPaper') { v = +v; state[k] = v; const tk = k === 'termPaper' ? 'termTopic' : 'srcTopic'; if (state[tk] && v && byId[state[tk]].paper !== v) state[tk] = ''; }
+      if (k === 'termPaper' || k === 'srcPaper' || k === 'pqPaper') { v = +v; state[k] = v; const tk = { termPaper: 'termTopic', srcPaper: 'srcTopic', pqPaper: 'pqTopic' }[k]; if (state[tk] && (!v || byId[state[tk]].paper !== v)) state[tk] = ''; }
       else state[k] = v;
       const keepFocus = document.activeElement && document.activeElement.id;
       rerender();
@@ -2916,27 +3100,67 @@ window.RECALL = [
     }
     if (d.tab) { if (d.tab !== examTab) { examTab = d.tab; tabSwap = true; rerender(); tabSwap = false; } return; }
     if (d.mode) { quiz.mode = d.mode; rerender(); return; }
-    if (d.qt !== undefined) { if (!d.qt) quiz.topics = []; else quiz.topics = quiz.topics.includes(d.qt) ? quiz.topics.filter(x => x !== d.qt) : quiz.topics.concat(d.qt); rerender(); return; }
+    if (d.qt !== undefined) { if (!d.qt) quiz.topics = []; else { quiz.openTopics = true; quiz.topics = quiz.topics.includes(d.qt) ? quiz.topics.filter(x => x !== d.qt) : quiz.topics.concat(d.qt); } rerender(); return; }
     if (d.qp) { quiz.topics = TOPICS.filter(t => t.paper === +d.qp).map(t => t.id); rerender(); return; }
     if (d.qn) { quiz.n = +d.qn; rerender(); return; }
+    if (d.act === 'clear-terms') { Object.assign(state, { termPaper: 0, termTopic: '', termQ: '' }); rerender(); return; }
+    if (d.act === 'clear-src') { Object.assign(state, { srcPaper: 0, srcTopic: '', srcQ: '' }); rerender(); return; }
     const R = quiz.run;
     switch (d.act) {
-      case 'start': case 'again': quiz.prevP = 0; quiz.run = { qs: buildQuestions(), i: 0, score: 0, missed: [], picked: null, revealed: false, fresh: true }; last = ''; route(); quiz.run.fresh = false; last = 'quiz'; break;
+      case 'quick': quiz.mode = 'mixed'; quiz.topics = []; quiz.n = 10; /* falls through */
+      case 'start': case 'again': quiz.prevP = 0; quiz.run = newRun(buildQuestions()); last = ''; route(); quiz.run.fresh = false; last = 'quiz'; focusQuiz(); break;
+      case 'retry': { const qs = shuffle(R.missedQs).map(q => q.opts ? Object.assign({}, q, { opts: shuffle(q.opts) }) : q); quiz.prevP = 0; quiz.run = newRun(qs); last = ''; route(); quiz.run.fresh = false; last = 'quiz'; focusQuiz(); break; }
       case 'setup': quiz.run = null; rerender(); break;
-      case 'pick': {
-        const q = R.qs[R.i]; R.picked = +d.v;
-        if (q.opts[R.picked] === q.x) R.score++; else R.missed.push('<b>' + esc(q.x.term) + '</b>: ' + esc(q.x.def));
-        rerender(); break;
-      }
-      case 'next': R.i++; R.picked = null; R.revealed = false; R.fresh = true; rerender(); break;
-      case 'reveal': R.revealed = true; rerender(); break;
-      case 'self': {
-        const q = R.qs[R.i]; if (d.v === '1') R.score++; else R.missed.push(esc(q.r.q) + ' <b>' + esc(q.r.a) + '</b>');
-        R.i++; R.revealed = false; R.fresh = true; rerender(); break;
-      }
+      case 'end': if (R && R.armed) { clearTimeout(R.armTimer); quiz.run = null; rerender(); } else if (R) { R.armed = true; rerender(); focusEl('[data-act="end"]'); R.armTimer = setTimeout(() => { if (quiz.run === R && R.armed) { R.armed = false; if (location.hash === '#quiz') rerender(); } }, 3500); } break;
+      default: quizAct(d.act, d.v);
     }
   });
-  main.addEventListener('keydown', e => { if (e.target.classList && e.target.classList.contains('def') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.target.classList.toggle('shown'); } });
+  function newRun(qs) { return { qs, i: 0, score: 0, missed: [], missedQs: [], picked: null, revealed: false, fresh: true }; }
+  function focusEl(sel) { const el = main.querySelector(sel); if (el) el.focus({ preventScroll: true }); }
+  function focusQuiz() {
+    const R = quiz.run; if (!R) return;
+    if (R.i >= R.qs.length) return focusEl('.done-h');
+    if (R.picked != null) return focusEl('[data-act="next"]');
+    if (R.revealed) return focusEl('[data-act="self"]');
+    focusEl('.prompt');
+  }
+  function quizAct(act, v) {
+    const R = quiz.run; if (!R || R.i >= R.qs.length) return;
+    const q = R.qs[R.i];
+    if (act === 'pick' && q.opts && R.picked == null) {
+      R.picked = +v; if (q.opts[R.picked] === q.x) R.score++; else { R.missed.push({ html: '<b>' + esc(q.x.term) + '</b>: ' + esc(q.x.def), t: q.t }); R.missedQs.push(q); }
+      R.armed = false; rerender(); focusQuiz();
+    } else if (act === 'next' && R.picked != null) { R.i++; R.picked = null; R.revealed = false; R.fresh = true; R.armed = false; rerender(); focusQuiz(); }
+    else if (act === 'reveal' && q.r && !R.revealed) { R.revealed = true; rerender(); focusQuiz(); }
+    else if (act === 'self' && q.r && R.revealed) {
+      if (v === '1') R.score++; else { R.missed.push({ html: esc(q.r.q) + ' <b>' + esc(q.r.a) + '</b>', t: q.t }); R.missedQs.push(q); }
+      R.i++; R.revealed = false; R.fresh = true; R.armed = false; rerender(); focusQuiz();
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (location.hash !== '#quiz' || !quiz.run || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+    const R = quiz.run; if (R.i >= R.qs.length) return;
+    const q = R.qs[R.i], k = e.key.toLowerCase(), n = '1234'.indexOf(k) >= 0 ? '1234'.indexOf(k) : 'abcd'.indexOf(k);
+    if (q.opts && R.picked == null && n >= 0 && n < q.opts.length) { e.preventDefault(); quizAct('pick', n); }
+    else if (e.key === 'Enter' && R.picked != null && document.activeElement.dataset.act !== 'next') { e.preventDefault(); quizAct('next'); }
+    else if (q.r && !R.revealed && (e.key === 'Enter' || e.key === ' ') && !document.activeElement.closest('button')) { e.preventDefault(); quizAct('reveal'); }
+    else if (q.r && R.revealed && (k === 'y' || k === 'n')) { e.preventDefault(); quizAct('self', k === 'y' ? '1' : '0'); }
+  });
+  function toggleDef(el) {
+    if (!el.closest('.hidden-def')) return;
+    const open = el.classList.toggle('shown');
+    el.setAttribute('aria-expanded', open);
+    if (open) el.removeAttribute('aria-label'); else el.setAttribute('aria-label', 'Show definition of ' + el.closest('.term').querySelector('dt').textContent);
+  }
+  main.addEventListener('keydown', e => {
+    const tab = e.target.closest && e.target.closest('[role="tab"]');
+    if (tab && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+      e.preventDefault(); const ids = EXAM.types.map(x => x.id), i = ids.indexOf(examTab), nx = ids[(i + (e.key === 'ArrowRight' ? 1 : ids.length - 1)) % ids.length];
+      examTab = nx; tabSwap = true; rerender(); tabSwap = false; focusEl('#tab-' + nx); return;
+    }
+  });
+  main.addEventListener('keydown', e => { if (e.target.classList && e.target.classList.contains('def') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleDef(e.target); } });
 
   function navigate() {
     if (!document.startViewTransition || reduced || document.visibilityState !== 'visible') { route(); return; }
@@ -2945,6 +3169,9 @@ window.RECALL = [
     vt.finished.then(clean, clean); vt.ready.catch(() => {}); vt.updateCallbackDone.catch(() => {});
   }
   window.addEventListener('hashchange', navigate);
+  const lightSeg = (i) => main.querySelectorAll('.seg, .para-row').forEach(el => el.classList.toggle('lit', i != null && el.dataset.seg === String(i)));
+  main.addEventListener('pointerover', e => { const r = e.target.closest && e.target.closest('[data-seg]'); lightSeg(r ? r.dataset.seg : null); });
+  main.addEventListener('focusin', e => { const r = e.target.closest && e.target.closest('.para-row'); if (r) lightSeg(r.dataset.seg); });
   document.addEventListener('click', e => {
     const a = e.target.closest && e.target.closest('a[href^="#topic-"]'); if (!a || reduced || a.dataset.jump || a.getAttribute('href') === location.hash) return;
     const label = a.querySelector('b') || a; label.style.viewTransitionName = 'topic-title'; label.dataset.vtn = '1';
