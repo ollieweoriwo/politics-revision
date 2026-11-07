@@ -743,6 +743,76 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
 .plan-cols.one { grid-template-columns: 1fr; }
 .plan ol { margin: 0; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 5px; font-size: .9rem; color: var(--ink-2); }
 .plan-cols.one h4::before { background: var(--p3); }
+
+/* ---------- v6: second review fixes ---------- */
+.hl-sweep { color: var(--ink); }
+.qtip { max-width: 62ch; }
+.hero-search input:focus, .search input:focus, .field:focus { border-color: var(--ink); box-shadow: 0 0 0 4px var(--hover); }
+.polar .minor { fill: var(--muted); }
+@media (min-width: 901px) { .topic-head { margin-left: 246px; } }
+@media (max-width: 860px) { main { padding-top: 28px; } }
+
+/* Home: three-step path instead of a duplicate link grid */
+.howto ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; counter-reset: step; border-top: 1px solid var(--line); }
+.howto li { counter-increment: step; padding: 22px 0 6px; color: var(--ink-2); font-size: .95rem; position: relative; }
+.howto li::before { content: counter(step); display: block; font-family: var(--serif); font-size: 2rem; line-height: 1; color: var(--muted); margin-bottom: 10px; }
+.howto li b { display: block; color: var(--ink); font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin-bottom: 4px; }
+@media (max-width: 760px) { .howto ol { grid-template-columns: 1fr; } .howto li { border-bottom: 1px solid var(--line); padding-bottom: 18px; } }
+
+/* Topic: past-paper strip and section */
+.came-strip { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 22px; text-decoration: none; font-size: .95rem; font-weight: 600; color: var(--ink); padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; transition: border-color 150ms ease, background-color 150ms ease; min-height: 44px; }
+.came-strip:hover { border-color: var(--line-2); background: var(--subtle); }
+.cs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--p2); }
+.cs-n { font-weight: 400; color: var(--muted); }
+.past { list-style: none; margin: 0; padding: 0; }
+.past > li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.past .cq { font-family: var(--serif); font-size: 1.1rem; line-height: 1.4; }
+.past .plan { margin-left: 88px; }
+@media (max-width: 560px) { .past .plan { margin-left: 0; } }
+
+/* Long lists: first eight, then "Show all" */
+.clamp > :nth-child(n+9) { display: none; }
+.more { margin-top: 16px; }
+
+/* Debates as a division: Ayes and Noes */
+.deb-col h4 { font-family: var(--serif) !important; font-size: 1.05rem !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500; color: var(--ink) !important; }
+.deb-col h4 span { font-family: var(--sans); font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+/* Plan headings are h3 now (correct outline), styled like the old labels */
+.plan .ph { margin: 0 0 8px; font: 600 .74rem/1.2 var(--sans); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+.plan .ph::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--p1); }
+.plan-cols > div + div .ph::before { background: var(--p2); }
+.plan-cols.one .ph::before { background: var(--p3); }
+/* Open plans: movement only, so the text is never left invisible */
+@keyframes nudge { from { transform: translateY(6px); } to { transform: none; } }
+.plan[open] .plan-cols, .plan[open] .plan-j { animation: nudge 200ms var(--ease); }
+
+/* Quiz */
+.wrong-why { display: block; margin-top: 6px; color: var(--muted); font-size: .9rem; }
+@media (pointer: coarse) { .kbd-hint { display: none; } }
+
+/* Touch targets on phones: at least 44px */
+@media (max-width: 860px) {
+  nav.main a, .chip, .jumpbar a, .tabs button, .btn { min-height: 44px; }
+  .icon-btn { width: 44px; height: 44px; }
+  .brand { min-height: 44px; min-width: 44px; justify-content: center; }
+  a.tag { padding-block: 10px; }
+  .plan summary { padding: 10px 0; }
+}
+
+/* Examples as a ledger: what happened on the left, what it proves on the right */
+.ex-grid { display: block; border-top: 1px solid var(--line); }
+.ex { display: grid; grid-template-columns: minmax(0, 32%) minmax(0, 1fr); gap: 4px 32px; padding: 18px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: none; box-shadow: none !important; transform: none !important; }
+.ex h3 { grid-column: 1; grid-row: 1 / span 3; font-family: var(--serif); font-weight: 500; font-size: 1.12rem; line-height: 1.3; }
+.ex > p, .ex > .use, .ex > div:last-child:not(.use) { grid-column: 2; }
+.ex .use { border-top: 0; padding-top: 0; margin-top: 2px; }
+@media (max-width: 640px) { .ex { grid-template-columns: 1fr; } .ex h3, .ex > p, .ex > .use, .ex > div:last-child:not(.use) { grid-column: 1; grid-row: auto; } }
+.enter .ex-grid > * { animation: none; }
+/* A–Z index on key terms */
+.az { display: flex; flex-wrap: wrap; gap: 2px; margin: 4px 0 8px; }
+.az a { min-width: 32px; min-height: 32px; display: inline-grid; place-items: center; text-decoration: none; font-family: var(--serif); font-size: 1rem; color: var(--ink-2); border-radius: 6px; transition: background-color 150ms ease, color 150ms ease; }
+.az a:hover { background: var(--hover); color: var(--ink); }
+@media (max-width: 860px) { .az a { min-width: 40px; min-height: 44px; } }
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
@@ -754,7 +824,7 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
       <span class="nav-pill" aria-hidden="true"></span>
       <a href="#home" data-nav="home">Topics</a>
       <a href="#terms" data-nav="terms"><span class="nl-l">Key terms</span><span class="nl-s">Terms</span></a>
-      <a href="#sources" data-nav="sources"><span class="nl-l">Source bank</span><span class="nl-s">Sources</span></a>
+      <a href="#sources" data-nav="sources">Examples</a>
       <a href="#exam" data-nav="exam"><span class="nl-l">Exam technique</span><span class="nl-s">Exam</span></a>
       <a href="#quiz" data-nav="quiz"><span class="nl-l">Test yourself</span><span class="nl-s">Quiz</span></a>
     </nav>
@@ -1021,7 +1091,7 @@ TOPICS.push(
       no: ['Class dealignment: in 2019 the Conservatives won C2DE voters.', 'Age and education are now bigger predictors.', 'Short-term factors and leaders matter more in a volatile electorate.'] },
     { q: 'How much does the media influence how people vote?',
       yes: ['Sun 1992 and 1997; Sunak\'s D-Day exit (2024) dominated coverage.', 'Social media targeting and viral moments shape young voters.'],
-      no: ['Reinforcement: people choose media that matches their views.', 'Labour won in 2017 gains despite hostile press.', 'Economic conditions and leaders matter more.'] }
+      no: ['Reinforcement: people choose media that matches their views.', 'Labour gained 30 seats in 2017 despite a largely hostile press.', 'Economic conditions and leaders matter more.'] }
   ],
   diagrams: ['case-elections-table', 'voting-factors-table'],
   terms: [
@@ -1184,7 +1254,7 @@ TOPICS.push(
     ]},
     { h: 'Key thinkers', p: [
       '<b>Marx and Engels</b>: historical materialism; class struggle; dialectic; revolution leading to communism (<i>Communist Manifesto</i>, 1848).',
-      '<b>Beatrice Webb</b>: Fabian gradualism; "inevitability of gradualness"; helped draft Clause IV.',
+      '<b>Beatrice Webb</b>: Fabian gradualism with Sidney Webb; reform through Parliament and expert administration. Sidney Webb coined "the inevitability of gradualness" (1923) and drafted Clause IV (1918).',
       '<b>Rosa Luxemburg</b>: evolutionary socialism impossible; mass strikes; revolution from below; critical of Lenin\'s elitism.',
       '<b>Anthony Crosland</b>: <i>The Future of Socialism</i> (1956); ownership matters less than equality; comprehensive schools.',
       '<b>Anthony Giddens</b>: <i>The Third Way</i> (1998); beyond left and right; social investment state.'
@@ -1246,13 +1316,13 @@ TOPICS.push(
     { h: 'Historical development', p: [
       '<b>1215 Magna Carta</b>: limited arbitrary royal power. <b>1689 Bill of Rights</b>: limited the Crown and protected free speech in Parliament.',
       '<b>1701 Act of Settlement</b>: succession and judicial security of tenure. <b>1707 Acts of Union</b>: united England and Scotland.',
-      '<b>1911 &amp; 1949 Parliament Acts</b>: cut the Lords\' power to block bills to roughly one year\'s delay; no power over money bills.',
+      '<b>1911 &amp; 1949 Parliament Acts</b>: cut the Lords\' power to block bills to roughly one year\'s delay, and money bills to one month.',
       '<b>1972 European Communities Act</b>: EU law took effect in the UK until Brexit (left 31 Jan 2020).'
     ]},
     { h: 'Reform since 1997', p: [
       '<b>Labour 1997–2010</b>: devolution (1998), HRA 1998, House of Lords Act 1999 (removed most hereditary peers, kept 92), Constitutional Reform Act 2005 (Supreme Court opened 2009), Freedom of Information Act 2000.',
       '<b>Coalition 2010–15</b>: Fixed-term Parliaments Act 2011, AV referendum 2011 (rejected 68–32), Recall of MPs Act 2015, Scotland Act 2012, Wales 2011 referendum.',
-      '<b>Since 2015</b>: Scotland Act 2016, Wales Act 2017, EVEL (2015–2021), Dissolution and Calling of Parliament Act 2022, Elections Act 2022 (voter ID), Hereditary Peers Act 2026.',
+      '<b>Since 2015</b>: Scotland Act 2016, Wales Act 2017, EVEL (2015–2021), Dissolution and Calling of Parliament Act 2022, Elections Act 2022 (voter ID), House of Lords (Hereditary Peers) Act 2026.',
       '<b>Evaluation</b>: reform has dispersed power but is piecemeal and unfinished. There is still no elected second chamber, no codified constitution and no English Parliament.'
     ]},
     { h: 'Devolution', p: [
@@ -1298,7 +1368,7 @@ TOPICS.push(
     { t: 'Miller II (2019)', d: 'Supreme Court ruled 11–0 that Johnson\'s five-week prorogation was unlawful and void. Parliament returned the next day.', use: 'Rule of law; courts checking the executive; argument both for and against codification.' },
     { t: 'Scottish independence reference (2022)', d: 'Supreme Court ruled unanimously that Holyrood could not legislate for an independence referendum because the Union is a reserved matter.', use: 'Westminster sovereignty; devolution is not federalism.' },
     { t: 'Fixed-term Parliaments Act 2011 → repeal 2022', d: 'Fixed five-year terms; bypassed by the Early Parliamentary General Election Act 2019; repealed by the Dissolution and Calling of Parliament Act 2022.', use: 'Unentrenched constitution; flexibility.' },
-    { t: 'House of Lords Act 1999', d: 'Removed around 650 hereditary peers but kept 92 as a compromise. The Hereditary Peers Act 2026 removed the remaining exemption.', use: 'Reform has been incremental and incomplete.' },
+    { t: 'House of Lords Act 1999', d: 'Removed around 650 hereditary peers but kept 92 as a compromise. The House of Lords (Hereditary Peers) Act 2026 removed the remaining exemption.', use: 'Reform has been incremental and incomplete.' },
     { t: 'AV referendum (2011)', d: 'Voters rejected the Alternative Vote for Westminster by 68% to 32% on 42% turnout.', use: 'Limits of electoral reform; FPTP survives.' },
     { t: 'Chris Davies recall (2019)', d: 'Conservative MP for Brecon and Radnorshire recalled after a false expenses claim; 19% signed; he lost the by-election.', use: 'Recall improves accountability, but only for misconduct.' },
     { t: 'Brexit and Sewel', d: 'The EU (Withdrawal Agreement) Act 2020 was passed despite all three devolved legislatures refusing consent.', use: 'Sewel is only a convention; Westminster sovereignty.' }
@@ -1310,7 +1380,7 @@ TOPICS.push(
   overview: [
     { h: 'Structure', p: [
       '<b>House of Commons</b>: 650 MPs elected by FPTP in single-member constituencies. Government must keep its confidence.',
-      '<b>House of Lords</b>: around 800+ members, mostly life peers appointed on the PM\'s advice, plus up to 26 bishops. Crossbenchers sit without a party whip. The 92 hereditary places were removed by the Hereditary Peers Act 2026.',
+      '<b>House of Lords</b>: about 800 members, mostly life peers appointed on the PM\'s advice, plus up to 26 bishops. Crossbenchers sit without a party whip. The 92 hereditary places were removed by the House of Lords (Hereditary Peers) Act 2026.',
       '<b>Commons primacy</b>: confidence votes, financial privilege, the Parliament Acts 1911/1949 and the Salisbury convention.'
     ]},
     { h: 'Functions', p: [
@@ -1515,7 +1585,7 @@ TOPICS.push(
     { t: 'Miller II (2019)', d: 'Unanimous ruling that Johnson\'s prorogation was unlawful and void.', use: 'Judicial check on the executive; rule of law.' },
     { t: 'Rwanda ruling (Nov 2023)', d: 'Supreme Court ruled unanimously that the Rwanda deportation plan was unlawful because Rwanda was not a safe country. Parliament responded with the Safety of Rwanda Act 2024.', use: 'Courts check the executive but Parliament is sovereign.' },
     { t: 'Belmarsh (A v Home Secretary, 2004)', d: 'Law Lords declared indefinite detention of foreign terror suspects incompatible with the ECHR; Parliament replaced it with control orders (2005).', use: 'HRA protects rights but cannot override Parliament.' },
-    { t: 'For Women Scotland (2025)', d: 'Supreme Court ruled that "woman" in the Equality Act 2010 means biological sex; critics called the judges "legislators in robes".', use: 'Debate over whether the Supreme Court is too influential.' },
+    { t: 'For Women Scotland (2025)', d: 'Supreme Court ruled that "woman" in the Equality Act 2010 means biological sex; some critics described the judges as "legislators in robes".', use: 'Debate over whether the Supreme Court is too influential.' },
     { t: 'Factortame (1990)', d: 'Courts disapplied the Merchant Shipping Act 1988 because it conflicted with EU law.', use: 'EU membership limited parliamentary sovereignty.' },
     { t: 'Steinfeld and Keidan (2018)', d: 'Declaration that restricting civil partnerships to same-sex couples breached rights; law changed in 2019.', use: 'Judicial influence on policy via the HRA.' },
     { t: 'Windsor Framework (2023)', d: 'Agreement with the EU meaning some EU goods rules continue to apply in Northern Ireland.', use: 'Brexit did not give complete practical sovereignty.' }
@@ -2133,7 +2203,7 @@ TOPICS.push(
       ['2016', 'Scotland Act 2016; EU referendum'],
       ['2020', 'UK leaves the EU (31 January)'],
       ['2022', 'Dissolution and Calling of Parliament Act; Elections Act'],
-      ['2026', 'Hereditary Peers Act removes remaining hereditary places']]) },
+      ['2026', 'House of Lords (Hereditary Peers) Act removes remaining hereditary places']]) },
 
     'bill-process': { title: 'How a bill becomes law', html: flow([
       ['First reading', 'Formal introduction, no debate', '1'],
@@ -2147,7 +2217,7 @@ TOPICS.push(
 
     'commons-lords-table': { title: 'Commons and Lords compared', html: table(
       ['', 'House of Commons', 'House of Lords'],
-      [['Members', '650 elected MPs (FPTP)', 'Around 800+ appointed life peers and 26 bishops'],
+      [['Members', '650 elected MPs (FPTP)', 'About 800 appointed life peers and 26 bishops'],
        ['Legitimacy', 'Democratic mandate', 'Expertise and independence'],
        ['Powers', 'Confidence, money bills, final say', 'Revise, delay (about one year), scrutinise'],
        ['Limits', 'Whips, government majority, payroll vote', 'Parliament Acts, Salisbury convention, financial privilege'],
@@ -2329,7 +2399,7 @@ TOPICS.push(
       ['Type', 'Meaning', 'Example'],
       [['Hard', 'Military or economic coercion', 'Sanctions on Russia; Iraq 2003'],
        ['Soft', 'Attraction through culture and values', 'BBC, Premier League, universities'],
-       ['Smart', 'Hard and soft combined', 'China\'s Belt and Road'],
+       ['Smart', 'Hard and soft combined', 'UK and US mixing aid, diplomacy and military power'],
        ['Structural', 'Shaping the rules of the system', 'US in the IMF; dollar dominance']]) },
 
     'eu-institutions': { title: 'EU institutions', html: table(
@@ -2539,7 +2609,7 @@ window.RECALL = [
   { t: 'relations', q: 'Which 2025 Supreme Court case ruled on the meaning of "woman" in the Equality Act 2010?', a: 'For Women Scotland Ltd (2025)', x: 'Ruled it refers to biological sex.' },
   { t: 'parliament', q: 'Was the Terminally Ill Adults (assisted dying) Bill government legislation?', a: 'No: a private member\'s bill; the government was neutral', x: 'A common mistake flagged in the 2026 examiners\' report.' },
   { t: 'parliament', q: 'Which bill was passed using the Parliament Acts in 2004 after the Lords refused to agree?', a: 'The Hunting Act 2004', x: 'Shows Commons primacy over the Lords.' },
-  { t: 'parliament', q: 'Which 2013 Commons vote did David Cameron lose, and what was the margin?', a: 'Military action in Syria', x: 'Lost 285–272; he accepted the result.' },
+  { t: 'parliament', q: 'Which 2013 Commons vote did David Cameron lose, and what was the margin?', a: 'Military action in Syria, lost 285–272', x: 'He accepted the result.' },
   { t: 'parliament', q: 'Which committee found in 2023 that Boris Johnson had deliberately misled the Commons?', a: 'The Privileges Committee', x: 'Recommended a 90-day suspension.' },
   { t: 'parliament', q: 'Which 2010 reforms meant select committee chairs are elected by all MPs?', a: 'The Wright reforms', x: 'Strengthened committee independence.' },
   { t: 'parliament', q: 'Which 2024 bill went through repeated Lords–Commons ping-pong before the Lords gave way?', a: 'The Safety of Rwanda Bill', x: 'Passed April 2024 after the Supreme Court Rwanda ruling.' },
@@ -2549,8 +2619,8 @@ window.RECALL = [
   { t: 'constitution', q: 'Which 2019 Supreme Court case ruled Boris Johnson\'s prorogation unlawful?', a: 'Miller II (Miller/Cherry)', x: 'Unanimous 11–0 ruling; prorogation void.' },
   { t: 'constitution', q: 'In which year did the Supreme Court rule that Holyrood could not hold an independence referendum without Westminster\'s consent?', a: '2022', x: 'The Union is a reserved matter.' },
   { t: 'constitution', q: 'Which Act repealed the Fixed-term Parliaments Act 2011?', a: 'Dissolution and Calling of Parliament Act 2022', x: 'Restored the PM\'s power to request dissolution.' },
-  { t: 'constitution', q: 'How many hereditary peers did the House of Lords Act 1999 allow to remain?', a: '92', x: 'Removed by the Hereditary Peers Act 2026.' },
-  { t: 'constitution', q: 'Which MP was the first to lose their seat through a recall by-election in 2019?', a: 'Chris Davies (Brecon and Radnorshire)', x: 'After false expenses claims.' },
+  { t: 'constitution', q: 'How many hereditary peers did the House of Lords Act 1999 allow to remain?', a: '92', x: 'Removed by the House of Lords (Hereditary Peers) Act 2026.' },
+  { t: 'constitution', q: 'Which MP was recalled in 2019 for false expenses claims, then lost the by-election he stood in?', a: 'Chris Davies (Brecon and Radnorshire)', x: 'Fiona Onasanya was recalled earlier in 2019 and did not stand.' },
   { t: 'constitution', q: 'What was the result of the 2011 AV referendum?', a: 'No: about 68% to 32%', x: 'FPTP kept for Westminster.' },
   { t: 'constitution', q: 'Which convention says Westminster will not normally legislate on devolved matters without consent?', a: 'The Sewel convention', x: 'Ignored for Brexit legislation in 2020.' },
   { t: 'constitution', q: 'Which Act created the Supreme Court?', a: 'Constitutional Reform Act 2005', x: 'Court opened in 2009.' },
@@ -2683,7 +2753,7 @@ window.VERDICTS = {
       { h: 'Reform proposals to know', p: [
         '<b>English Parliament</b>: answers the West Lothian question but would cover 85% of the UK population and could dominate a federal UK.',
         '<b>English devolution</b>: metro mayors and combined authorities instead. Labour\'s 2024–25 English Devolution plans aim to give every area a strategic authority.',
-        '<b>Lords reform</b>: hereditary peers removed (Hereditary Peers Act 2026); further ideas include a retirement age, a size cap or an elected chamber.',
+        '<b>Lords reform</b>: hereditary peers removed (House of Lords (Hereditary Peers) Act 2026); further ideas include a retirement age, a size cap or an elected chamber.',
         '<b>Electoral reform</b>: votes at 16 for all UK elections (announced 2025); calls for PR grew after the 2024 result.',
         '<b>Codification or a British Bill of Rights</b>: the Conservatives\' Bill of Rights Bill to replace the HRA was dropped in 2023.'
       ]},
@@ -2760,7 +2830,7 @@ window.VERDICTS = {
       ['Government defeat', 'When the government loses a vote in either House.']
     ],
     examples: [
-      { t: 'Lords reform rebellion (2012)', d: '91 Conservative MPs voted against the timetable for the coalition\'s Lords reform bill; it was dropped.', use: 'Backbench power even in a coalition with a majority.' },
+      { t: 'Lords reform rebellion (2012)', d: '91 Conservative MPs voted against the coalition\'s Lords reform bill at second reading; with no timetable vote likely to pass, it was dropped.', use: 'Backbench power even in a coalition with a majority.' },
       { t: 'Benn Act (2019)', d: 'Backbenchers took control of Commons business and passed a law forcing Johnson to request a Brexit extension.', use: 'Parliament controlling the executive when it lacks a majority.' },
       { t: 'Post Office Horizon scandal (2024)', d: 'After select committee scrutiny and public pressure, Parliament passed the Post Office (Horizon System) Offences Act 2024 quashing convictions.', use: 'Scrutiny turning into law.' },
       { t: 'Revoke Article 50 petition (2019)', d: 'Over 6 million signatures, the most ever; debated, but the government did not change course.', use: 'Limits of e-petitions.' },
@@ -3231,11 +3301,27 @@ window.VERDICTS = {
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const strip = s => String(s).replace(/<[^>]+>/g, '');
   const norm = s => strip(s).toLowerCase();
+  const stem = w => { const s = w.replace(/(ations?|itions?|ments?|ings?|ers?|ed|es|ue|s|e)$/, ''); return s.length >= 4 ? s : w; };
+  const qWords = q => String(q).toLowerCase().split(/[^a-z0-9\u00c0-\u024f']+/).filter(w => w.length > 1);
+  // Every word must appear (or its stem), so "prorogue" finds "prorogation" and "2019 election" finds both words anywhere
+  function matches(text, q) {
+    const ws = qWords(q); if (!ws.length) return true;
+    const t = String(text).toLowerCase();
+    return ws.every(w => t.includes(w) || t.includes(stem(w)));
+  }
   function hl(text, q) {
     const safe = esc(text);
     if (!q) return safe;
-    const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+    const ws = qWords(q).map(w => stem(w)).filter(Boolean);
+    if (!ws.length) return safe;
+    const re = new RegExp('(' + ws.map(w => esc(w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'ig');
     return safe.replace(re, '<mark>$1</mark>');
+  }
+  function lev(a, b) {
+    const m = a.length, n = b.length; if (!m || !n) return m || n;
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+    for (let i = 1; i <= m; i++) { const cur = [i]; for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = cur; }
+    return prev[n];
   }
   const tag = t => '<a class="tag p' + t.paper + '" href="#topic-' + t.id + '">' + esc(t.title) + '</a>';
   const ptag = p => '<span class="tag p' + p + '">' + PAPERS[p].name + '</span>';
@@ -3252,16 +3338,15 @@ window.VERDICTS = {
           '<a class="tlink" href="#topic-' + t.id + '"><div><b>' + esc(t.title) + '</b><span>' + t.terms.length + ' terms · ' + t.examples.length + ' examples</span></div><span class="arr" aria-hidden="true"></span></a>').join('')).join('') + '</div>';
     };
     return '<div class="hero">' +
-      '<h1>A Level Politics, <span class="soft">without the clutter.</span></h1>' +
+      '<h1>Politics, <span class="soft">on second reading.</span></h1>' +
       '<p class="lede">Revision for Edexcel A Level Politics. Read a topic overview, look up any <span class="hl-sweep">key term</span>, grab an example for an essay, or test yourself.</p>' +
       '<div class="hero-search">' + ICON + '<input id="hsearch" type="search" placeholder="Try “Salisbury”, “Miller” or “veto”" autocomplete="off"></div>' +
       '<p class="counts">' + [[TOPICS.length, 'topics'], [TERMS.length, 'key terms'], [EXAMPLES.length, 'examples'], [RECALL.length, 'quiz facts']].map(c => '<span><b>' + c[0] + '</b> ' + c[1] + '</span>').join('') + '</p></div>' +
       '<section style="margin-top:64px"><div class="papers">' + [1, 2, 3].map(col).join('') + '</div></section>' +
-      '<section><div class="quick">' +
-      '<a href="#terms"><b>Key terms A–Z</b><span>Every definition, filterable. Hide definitions to test yourself.</span><span class="go">Browse terms</span></a>' +
-      '<a href="#sources"><b>Source bank</b><span>Examples you can drop into essays, with what each one proves.</span><span class="go">Open bank</span></a>' +
-      '<a href="#exam"><b>Exam technique</b><span>Structures, mark scheme rules and the June 2026 examiners’ report.</span><span class="go">Read guide</span></a>' +
-      '<a href="#quiz"><b>Test yourself</b><span>Definition quizzes and “who / what / when” example recall.</span><span class="go">Start a quiz</span></a></div></section>';
+      '<section class="howto" aria-label="How to use this site"><ol>' +
+      '<li><b>Read the topic.</b> Overview, diagrams and the key debates with a verdict.</li>' +
+      '<li><b>Learn the language.</b> Key terms and examples you can quote with a date and a figure.</li>' +
+      '<li><b>Practise the exam.</b> Past paper questions with essay plans, then <a href="#quiz">test yourself</a>.</li></ol></section>';
   }
 
   /* ---------- Topic ---------- */
@@ -3269,13 +3354,13 @@ window.VERDICTS = {
     const t = byId[id]; if (!t) return notFound();
     const i = TOPICS.indexOf(t), prev = TOPICS[i - 1], next = TOPICS[i + 1];
     const qs = EXAM.questions.filter(q => q.topic === id);
-    const toc = [['ov', 'Overview'], t.diagrams.length && ['dg', 'Diagrams and tables'], t.debates.length && ['deb', 'Key debates'], ['kt', 'Key terms'], ['ex', 'Examples'], qs.some(q => !q.real) && ['pq', 'Practice questions']].filter(Boolean);
-    const real = qs.filter(q => q.real);
+    const real = qs.filter(q => q.real).sort((a, b) => b.real - a.real);
+    const toc = [['ov', 'Overview'], t.diagrams.length && ['dg', 'Diagrams and tables'], t.debates.length && ['deb', 'Key debates'], real.length && ['pp', 'Past papers'], ['kt', 'Key terms'], ['ex', 'Examples'], qs.some(q => !q.real) && ['pq', 'Practice questions']].filter(Boolean);
+    const years = [...new Set(real.map(q => q.real))];
     return '<div class="topic-head"><div class="crumbs"><a href="#home">Topics</a><span>/</span>' + ptag(t.paper) + '<span>' + esc(t.area) + '</span></div>' +
       '<h1 style="view-transition-name: topic-title">' + esc(t.title) + '</h1><p class="lede">' + esc(t.summary) + '</p>' +
       '<div class="head-actions"><button class="btn" data-quiz-start="' + id + '">Quiz this topic</button><a class="link" href="#exam">How to answer exam questions</a></div>' +
-      (real.length ? '<aside class="came-up" aria-label="Past paper questions"><h2>Past paper questions</h2><ul>' +
-        real.slice().sort((a, b) => b.real - a.real).map(q => '<li><div class="cq-row"><span class="cq-y">June ' + q.real + '</span><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></div>' + planHtml(q) + '</li>').join('') + '</ul></aside>' : '') +
+      (real.length ? '<a class="came-strip" href="#topic-' + id + '" data-jump="pp"><span class="cs-dot" aria-hidden="true"></span>Came up in ' + years.join(', ') + '<span class="cs-n">' + real.length + ' past paper question' + (real.length > 1 ? 's' : '') + ' with plans</span></a>' : '') +
       '</div>' + jumpbar(toc, 'topic-' + id) +
       '<div class="topic-layout"><nav class="toc" aria-label="On this page"><span class="toc-ind" aria-hidden="true"></span><div class="toc-h">On this page</div>' +
       toc.map(x => '<a href="#topic-' + id + '" data-jump="' + x[0] + '" data-spy="' + x[0] + '">' + x[1] + '</a>').join('') +
@@ -3285,14 +3370,16 @@ window.VERDICTS = {
       (t.diagrams.length ? '<section id="s-dg"><div class="sec-h"><h2>Diagrams and tables</h2></div>' + t.diagrams.map(d => DIAGRAMS[d] ?
         '<div class="dg"><h3>' + esc(DIAGRAMS[d].title) + '</h3>' + DIAGRAMS[d].html + '</div>' : '').join('') + '</section>' : '') +
       (t.debates.length ? '<section id="s-deb"><div class="sec-h"><h2>Key debates</h2></div><div class="deb">' + t.debates.map(d =>
-        '<div><h3 class="deb-q">' + esc(d.q) + '</h3><div class="deb-cols"><div class="deb-col yes"><h4>Yes / agree</h4><ul>' +
-        d.yes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div><div class="deb-col no"><h4>No / disagree</h4><ul>' +
+        '<div><h3 class="deb-q">' + esc(d.q) + '</h3><div class="deb-cols"><div class="deb-col yes"><h4>Ayes <span>agree</span></h4><ul>' +
+        d.yes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div><div class="deb-col no"><h4>Noes <span>disagree</span></h4><ul>' +
         d.no.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
-        (VERDICTS[d.q] ? '<p class="verdict"><b>Verdict</b>' + esc(VERDICTS[d.q]) + '</p>' : '') + '</div></div>').join('') + '</div></section>' : '') +
-      '<section id="s-kt"><div class="sec-h"><h2>Key terms</h2><a href="#terms" data-terms-topic="' + id + '">Open in key terms list</a></div><dl class="term-list">' +
-      t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl></section>' +
-      '<section id="s-ex"><div class="sec-h"><h2>Examples</h2><a href="#sources" data-src-topic="' + id + '">Open in source bank</a></div><div class="ex-grid">' +
-      t.examples.map(e => exCard(e)).join('') + '</div></section>' +
+        (VERDICTS[d.q] ? '<p class="verdict"><b>The verdict</b>' + esc(VERDICTS[d.q]) + '</p>' : '') + '</div></div>').join('') + '</div></section>' : '') +
+      (real.length ? '<section id="s-pp"><div class="sec-h"><h2>Past paper questions</h2><a href="#exam">How to answer them</a></div><ul class="past">' +
+        real.map(q => '<li><div class="cq-row"><span class="cq-y">June ' + q.real + '</span><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></div>' + planHtml(q) + '</li>').join('') + '</ul></section>' : '') +
+      '<section id="s-kt"><div class="sec-h"><h2>Key terms</h2><a href="#terms" data-terms-topic="' + id + '">Open in key terms list</a></div><dl class="term-list' + (t.terms.length > 8 ? ' clamp' : '') + '">' +
+      t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl>' + (t.terms.length > 8 ? '<button class="btn ghost more" data-act="unclamp">Show all ' + t.terms.length + ' terms</button>' : '') + '</section>' +
+      '<section id="s-ex"><div class="sec-h"><h2>Examples</h2><a href="#sources" data-src-topic="' + id + '">Open all examples</a></div><div class="ex-grid' + (t.examples.length > 8 ? ' clamp' : '') + '">' +
+      t.examples.map(e => exCard(e)).join('') + '</div>' + (t.examples.length > 8 ? '<button class="btn ghost more" data-act="unclamp">Show all ' + t.examples.length + ' examples</button>' : '') + '</section>' +
       (qs.some(q => !q.real) ? '<section id="s-pq"><div class="sec-h"><h2>Practice questions</h2><a href="#exam">How to answer them</a></div><div class="qlist">' + qs.filter(q => !q.real).map(qRow).join('') + '</div></section>' : '') +
       '<div class="pager">' + (prev ? '<a href="#topic-' + prev.id + '"><small>Previous</small>' + esc(prev.title) + '</a>' : '<span></span>') +
       (next ? '<a href="#topic-' + next.id + '" style="text-align:right"><small>Next</small>' + esc(next.title) + '</a>' : '') + '</div></div></div>';
@@ -3309,10 +3396,10 @@ window.VERDICTS = {
     if (!q.plan) return '';
     const li = a => a.map(x => '<li>' + esc(x) + '</li>').join('');
     const note = '<p class="dg-note">Points based on the Pearson mark scheme\u2019s indicative content, in our own words.</p>';
-    if (q.plan.pts) return '<details class="plan"><summary>Answer plan</summary><div class="plan-cols one"><div><h4>Three points to make</h4><ol>' + li(q.plan.pts) + '</ol></div></div>' +
+    if (q.plan.pts) return '<details class="plan"><summary>Answer plan</summary><div class="plan-cols one"><div><h3 class="ph">Three points to make</h3><ol>' + li(q.plan.pts) + '</ol></div></div>' +
       '<p class="plan-j"><b>Analysis tip</b>' + esc(q.plan.tip) + '</p>' + note + '</details>';
     const ideas = q.kind === 'ideas';
-    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h4>' + (ideas ? 'Agreement' : 'For the view') + '</h4><ul>' + li(q.plan.f) + '</ul></div><div><h4>' + (ideas ? 'Disagreement' : 'Against the view') + '</h4><ul>' + li(q.plan.a) +
+    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h3 class="ph">' + (ideas ? 'Agreement' : 'For the view') + '</h3><ul>' + li(q.plan.f) + '</ul></div><div><h3 class="ph">' + (ideas ? 'Disagreement' : 'Against the view') + '</h3><ul>' + li(q.plan.a) +
       '</ul></div></div>' + (q.plan.th ? '<p class="plan-j"><b>Thinkers to use</b>' + esc(q.plan.th) + '</p>' : '') + '<p class="plan-j"><b>Judgement</b>' + esc(q.plan.j) + '</p>' + note + '</details>';
   }
   function qRow(q) {
@@ -3336,7 +3423,7 @@ window.VERDICTS = {
 
   /* ---------- Terms ---------- */
   function terms() {
-    return '<h1>Key terms A–Z</h1><p class="lede">' + TERMS.length + ' definitions across all three papers. Hide the definitions and click each one to reveal it.</p>' +
+    return '<h1>Key terms A–Z</h1><p class="lede">' + TERMS.length + ' definitions across all three papers. Hide the definitions and tap each one to reveal it.</p>' +
       '<div class="filters"><input class="field" id="tq" type="search" placeholder="Filter terms or definitions" value="' + esc(state.termQ) + '">' +
       paperChips(state.termPaper, 'termPaper') + topicChips(state.termPaper, state.termTopic, 'termTopic') +
       '<div class="frow"><label class="toggle"><input type="checkbox" id="thide"' + (state.termHide ? ' checked' : '') + '> Hide definitions</label>' +
@@ -3348,23 +3435,26 @@ window.VERDICTS = {
     const el = document.getElementById('tlist'); if (!el) return;
     const q = state.termQ.trim().toLowerCase();
     let list = TERMS.filter(x => (!state.termPaper || x.t.paper === state.termPaper) && (!state.termTopic || x.t.id === state.termTopic) &&
-      (!q || x.term.toLowerCase().includes(q) || x.def.toLowerCase().includes(q)));
+      (!q || matches(x.term + ' ' + x.def, q)));
     if (!list.length) { el.innerHTML = '<div class="empty"><p>No terms match. Try a shorter word, or clear the filters.</p><button class="btn ghost" data-act="clear-terms">Clear filters</button></div>'; return; }
     const row = x => '<div class="term' + (state.termHide ? ' hidden-def' : '') + '"><dt>' + hl(x.term, q) + '</dt><dd><div class="def"' + (state.termHide ? ' tabindex="0" role="button" aria-expanded="false" aria-label="Show definition of ' + esc(x.term) + '"' : '') + '><span class="def-t">' + hl(x.def, q) + '</span></div><div class="meta">' + tag(x.t) + '</div></dd></div>';
     let html = '';
     if (state.termSort === 'az') {
       list = list.slice().sort((a, b) => a.term.localeCompare(b.term));
       let L = '';
-      list.forEach(x => { const l = x.term[0].toUpperCase(); if (l !== L) { L = l; html += '<div class="letter">' + l + '</div>'; } html += row(x); });
+      const letters = [];
+      list.forEach(x => { const l = x.term[0].toUpperCase(); if (l !== L) { L = l; letters.push(l); html += '<div class="letter" id="L-' + l + '">' + l + '</div>'; } html += row(x); });
+      html = '<nav class="az" aria-label="Jump to letter">' + letters.map(l => '<a href="#terms" data-letter="' + l + '">' + l + '</a>').join('') + '</nav>' + html;
     } else {
       TOPICS.forEach(t => { const g = list.filter(x => x.t === t); if (g.length) html += '<div class="letter">' + esc(t.title) + '</div>' + g.map(row).join(''); });
     }
-    el.innerHTML = '<p class="count-note">' + list.length + ' terms</p><dl class="term-list list-in">' + html + '</dl>';
+    const az = html.startsWith('<nav class="az"') ? html.slice(0, html.indexOf('</nav>') + 6) : '';
+    el.innerHTML = '<p class="count-note">' + list.length + ' terms</p>' + az + '<dl class="term-list list-in">' + html.slice(az.length) + '</dl>';
   }
 
   /* ---------- Sources ---------- */
   function sources() {
-    return '<h1>Source bank</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
+    return '<h1>Examples</h1><p class="lede">A few strong, well-known examples per topic, each with what it proves. Learn the date and one number for each.</p>' +
       '<div class="filters"><input class="field" id="sq" type="search" placeholder="Filter examples, e.g. Lords, veto, 2019" value="' + esc(state.srcQ) + '">' +
       paperChips(state.srcPaper, 'srcPaper') + topicChips(state.srcPaper, state.srcTopic, 'srcTopic') + '</div><div id="slist"></div>';
   }
@@ -3372,7 +3462,7 @@ window.VERDICTS = {
     const el = document.getElementById('slist'); if (!el) return;
     const q = state.srcQ.trim().toLowerCase();
     const list = EXAMPLES.filter(e => (!state.srcPaper || e.tp.paper === state.srcPaper) && (!state.srcTopic || e.tp.id === state.srcTopic) &&
-      (!q || norm(e.t + ' ' + e.d + ' ' + e.use).includes(q)));
+      (!q || matches(norm(e.t + ' ' + e.d + ' ' + e.use), q)));
     el.innerHTML = list.length ? '<h2 class="count-note" style="margin-bottom:12px">' + list.length + ' examples</h2><div class="ex-grid list-in">' + list.map(e => exCard(e, q, true)).join('') + '</div>' :
       '<div class="empty"><p>No examples match. Try another word, or clear the filters.</p><button class="btn ghost" data-act="clear-src">Clear filters</button></div>';
   }
@@ -3421,7 +3511,7 @@ window.VERDICTS = {
     const paperOn = p => { const ids = TOPICS.filter(t => t.paper === p).map(t => t.id); return quiz.topics.length === ids.length && ids.every(x => quiz.topics.includes(x)); };
     const picked = quiz.topics.length ? quiz.topics.length + ' topic' + (quiz.topics.length > 1 ? 's' : '') + ' chosen' : 'All topics';
     return '<h1>Test yourself</h1><p class="lede">Start a quick mixed quiz, or choose a mode and topics. Wrong answers are listed at the end so you can revise them.</p>' +
-      '<div class="quickstart"><button class="btn" data-act="quick">Quick quiz: 10 mixed questions</button><span class="dg-note">Keyboard: 1 to 4 to answer, Enter for next.</span></div>' +
+      '<div class="quickstart"><button class="btn" data-act="quick">Quick quiz: 10 mixed questions</button><span class="dg-note kbd-hint">Keyboard: 1–4 or A–D to answer, Enter for next.</span></div>' +
       '<div class="setup"><div><h2 class="setup-h">Mode</h2><div class="modes">' +
       [['defs', 'Definition to term', 'Read a definition, choose the key term.'], ['terms', 'Term to definition', 'Read a term, choose the right definition.'],
        ['recall', 'Example recall', 'Who, what, when: e.g. the biggest Commons defeat.'], ['mixed', 'Mixed', 'All three types together.']].map(m =>
@@ -3483,7 +3573,9 @@ window.VERDICTS = {
           if (R.picked != null) { if (o === q.x) cls += ' right'; else if (k === R.picked) cls += ' wrong'; }
           return '<button class="' + cls + '" data-act="pick" data-v="' + k + '"' + (R.picked != null ? ' disabled' : '') + '><span class="ok">' + 'ABCD'[k] + '</span><span>' + esc(isDef ? o.term : o.def) + '</span></button>';
         }).join('') + '</div>' +
-        (R.picked != null ? '<div class="feedback" role="status">' + (q.opts[R.picked] === q.x ? '<b style="color:var(--good)">Correct.</b>' : '<b style="color:var(--bad)">Not quite.</b> The answer is <b>' + esc(q.x.term) + '</b>.') + '</div><div class="btns"><button class="btn" data-act="next">Next question</button></div>' : '');
+        (R.picked != null ? '<div class="feedback" role="status">' + (q.opts[R.picked] === q.x ? '<b style="color:var(--good)">Correct.</b>' :
+          '<b style="color:var(--bad)">Not quite.</b> The answer is <b>' + esc(q.x.term) + '</b>.' + '<span class="wrong-why">You chose <b>' + esc(q.opts[R.picked].term) + '</b>: ' + esc(q.opts[R.picked].def) + '</span>') +
+          '</div><div class="btns"><button class="btn" data-act="next">Next question</button></div>' : '');
     }
     return '<div class="quiz-card' + (R.fresh ? ' q-in' : '') + '">' + top + body + '</div><div class="btns"><button class="btn ghost" data-act="end"' + (R.armed ? ' data-armed="1"' : '') + '>' + (R.armed ? 'Click again to end and lose this quiz' : 'End quiz') + '</button></div>';
   }
@@ -3494,21 +3586,25 @@ window.VERDICTS = {
     const q = gq.trim().toLowerCase();
     const field = '<div class="hero-search page-search">' + ICON + '<input id="psearch" type="search" aria-label="Search everything" placeholder="Search terms, examples, topics" value="' + esc(gq) + '" autocomplete="off"></div>';
     if (q.length < 2) return '<h1>Search</h1>' + field + '<p class="lede">Type at least two letters.</p>';
-    const tr = TERMS.filter(x => x.term.toLowerCase().includes(q) || x.def.toLowerCase().includes(q))
-      .sort((a, b) => (b.term.toLowerCase().includes(q) - a.term.toLowerCase().includes(q)));
-    const ex = EXAMPLES.filter(e => norm(e.t + ' ' + e.d + ' ' + e.use).includes(q));
-    const tp = TOPICS.filter(t => norm(t.title + ' ' + t.summary).includes(q));
-    const rc = RECALL.filter(r => norm(r.q + ' ' + r.a + ' ' + r.x).includes(q));
+    const tr = TERMS.filter(x => matches(x.term + ' ' + x.def, q))
+      .sort((a, b) => (matches(b.term, q) - matches(a.term, q)));
+    const ex = EXAMPLES.filter(e => matches(norm(e.t + ' ' + e.d + ' ' + e.use), q));
+    const tp = TOPICS.filter(t => matches(norm(t.title + ' ' + t.summary), q));
+    const rc = RECALL.filter(r => matches(norm(r.q + ' ' + r.a + ' ' + r.x), q));
     const ov = [];
-    TOPICS.forEach(t => t.overview.forEach(o => o.p.forEach(p => { if (norm(p).includes(q)) ov.push({ t, h: o.h, p: strip(p) }); })));
+    TOPICS.forEach(t => t.overview.forEach(o => o.p.forEach(p => { if (matches(norm(p), q)) ov.push({ t, h: o.h, p: strip(p) }); })));
     const total = tr.length + ex.length + tp.length + ov.length + rc.length;
-    return '<h1>Search</h1>' + field + '<p class="lede">' + total + ' results for “' + esc(gq.trim()) + '”</p>' +
+    return '<h1>Search</h1>' + field + '<p class="lede">' + total + (total === 1 ? ' result' : ' results') + ' for “' + esc(gq.trim()) + '”</p>' +
       (tp.length ? '<section><div class="sec-h"><h2>Topics</h2></div><div class="quick">' + tp.map(t => '<a href="#topic-' + t.id + '"><b>' + esc(t.title) + '</b><span>' + hl(t.summary, q) + '</span></a>').join('') + '</div></section>' : '') +
       (tr.length ? '<section><div class="sec-h"><h2>Key terms</h2></div><dl class="term-list">' + tr.slice(0, 40).map(x => '<div class="term"><dt>' + hl(x.term, q) + '</dt><dd>' + hl(x.def, q) + '<div class="meta">' + tag(x.t) + '</div></dd></div>').join('') + '</dl></section>' : '') +
       (ex.length ? '<section><div class="sec-h"><h2>Examples</h2></div><div class="ex-grid">' + ex.slice(0, 30).map(e => exCard(e, q, true)).join('') + '</div></section>' : '') +
       (rc.length ? '<section><div class="sec-h"><h2>Quick facts</h2></div><dl class="term-list">' + rc.map(r => '<div class="term"><dt>' + hl(r.a, q) + '</dt><dd>' + hl(r.q, q) + '<div class="meta">' + tag(byId[r.t]) + '</div></dd></div>').join('') + '</dl></section>' : '') +
       (ov.length ? '<section><div class="sec-h"><h2>In topic overviews</h2></div><dl class="term-list">' + ov.slice(0, 30).map(o => '<div class="term"><dt>' + esc(o.t.title) + '<div class="dg-note" style="margin:2px 0 0;font-family:var(--sans)">' + esc(o.h) + '</div></dt><dd>' + hl(o.p, q) + '<div class="meta"><a href="#topic-' + o.t.id + '">Open topic</a></div></dd></div>').join('') + '</dl></section>' : '') +
-      (!total ? '<p class="empty">Nothing found. Try a different spelling or a shorter word.</p>' : '');
+      (!total ? (() => {
+        const w = qWords(q)[0] || q, pool = [...new Set(TERMS.map(x => x.term).concat(TOPICS.map(t => t.title)))];
+        const sug = pool.map(n => ({ n, d: Math.min(...n.toLowerCase().split(/\s+/).map(p => lev(w, p.slice(0, w.length + 2)))) })).filter(o => o.d <= Math.max(2, Math.floor(w.length / 3))).sort((a, b) => a.d - b.d).slice(0, 5);
+        return '<div class="empty"><p>Nothing found for that spelling.</p>' + (sug.length ? '<div class="frow"><span class="hint">Did you mean</span>' + sug.map(o => '<button class="chip" data-suggest="' + esc(o.n) + '">' + esc(o.n) + '</button>').join('') + '</div>' : '<p class="hint">Try a shorter word.</p>') + '</div>';
+      })() : '');
   }
   function notFound() { return '<h1>Page not found</h1><p class="lede"><a href="#home">Back to topics</a></p>'; }
 
@@ -3691,6 +3787,7 @@ window.VERDICTS = {
     const b = e.target.closest('button, a, .def');
     if (!b) return;
     if (b.classList.contains('def')) { toggleDef(b); return; }
+    if (b.dataset.suggest) { gq = b.dataset.suggest; gsearch.value = gq; rerender(); focusPage(); return; }
     const d = b.dataset;
     if (d.jump) { e.preventDefault(); const el = document.getElementById('s-' + d.jump); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - stickyOffset() - 12, behavior: reduced ? 'auto' : 'smooth' }); return; }
     if (d.quizStart) { e.preventDefault(); quiz.topics = [d.quizStart]; quiz.mode = 'mixed'; quiz.n = 10; quiz.prevP = 0; quiz.run = newRun(buildQuestions()); last = ''; location.hash = 'quiz'; return; }
@@ -3710,6 +3807,8 @@ window.VERDICTS = {
     if (d.qt !== undefined) { if (!d.qt) quiz.topics = []; else { quiz.openTopics = true; quiz.topics = quiz.topics.includes(d.qt) ? quiz.topics.filter(x => x !== d.qt) : quiz.topics.concat(d.qt); } rerender(); return; }
     if (d.qp) { quiz.topics = TOPICS.filter(t => t.paper === +d.qp).map(t => t.id); rerender(); return; }
     if (d.qn) { quiz.n = +d.qn; rerender(); return; }
+    if (d.letter) { e.preventDefault(); const el = document.getElementById('L-' + d.letter); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - stickyOffset() - 8, behavior: reduced ? 'auto' : 'smooth' }); return; }
+    if (d.act === 'unclamp') { const sec = b.closest('section'); const l = sec.querySelector('.clamp'); if (l) l.classList.remove('clamp'); b.remove(); return; }
     if (d.act === 'clear-terms') { Object.assign(state, { termPaper: 0, termTopic: '', termQ: '' }); rerender(); return; }
     if (d.act === 'clear-src') { Object.assign(state, { srcPaper: 0, srcTopic: '', srcQ: '' }); rerender(); return; }
     const R = quiz.run;
@@ -3771,7 +3870,11 @@ window.VERDICTS = {
 
   function navigate() {
     if (!document.startViewTransition || reduced || document.visibilityState !== 'visible') { route(); return; }
-    const vt = document.startViewTransition(() => route());
+    // Fallback: if the browser hasn't run the transition within 300ms (background tab, busy page), switch directly
+    let ran = false;
+    const go = () => { if (ran) return; ran = true; route(); };
+    const vt = document.startViewTransition(go);
+    setTimeout(() => { if (!ran) { try { vt.skipTransition(); } catch (e) { /* ignore */ } go(); } }, 300);
     const clean = () => document.querySelectorAll('[data-vtn]').forEach(el => { el.style.viewTransitionName = ''; delete el.dataset.vtn; });
     vt.finished.then(clean, clean); vt.ready.catch(() => {}); vt.updateCallbackDone.catch(() => {});
   }
