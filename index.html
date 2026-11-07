@@ -813,6 +813,20 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
 .az a { min-width: 32px; min-height: 32px; display: inline-grid; place-items: center; text-decoration: none; font-family: var(--serif); font-size: 1rem; color: var(--ink-2); border-radius: 6px; transition: background-color 150ms ease, color 150ms ease; }
 .az a:hover { background: var(--hover); color: var(--ink); }
 @media (max-width: 860px) { .az a { min-width: 40px; min-height: 44px; } }
+
+/* ---------- v7: third review fixes ---------- */
+.howto { margin-top: 44px; }
+.howto ol { border-top: 0; border-bottom: 1px solid var(--line); }
+.howto li { padding: 0 0 22px; }
+.howto li::before { font-size: 1.5rem; margin-bottom: 6px; }
+.howto + section { margin-top: 48px !important; }
+.quiz-card + .btns { margin-top: 36px; }
+@media (max-width: 860px) {
+  .search input { height: 44px; }
+  a.tag { min-height: 44px; padding-block: 0; }
+  .pick summary, .toggle, .crumbs a, .sec-h a, .head-actions .link, .came-strip { min-height: 44px; display: inline-flex; align-items: center; }
+  .plan summary { min-height: 44px; display: flex; align-items: center; }
+}
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
@@ -1393,7 +1407,7 @@ TOPICS.push(
     { h: 'Scrutiny tools', p: [
       '<b>Select committees</b>: cross-party, investigate departments. The <b>Wright reforms (2010)</b> mean chairs are elected by the whole House. Reports are not binding.',
       '<b>PMQs</b>: weekly 30 minutes. High profile but often partisan point-scoring.',
-      '<b>Opposition days</b>: 20 per session. Motions are usually non-binding (e.g. Universal Credit 2021, passed 253–0 but ignored).',
+      '<b>Opposition days</b>: 20 per session. Motions are usually non-binding (e.g. Universal Credit, January 2021: passed 278–0 but did not change policy).',
       '<b>Backbench Business Committee</b> (2010): 35 days per session for backbench debates.',
       '<b>E-petitions</b>: 100,000 signatures means the Petitions Committee will consider a debate.'
     ]},
@@ -1443,11 +1457,11 @@ TOPICS.push(
     { t: 'Starmer\'s welfare U-turn (July 2025)', d: 'Over 120 Labour MPs backed an amendment against cuts to disability benefits; the government made major concessions despite a majority of over 160.', use: 'Backbench power, even against a huge majority.' },
     { t: 'Safety of Rwanda Act 2024', d: 'Lords repeatedly amended the bill in ping-pong; it eventually passed in April 2024 as the Lords gave way.', use: 'Lords can delay and pressure but the Commons wins.' },
     { t: 'Lords defeats of the Starmer government', d: 'The Lords defeated the Starmer government 208 times in its first parliamentary session (figure from the 2026 Edexcel mark scheme), while it had suffered no Commons defeats.', use: 'Lords as a real check even when the Commons is dominated by a big majority.' },
-    { t: 'Public Accounts Committee', d: 'Chaired by an opposition MP; investigates value for money in projects such as HS2, Sizewell C and Hinckley Point C.', use: 'Effective cross-party scrutiny of spending.' },
+    { t: 'Public Accounts Committee', d: 'Chaired by an opposition MP; investigates value for money in projects such as HS2, Sizewell C and Hinkley Point C.', use: 'Effective cross-party scrutiny of spending.' },
     { t: 'Hunting Act 2004', d: 'Passed using the Parliament Acts after the Lords refused to agree.', use: 'Commons primacy over the Lords.' },
     { t: 'Privileges Committee on Johnson (2023)', d: 'Found Boris Johnson deliberately misled the Commons over Partygate; recommended a 90-day suspension. He resigned as an MP first.', use: 'Power of committees to hold even a former PM to account.' },
     { t: 'Assisted dying bill (2025)', d: 'Kim Leadbeater\'s private member\'s bill passed its Commons third reading in June 2025 by 314–291 on a free vote.', use: 'Backbench influence through PMBs; free votes.' },
-    { t: 'Universal Credit opposition day (2021)', d: 'Motion against the £20 cut passed 253–0 as Conservative MPs abstained; the cut went ahead.', use: 'Limits of opposition days: non-binding.' }
+    { t: 'Universal Credit opposition day (2021)', d: 'In January 2021 a Labour motion against ending the £20 uplift passed 278–0 as Conservative MPs abstained; the cut went ahead in October 2021.', use: 'Limits of opposition days: non-binding.' }
   ]
 },
 {
@@ -2013,7 +2027,7 @@ TOPICS.push(
       '<b>Unipolar</b>: one dominant power (US after 1991).',
       '<b>Bipolar</b>: two (Cold War US vs USSR). Realists like Waltz see this as most stable.',
       '<b>Multipolar</b>: several powers (pre-1914 Europe). Arguably emerging today.',
-      'Today: US remains strongest militarily (around 40% of global military spending), but China rivals it economically.'
+      'Today: US remains strongest militarily (over a third of global military spending: 37% in 2024), but China rivals it economically.'
     ]},
     { h: 'Systems of government', p: [
       '<b>Democratic</b>: free elections, rule of law.',
@@ -2067,7 +2081,7 @@ TOPICS.push(
     { h: 'The EU', p: [
       '<b>Development</b>: ECSC 1951, Treaty of Rome 1957, Single European Act 1986, Maastricht 1992 (EU, euro plans), Lisbon 2009.',
       '<b>Institutions</b>: Commission (proposes laws, supranational), Council of the EU (ministers), European Council (leaders), European Parliament (elected), Court of Justice.',
-      '<b>Achievements</b>: single market, euro (20 states), peace, enlargement to 27.',
+      '<b>Achievements</b>: single market, euro (21 states after Bulgaria joined in 2026), peace, enlargement to 27.',
       '<b>Challenges</b>: Eurozone crisis (2009–), migration crisis (2015), Brexit, democratic deficit, Hungary and rule of law.'
     ]},
     { h: 'Is the EU a global power?', p: [
@@ -2615,7 +2629,7 @@ window.RECALL = [
   { t: 'parliament', q: 'Which 2024 bill went through repeated Lords–Commons ping-pong before the Lords gave way?', a: 'The Safety of Rwanda Bill', x: 'Passed April 2024 after the Supreme Court Rwanda ruling.' },
   { t: 'parliament', q: 'In 2025, which policy did Starmer\'s government heavily water down after a revolt by over 120 Labour MPs?', a: 'Welfare / disability benefit (PIP) cuts', x: 'Shows backbench power despite a huge majority.' },
   { t: 'parliament', q: 'Which 1967 Act began as a private member\'s bill by David Steel?', a: 'The Abortion Act 1967', x: 'Example of successful PMB.' },
-  { t: 'parliament', q: 'Which opposition day motion in 2021 passed 253–0 but was ignored by the government?', a: 'Opposing the £20 Universal Credit cut', x: 'Opposition day motions are not binding.' },
+  { t: 'parliament', q: 'Which January 2021 opposition day motion passed 278–0 but did not change government policy?', a: 'Opposing the £20 Universal Credit cut', x: 'Opposition day motions are not binding.' },
   { t: 'constitution', q: 'Which 2019 Supreme Court case ruled Boris Johnson\'s prorogation unlawful?', a: 'Miller II (Miller/Cherry)', x: 'Unanimous 11–0 ruling; prorogation void.' },
   { t: 'constitution', q: 'In which year did the Supreme Court rule that Holyrood could not hold an independence referendum without Westminster\'s consent?', a: '2022', x: 'The Union is a reserved matter.' },
   { t: 'constitution', q: 'Which Act repealed the Fixed-term Parliaments Act 2011?', a: 'Dissolution and Calling of Parliament Act 2022', x: 'Restored the PM\'s power to request dissolution.' },
@@ -2652,7 +2666,7 @@ window.RECALL = [
   { t: 'elections', q: 'What share of seats did Labour win in 2024 on 33.7% of the vote?', a: 'About 63% (411 seats)', x: 'Majority of 174.' },
   { t: 'elections', q: 'Which electoral system is used for the Northern Ireland Assembly?', a: 'Single Transferable Vote (STV)', x: 'Multi-member constituencies, ranked preferences.' },
   { t: 'elections', q: 'Which Act switched mayor and PCC elections from SV to FPTP and introduced voter ID?', a: 'Elections Act 2022', x: 'Criticised for favouring the governing party.' },
-  { t: 'voting', q: 'Which 1979 Conservative poster showed a dole queue?', a: '"Labour Isn\'t Working" (Saatchi & Saatchi)', x: 'Used after the Winter of Discontent.' },
+  { t: 'voting', q: 'Which 1979 Conservative poster showed a dole queue?', a: '"Labour Isn\'t Working" (Saatchi & Saatchi)', x: 'Launched in 1978, before the Winter of Discontent, and reused in 1979.' },
   { t: 'voting', q: 'What was Labour\'s majority in 1997?', a: '179', x: '418 seats.' },
   { t: 'voting', q: 'Which newspaper headline claimed it decided the 1992 election?', a: '"It\'s the Sun wot won it"', x: 'Media influence debate.' },
   { t: 'voting', q: 'Which 2024 campaign moment saw a leader leave a commemoration early for a TV interview?', a: 'Sunak leaving the D-Day events', x: 'Damaging media coverage.' },
@@ -2692,7 +2706,7 @@ window.VERDICTS = {
   'Are backbenchers in the Commons increasingly effective?': 'Yes at scrutiny, less so at law-making: elected committee chairs and urgent questions have real impact, but whips and patronage still pass most government bills unchanged.',
   'Are rights in the UK poorly protected?': 'Reasonably well protected in practice but not secure: courts and the HRA work, yet a determined Parliament can override them, as the Safety of Rwanda Act showed.',
   'Do think tanks, lobbyists and corporations have more influence than pressure groups?': 'They have more quiet, early access to policy-making; pressure groups have more public leverage. Influence depends on which party is in power.',
-  'Is the Labour Party more internally divided than the Conservative Party?': 'Not since 2016: the Conservatives\u2019 four leadership contests and Reform UK threat point to deeper division, though Labour\u2019s divisions are more visible in government.',
+  'Is the Labour Party more internally divided than the Conservative Party?': 'Not since 2019: the Conservatives\u2019 four leadership contests and Reform UK threat point to deeper division, though Labour\u2019s divisions are more visible in government.',
   'Have the main parties radically changed from their historical origins?': 'They have evolved rather than broken with their origins: policies and methods change to win elections while core values stay recognisable.',
   'Have referendums since 1997 been used for political purposes rather than to support democracy?': 'Often called for tactical reasons, but they still delivered genuine democratic legitimacy, especially for devolution and the Good Friday Agreement.',
   'Are general election outcomes mostly decided by campaigns and manifestos?': 'Mostly not: competence, leaders and long-term factors set the result, but campaigns can swing close elections, as 2017 showed.',
@@ -2799,14 +2813,14 @@ window.VERDICTS = {
         '<b>Rebellions</b>: Cameron withdrew House of Lords reform in 2012 after 91 Conservative MPs rebelled; Starmer\'s 2025 welfare bill was rewritten after over 120 Labour MPs objected.',
         '<b>Taking control of the timetable</b>: in 2019 backbenchers passed the Benn Act (EU Withdrawal (No. 2) Act) forcing the PM to seek a Brexit extension.',
         '<b>Select committees</b>: since the Wright reforms chairs are elected and higher-profile; the Business and Trade Committee and others drove the Post Office Horizon scandal response.',
-        '<b>Private members\' bills and Ten Minute Rule bills</b>: rarely pass without government time, but can change law (Abortion Act 1967, assisted dying bill 2025).',
+        '<b>Private members\' bills and Ten Minute Rule bills</b>: rarely pass without government time, but can change the law (Abortion Act 1967) or pass the Commons on a free vote (assisted dying bill, 2025).',
         '<b>Limits</b>: whips, patronage and the payroll vote; most legislation passes as the government wants.'
       ]},
       { h: 'Scrutiny tools beyond PMQs', p: [
         '<b>Urgent questions</b>: the Speaker can force a minister to come to the Commons the same day. Their use rose sharply under Speaker Bercow (from 2009).',
         '<b>Humble addresses</b>: a motion asking the monarch to order the release of papers. Used in 2017 to force publication of Brexit impact assessments.',
         '<b>Liaison Committee</b>: the chairs of all select committees question the PM at length, usually three times a year.',
-        '<b>Public Accounts Committee</b>: chaired by an opposition MP, it examines value for money (HS2, Hinckley Point C).',
+        '<b>Public Accounts Committee</b>: chaired by an opposition MP, it examines value for money (HS2, Hinkley Point C).',
         '<b>E-petitions</b>: the 2019 "Revoke Article 50" petition passed 6 million signatures and was debated, but policy did not change.'
       ]},
       { h: 'Has government control of the Commons weakened?', p: [
@@ -2825,7 +2839,7 @@ window.VERDICTS = {
       ['Reasoned amendment', 'An amendment setting out reasons to decline a bill a second reading, often used to show rebellion.'],
       ['Free vote', 'A vote where MPs are not whipped and can vote by conscience, e.g. assisted dying.'],
       ['Hung parliament', 'A Commons where no party has an overall majority.'],
-      ['Lords Appointments Commission', 'Independent body that recommends crossbench peers and vets nominations for propriety.'],
+      ['House of Lords Appointments Commission', 'Independent body that recommends crossbench peers and vets nominations for propriety.'],
       ['Royal Assent', 'The monarch\'s formal approval that turns a bill into an Act.'],
       ['Government defeat', 'When the government loses a vote in either House.']
     ],
@@ -2900,7 +2914,7 @@ window.VERDICTS = {
   add('parties', {
     overview: [
       { h: 'Divisions inside the parties today', p: [
-        '<b>Labour</b>: left (Corbyn-era, Socialist Campaign Group) vs centre (Starmer). Splits over welfare cuts (2025), the two-child limit and Gaza. Corbyn was expelled from the parliamentary party in 2020 and stood as an independent in 2024.',
+        '<b>Labour</b>: left (Corbyn-era, Socialist Campaign Group) vs centre (Starmer). Splits over welfare cuts (2025), the two-child limit and Gaza. Corbyn had the Labour whip suspended in 2020 and won his seat as an independent in 2024.',
         '<b>Conservatives</b>: One Nation vs New Right, Brexit (ERG), and now how to respond to Reform UK. Four leadership contests between 2019 and 2024 show deep division.',
         '<b>Lib Dems</b>: more pragmatic than ideological; campaign hard in "Blue Wall" seats.',
         'Divisions are usually worse in <b>opposition</b> and when a party is <b>losing</b>: unity often follows electoral success.'
@@ -2921,8 +2935,8 @@ window.VERDICTS = {
     ],
     examples: [
       { t: 'Conservative leadership turmoil (2019–2024)', d: 'Leadership contests in 2019, 2022 (twice) and 2024; three PMs in 2022.', use: 'Conservatives deeply divided.' },
-      { t: 'Labour expels Corbyn\'s whip (2020)', d: 'Corbyn lost the Labour whip after his response to the EHRC antisemitism report.', use: 'Labour divided between left and centre.' },
-      { t: 'ERG and Brexit (2019)', d: 'ERG MPs voted against May\'s deal three times.', use: 'Factions defeating their own leader.' }
+      { t: 'Corbyn loses the Labour whip (2020)', d: 'Corbyn had the Labour whip suspended after his response to the EHRC antisemitism report; it was never restored and he won Islington North as an independent in 2024.', use: 'Labour divided between left and centre.' },
+      { t: 'ERG and Brexit (2019)', d: 'ERG opposition defeated May\'s deal in 2019; a hard core of about 28 "Spartans" voted against it all three times.', use: 'Factions defeating their own leader.' }
     ],
     debates: [
       { q: 'Is the Labour Party more internally divided than the Conservative Party?',
@@ -3011,7 +3025,7 @@ window.VERDICTS = {
      ['Select committees', 'Investigate and report; elected chairs', 'Post Office Horizon scandal'],
      ['Urgent questions', 'Force a minister to answer that day', 'Frequent since 2009'],
      ['Humble address', 'Force release of documents', 'Brexit impact assessments (2017)'],
-     ['Private members\' bills', 'Backbenchers propose laws', 'Abortion Act 1967; assisted dying (2025)'],
+     ['Private members\' bills', 'Backbenchers propose laws', 'Abortion Act 1967; assisted dying bill passed the Commons (2025)'],
      ['Taking control of business', 'Majority of MPs sets the agenda', 'Benn Act (2019)']]) };
   DIAGRAMS['referendums-table'] = { title: 'UK-level and national referendums since 1997', html: tbl(
     ['Year', 'Question', 'Result', 'Turnout'],
@@ -3159,7 +3173,7 @@ window.VERDICTS = {
     { t: 'voting', q: 'Which 2017 Conservative manifesto policy was nicknamed the "dementia tax"?', a: 'Social care funding reform', x: 'U-turned mid-campaign; May lost her majority.' },
     { t: 'voting', q: 'How many Scottish seats did Labour win in 2024?', a: '37', x: 'SNP fell to 9.' },
     { t: 'voting', q: 'What was Labour\'s 2017 slogan?', a: '"For the many, not the few"', x: 'Labour gained 30 seats.' },
-    { t: 'parties', q: 'Which Conservative faction pushed for a hard Brexit?', a: 'The European Research Group (ERG)', x: 'Voted against May\'s deal three times.' },
+    { t: 'parties', q: 'Which Conservative faction pushed for a hard Brexit?', a: 'The European Research Group (ERG)', x: 'A core of ERG "Spartans" voted against May\'s deal all three times.' },
     { t: 'parties', q: 'Which left-wing group was formed in 2015 to back Corbyn?', a: 'Momentum', x: 'Grassroots Labour faction.' },
     { t: 'parties', q: 'How many Conservative leadership contests were there between 2019 and 2024?', a: 'Four (2019, two in 2022, 2024)', x: 'Evidence of deep division.' }
   );
@@ -3194,7 +3208,7 @@ window.VERDICTS = {
       'United in principle (consent, limits on power), divided over how much mass democracy to trust: the split narrowed as liberals accepted universal suffrage.'),
     I('To what extent is there more agreement than disagreement within nationalism in its views on the state?',
       ['Most strands want a nation-state as the ideal political unit', 'Self-determination as the basis of legitimate statehood (liberal, anti-colonial)', 'The state should protect and express national identity'],
-      ['Liberal: democratic, consent-based state; expansionist: authoritarian state', 'Conservative nationalism values traditional institutions over popular sovereignty', 'Cultural nationhood need not need its own state (Herder)'],
+      ['Liberal: democratic, consent-based state; expansionist: authoritarian state', 'Conservative nationalism values traditional institutions over popular sovereignty', 'Cultural nationhood need not have its own state (Herder)'],
       'Rousseau, Mazzini (liberal); Herder (cultural); Maurras (integral); Garvey (anti-colonial)',
       'Agreement that the state should serve the nation; deep disagreement over what kind of state and who it serves.'),
     I('To what extent is nationalism inclusive?',
@@ -3243,7 +3257,7 @@ window.VERDICTS = {
       ['Realists accept anarchy and that states recognise no higher authority', 'Liberals reject the idea that a power struggle is inevitable', 'Liberals see states sharing interests, norms and rules that form a society of states'],
       'Use Hedley Bull’s anarchical society as the bridge between the two theories.'),
     E30('power', '2024', 'Evaluate the view that states find the use of hard power to be more effective than soft power.',
-      ['Global military spending over $2 trillion; US about 40%', 'Sanctions on Iran and North Korea', 'Russia’s invasion of Ukraine (2022) and Western military aid', 'Regime change in Iraq and Afghanistan'],
+      ['Global military spending over $2 trillion; US over a third (37% in 2024)', 'Sanctions on Iran and North Korea', 'Russia’s invasion of Ukraine (2022) and Western military aid', 'Regime change in Iraq and Afghanistan'],
       ['Hard power often fails: Iraq and Afghanistan did not deliver lasting goals', 'Soft power builds lasting influence (US culture, universities, China’s Belt and Road)', 'Smart power combines both'],
       'Hard power wins short-term security goals; soft and smart power sustain influence. Realism vs liberalism frames the judgement.'),
     E30('sovereignty', '2024', 'Evaluate the view that the advantages of globalisation outweigh the disadvantages.',
@@ -3273,7 +3287,7 @@ window.VERDICTS = {
       'Impact on weaker states, limited on great powers: sovereignty is unequal.'),
     E30('power', '2025', 'Evaluate the view that world order since 2000 is more multipolar than unipolar.',
       ['Rise of China, India and the EU', 'Russia’s military assertiveness and nuclear power', 'Veto powers and G20 show power spread', 'US soft power weakened (Iraq, Guantanamo, Trump)'],
-      ['US still has the largest economy (about $25 trillion GDP)', 'US military spending far ahead of rivals', 'Dollar dominance and global alliances', 'China lacks allies and global reach'],
+      ['US still has the largest economy (about $30 trillion GDP in 2025)', 'US military spending far ahead of rivals', 'Dollar dominance and global alliances', 'China lacks allies and global reach'],
       'Moving towards multipolarity, but the US remains the only all-round superpower: arguably unipolar with multipolar features.')
   ];
   const seen = new Set(p3.map(x => x.q.toLowerCase()));
@@ -3304,10 +3318,24 @@ window.VERDICTS = {
   const stem = w => { const s = w.replace(/(ations?|itions?|ments?|ings?|ers?|ed|es|ue|s|e)$/, ''); return s.length >= 4 ? s : w; };
   const qWords = q => String(q).toLowerCase().split(/[^a-z0-9\u00c0-\u024f']+/).filter(w => w.length > 1);
   // Every word must appear (or its stem), so "prorogue" finds "prorogation" and "2019 election" finds both words anywhere
+  const ALIASES = [['fptp', 'first past the post'], ['ams', 'additional member system'], ['stv', 'single transferable vote'], ['sv', 'supplementary vote'],
+    ['av', 'alternative vote'], ['pr', 'proportional representation'], ['pmqs', "prime minister's questions"], ['pm', 'prime minister'], ['mp', 'member of parliament'],
+    ['hra', 'human rights act'], ['echr', 'european convention on human rights'], ['unsc', 'security council'], ['un', 'united nations'], ['r2p', 'responsibility to protect'],
+    ['icc', 'international criminal court'], ['icj', 'international court of justice'], ['imf', 'international monetary fund'], ['wto', 'world trade organization'],
+    ['erg', 'european research group'], ['snp', 'scottish national party'], ['eu', 'european union'], ['nato', 'north atlantic treaty'], ['gfa', 'good friday agreement'],
+    ['tories', 'conservative'], ['tory', 'conservative'], ['lib dems', 'liberal democrat'], ['evel', 'english votes for english laws'], ['sewel', 'legislative consent']];
+  function variants(q) {
+    const l = ' ' + String(q).toLowerCase().trim() + ' ', out = [l.trim()];
+    ALIASES.forEach(([a, b]) => {
+      if (l.includes(' ' + a + ' ')) out.push(l.replace(' ' + a + ' ', ' ' + b + ' ').trim());
+      if (l.includes(b)) out.push(l.replace(b, a).trim());
+    });
+    return out;
+  }
+  function wordsIn(t, q) { const ws = qWords(q); return !ws.length || ws.every(w => t.includes(w) || t.includes(stem(w))); }
   function matches(text, q) {
-    const ws = qWords(q); if (!ws.length) return true;
     const t = String(text).toLowerCase();
-    return ws.every(w => t.includes(w) || t.includes(stem(w)));
+    return variants(q).some(v => wordsIn(t, v));
   }
   function hl(text, q) {
     const safe = esc(text);
@@ -3342,11 +3370,12 @@ window.VERDICTS = {
       '<p class="lede">Revision for Edexcel A Level Politics. Read a topic overview, look up any <span class="hl-sweep">key term</span>, grab an example for an essay, or test yourself.</p>' +
       '<div class="hero-search">' + ICON + '<input id="hsearch" type="search" placeholder="Try “Salisbury”, “Miller” or “veto”" autocomplete="off"></div>' +
       '<p class="counts">' + [[TOPICS.length, 'topics'], [TERMS.length, 'key terms'], [EXAMPLES.length, 'examples'], [RECALL.length, 'quiz facts']].map(c => '<span><b>' + c[0] + '</b> ' + c[1] + '</span>').join('') + '</p></div>' +
-      '<section style="margin-top:64px"><div class="papers">' + [1, 2, 3].map(col).join('') + '</div></section>' +
       '<section class="howto" aria-label="How to use this site"><ol>' +
       '<li><b>Read the topic.</b> Overview, diagrams and the key debates with a verdict.</li>' +
       '<li><b>Learn the language.</b> Key terms and examples you can quote with a date and a figure.</li>' +
-      '<li><b>Practise the exam.</b> Past paper questions with essay plans, then <a href="#quiz">test yourself</a>.</li></ol></section>';
+      '<li><b>Practise the exam.</b> Past paper questions with essay plans, then <a href="#quiz">test yourself</a>.</li></ol></section>' +
+      '<section style="margin-top:64px"><div class="papers">' + [1, 2, 3].map(col).join('') + '</div></section>';
+
   }
 
   /* ---------- Topic ---------- */
@@ -3370,19 +3399,31 @@ window.VERDICTS = {
       (t.diagrams.length ? '<section id="s-dg"><div class="sec-h"><h2>Diagrams and tables</h2></div>' + t.diagrams.map(d => DIAGRAMS[d] ?
         '<div class="dg"><h3>' + esc(DIAGRAMS[d].title) + '</h3>' + DIAGRAMS[d].html + '</div>' : '').join('') + '</section>' : '') +
       (t.debates.length ? '<section id="s-deb"><div class="sec-h"><h2>Key debates</h2></div><div class="deb">' + t.debates.map(d =>
-        '<div><h3 class="deb-q">' + esc(d.q) + '</h3><div class="deb-cols"><div class="deb-col yes"><h4>Ayes <span>agree</span></h4><ul>' +
-        d.yes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div><div class="deb-col no"><h4>Noes <span>disagree</span></h4><ul>' +
+        '<div><h3 class="deb-q">' + esc(d.q) + '</h3><div class="deb-cols"><div class="deb-col yes"><h4>' + debLabel(d.q, 0) + '</h4><ul>' +
+        d.yes.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div><div class="deb-col no"><h4>' + debLabel(d.q, 1) + '</h4><ul>' +
         d.no.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
         (VERDICTS[d.q] ? '<p class="verdict"><b>The verdict</b>' + esc(VERDICTS[d.q]) + '</p>' : '') + '</div></div>').join('') + '</div></section>' : '') +
       (real.length ? '<section id="s-pp"><div class="sec-h"><h2>Past paper questions</h2><a href="#exam">How to answer them</a></div><ul class="past">' +
         real.map(q => '<li><div class="cq-row"><span class="cq-y">June ' + q.real + '</span><span class="cq">' + esc(q.q) + '</span><span class="tag plain">' + esc(TYPES[q.type].name.replace(/ question| essay/, '')) + '</span></div>' + planHtml(q) + '</li>').join('') + '</ul></section>' : '') +
       '<section id="s-kt"><div class="sec-h"><h2>Key terms</h2><a href="#terms" data-terms-topic="' + id + '">Open in key terms list</a></div><dl class="term-list' + (t.terms.length > 8 ? ' clamp' : '') + '">' +
-      t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl>' + (t.terms.length > 8 ? '<button class="btn ghost more" data-act="unclamp">Show all ' + t.terms.length + ' terms</button>' : '') + '</section>' +
+      t.terms.map(([a, b]) => '<div class="term"><dt>' + esc(a) + '</dt><dd>' + esc(b) + '</dd></div>').join('') + '</dl>' + (t.terms.length > 8 ? '<button class="btn ghost more" data-act="unclamp" aria-expanded="false" data-more="Show all ' + t.terms.length + ' terms">Show all ' + t.terms.length + ' terms</button>' : '') + '</section>' +
       '<section id="s-ex"><div class="sec-h"><h2>Examples</h2><a href="#sources" data-src-topic="' + id + '">Open all examples</a></div><div class="ex-grid' + (t.examples.length > 8 ? ' clamp' : '') + '">' +
-      t.examples.map(e => exCard(e)).join('') + '</div>' + (t.examples.length > 8 ? '<button class="btn ghost more" data-act="unclamp">Show all ' + t.examples.length + ' examples</button>' : '') + '</section>' +
+      t.examples.map(e => exCard(e)).join('') + '</div>' + (t.examples.length > 8 ? '<button class="btn ghost more" data-act="unclamp" aria-expanded="false" data-more="Show all ' + t.examples.length + ' examples">Show all ' + t.examples.length + ' examples</button>' : '') + '</section>' +
       (qs.some(q => !q.real) ? '<section id="s-pq"><div class="sec-h"><h2>Practice questions</h2><a href="#exam">How to answer them</a></div><div class="qlist">' + qs.filter(q => !q.real).map(qRow).join('') + '</div></section>' : '') +
       '<div class="pager">' + (prev ? '<a href="#topic-' + prev.id + '"><small>Previous</small>' + esc(prev.title) + '</a>' : '<span></span>') +
       (next ? '<a href="#topic-' + next.id + '" style="text-align:right"><small>Next</small>' + esc(next.title) + '</a>' : '') + '</div></div></div>';
+  }
+  // Ayes/Noes for yes-or-no questions; named sides for "how far" and "X or Y" questions
+  const DEB_LABELS = {
+    'How effective is Parliament at scrutinising the executive?': ['Effective', 'Limited'],
+    'Is nationalism inclusive or exclusive?': ['Inclusive', 'Exclusive'],
+    'Is nationalism progressive or regressive?': ['Progressive', 'Regressive'],
+    'How much does the media influence how people vote?': ['Strong influence', 'Limited influence'],
+    'Has devolution strengthened or threatened the Union?': ['Strengthened', 'Threatened']
+  };
+  function debLabel(q, i) {
+    const l = DEB_LABELS[q];
+    return l ? esc(l[i]) : (i ? 'Noes <span>disagree</span>' : 'Ayes <span>agree</span>');
   }
   function jumpbar(items, base) {
     return '<nav class="jumpbar" aria-label="Jump to section"><div class="jb-inner">' +
@@ -3396,10 +3437,10 @@ window.VERDICTS = {
     if (!q.plan) return '';
     const li = a => a.map(x => '<li>' + esc(x) + '</li>').join('');
     const note = '<p class="dg-note">Points based on the Pearson mark scheme\u2019s indicative content, in our own words.</p>';
-    if (q.plan.pts) return '<details class="plan"><summary>Answer plan</summary><div class="plan-cols one"><div><h3 class="ph">Three points to make</h3><ol>' + li(q.plan.pts) + '</ol></div></div>' +
+    if (q.plan.pts) return '<details class="plan"><summary>Answer plan</summary><div class="plan-cols one"><div><p class="ph">Three points to make</p><ol>' + li(q.plan.pts) + '</ol></div></div>' +
       '<p class="plan-j"><b>Analysis tip</b>' + esc(q.plan.tip) + '</p>' + note + '</details>';
     const ideas = q.kind === 'ideas';
-    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><h3 class="ph">' + (ideas ? 'Agreement' : 'For the view') + '</h3><ul>' + li(q.plan.f) + '</ul></div><div><h3 class="ph">' + (ideas ? 'Disagreement' : 'Against the view') + '</h3><ul>' + li(q.plan.a) +
+    return '<details class="plan"><summary>Essay plan</summary><div class="plan-cols"><div><p class="ph">' + (ideas ? 'Agreement' : 'For the view') + '</p><ul>' + li(q.plan.f) + '</ul></div><div><p class="ph">' + (ideas ? 'Disagreement' : 'Against the view') + '</p><ul>' + li(q.plan.a) +
       '</ul></div></div>' + (q.plan.th ? '<p class="plan-j"><b>Thinkers to use</b>' + esc(q.plan.th) + '</p>' : '') + '<p class="plan-j"><b>Judgement</b>' + esc(q.plan.j) + '</p>' + note + '</details>';
   }
   function qRow(q) {
@@ -3481,7 +3522,7 @@ window.VERDICTS = {
       '<section id="s-types"><div class="sec-h"><h2>Question types</h2></div><div class="tabs" role="tablist" aria-label="Question types"><span class="tab-pill" aria-hidden="true"></span>' + E.types.map(x =>
         '<button role="tab" id="tab-' + x.id + '" aria-controls="tabpanel" tabindex="' + (x.id === examTab ? '0' : '-1') + '" data-tab="' + x.id + '" aria-selected="' + (x.id === examTab) + '">' + esc(x.name) + '</button>').join('') + '</div>' +
       '<div class="tabpanel' + (tabSwap ? ' swap' : '') + '" id="tabpanel" role="tabpanel" aria-labelledby="tab-' + examTab + '"><p class="tab-meta">' + esc(ty.where) + ' · ' + esc(ty.marks) + ' · ' + esc(ty.time) + '</p><div class="wording">' + esc(ty.wording) + '</div>' +
-      '<div class="two"><div class="box"><h3>Plan and structure</h3><ol>' + ty.plan.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>' +
+      '<div class="two"><div class="box"><h3>Plan and structure</p><ol>' + ty.plan.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>' +
       '<div class="box"><h3>What gets marks</h3><ul>' + ty.tips.map(x => '<li>' + (x.startsWith('Mark scheme rule') ? '<b>' + esc(x.split(':')[0]) + ':</b>' + esc(x.slice(x.indexOf(':') + 1)) : esc(x)) + '</li>').join('') + '</ul></div></div></div></section>' +
       '<section id="s-para"><div class="sec-h"><h2>Building a paragraph</h2></div><div class="two"><div class="box"><h3>' + esc(E.paragraph.name) + '</h3><ol class="para">' +
       E.paragraph.steps.map((s, i) => '<li class="para-row" data-seg="' + i + '" tabindex="0"><span class="pn">' + (i + 1) + '</span><span><b>' + s[0] + '</b> ' + esc(s[1]) + '</span></li>').join('') + '</ol></div>' +
@@ -3521,7 +3562,7 @@ window.VERDICTS = {
       '<details class="pick"' + (quiz.openTopics ? ' open' : '') + '><summary>Choose individual topics <span class="dg-note">(' + picked + ')</span></summary><div class="frow">' +
       TOPICS.map(t => '<button class="chip" data-qt="' + t.id + '" aria-pressed="' + quiz.topics.includes(t.id) + '">' + esc(t.title) + '</button>').join('') + '</div></details></div>' +
       '<div><h2 class="setup-h">Length</h2><div class="frow">' + [10, 20, 40].map(n => '<button class="chip" data-qn="' + n + '" aria-pressed="' + (quiz.n === n) + '">' + n + ' questions</button>').join('') + '</div></div>' +
-      '<div><button class="btn" data-act="start">Start quiz</button>' + (best[quiz.mode] != null ? '<span class="dg-note" style="margin-left:12px">Best in this mode: ' + best[quiz.mode] + '%</span>' : '') + '</div></div>';
+      '<div><button class="btn" data-act="start">Start quiz</button>' + (best[quiz.mode] > 0 ? '<span class="dg-note" style="margin-left:12px">Best in this mode: ' + best[quiz.mode] + '%</span>' : '') + '</div></div>';
   }
   function buildQuestions() {
     const inT = id => !quiz.topics.length || quiz.topics.includes(id);
@@ -3601,9 +3642,12 @@ window.VERDICTS = {
       (rc.length ? '<section><div class="sec-h"><h2>Quick facts</h2></div><dl class="term-list">' + rc.map(r => '<div class="term"><dt>' + hl(r.a, q) + '</dt><dd>' + hl(r.q, q) + '<div class="meta">' + tag(byId[r.t]) + '</div></dd></div>').join('') + '</dl></section>' : '') +
       (ov.length ? '<section><div class="sec-h"><h2>In topic overviews</h2></div><dl class="term-list">' + ov.slice(0, 30).map(o => '<div class="term"><dt>' + esc(o.t.title) + '<div class="dg-note" style="margin:2px 0 0;font-family:var(--sans)">' + esc(o.h) + '</div></dt><dd>' + hl(o.p, q) + '<div class="meta"><a href="#topic-' + o.t.id + '">Open topic</a></div></dd></div>').join('') + '</dl></section>' : '') +
       (!total ? (() => {
-        const w = qWords(q)[0] || q, pool = [...new Set(TERMS.map(x => x.term).concat(TOPICS.map(t => t.title)))];
-        const sug = pool.map(n => ({ n, d: Math.min(...n.toLowerCase().split(/\s+/).map(p => lev(w, p.slice(0, w.length + 2)))) })).filter(o => o.d <= Math.max(2, Math.floor(w.length / 3))).sort((a, b) => a.d - b.d).slice(0, 5);
-        return '<div class="empty"><p>Nothing found for that spelling.</p>' + (sug.length ? '<div class="frow"><span class="hint">Did you mean</span>' + sug.map(o => '<button class="chip" data-suggest="' + esc(o.n) + '">' + esc(o.n) + '</button>').join('') + '</div>' : '<p class="hint">Try a shorter word.</p>') + '</div>';
+        const w = qWords(q).sort((a, b) => b.length - a.length)[0] || q, pool = [...new Set(TERMS.map(x => x.term).concat(TOPICS.map(t => t.title)))];
+        const lim = w.length < 5 ? 1 : Math.floor(w.length / 4);
+        const sug = w.length < 4 ? [] : pool.map(n => ({ n, d: Math.min(...n.toLowerCase().split(/[\s-]+/).filter(p => p.length >= 3).map(p => lev(w, p))) })).filter(o => o.d <= lim).sort((a, b) => a.d - b.d).slice(0, 5);
+        const pop = ['Parliamentary sovereignty', 'Salisbury convention', 'Devolution', 'Security dilemma', 'Self-determination'];
+        return '<div class="empty"><p>Nothing found for that.</p>' + (sug.length ? '<div class="frow"><span class="hint">Did you mean</span>' + sug.map(o => '<button class="chip" data-suggest="' + esc(o.n) + '">' + esc(o.n) + '</button>').join('') + '</div>'
+          : '<div class="frow"><span class="hint">Try a key term like</span>' + pop.map(n => '<button class="chip" data-suggest="' + esc(n) + '">' + esc(n) + '</button>').join('') + '</div>') + '</div>';
       })() : '');
   }
   function notFound() { return '<h1>Page not found</h1><p class="lede"><a href="#home">Back to topics</a></p>'; }
@@ -3808,7 +3852,13 @@ window.VERDICTS = {
     if (d.qp) { quiz.topics = TOPICS.filter(t => t.paper === +d.qp).map(t => t.id); rerender(); return; }
     if (d.qn) { quiz.n = +d.qn; rerender(); return; }
     if (d.letter) { e.preventDefault(); const el = document.getElementById('L-' + d.letter); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - stickyOffset() - 8, behavior: reduced ? 'auto' : 'smooth' }); return; }
-    if (d.act === 'unclamp') { const sec = b.closest('section'); const l = sec.querySelector('.clamp'); if (l) l.classList.remove('clamp'); b.remove(); return; }
+    if (d.act === 'unclamp') {
+      const sec = b.closest('section'), l = sec.querySelector('.term-list, .ex-grid'), open = !l.classList.contains('clamp');
+      l.classList.toggle('clamp', open); b.setAttribute('aria-expanded', !open);
+      b.textContent = open ? b.dataset.more : 'Show fewer';
+      if (open) window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - stickyOffset() - 8, behavior: 'auto' });
+      return;
+    }
     if (d.act === 'clear-terms') { Object.assign(state, { termPaper: 0, termTopic: '', termQ: '' }); rerender(); return; }
     if (d.act === 'clear-src') { Object.assign(state, { srcPaper: 0, srcTopic: '', srcQ: '' }); rerender(); return; }
     const R = quiz.run;
