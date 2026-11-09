@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Second Reading</title>
+<title>Politics Revision</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Key terms, topic overviews, sources and exam technique for Edexcel A Level Politics.">
 <script>
@@ -82,27 +82,10 @@ a.tag:hover { border-color: var(--line-2); background: var(--hover); }
 .tag.real { border-color: transparent; }
 .tag.real::before { background: var(--p2); }
 /* ---------- Home ---------- */
-.hero { padding-block: 8px 12px; max-width: 820px; }
-.hero h1 { margin-top: 18px; }
-.hero-search { margin-top: 32px; max-width: 560px; position: relative; }
-.hero-search input { width: 100%; height: 54px; padding: 0 16px 0 48px; font-size: 1.05rem; border: 1px solid var(--line-2); border-radius: 14px; background: var(--surface); transition: box-shadow .25s var(--ease), border-color .2s; }
-.hero-search input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 5px var(--hover); }
-.hero-search svg { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--muted); fill: none; stroke-width: 2; }
-.counts { margin-top: 28px; }
-.counts div { display: flex; flex-direction: column; }
-.counts b { font-size: 1.6rem; font-variant-numeric: tabular-nums; }
-.counts span { color: var(--muted); font-size: .85rem; }
-.papers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
-@media (max-width: 900px) {
-  .papers { grid-template-columns: 1fr; }
-}
-.paper { padding: 26px 26px 18px 0; display: flex; flex-direction: column; min-width: 0; }
-.paper + .paper { padding-left: 26px; border-left: 1px solid var(--line); }
-@media (max-width: 900px) {
-  .paper, .paper + .paper { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--line); }
-}
-.paper h2 { font-size: 1.25rem; margin: 14px 0 12px; }
-.paper .sub { font: 500 .7rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; margin: 14px 0 4px; }
+.hero-search { position: relative; }
+.hero-search input { width: 100%; padding: 0 16px 0 48px; font-size: 1.05rem; border: 1px solid var(--line-2); background: var(--surface); }
+.hero-search input:focus { outline: none; }
+.hero-search svg { position: absolute; top: 50%; transform: translateY(-50%); stroke: var(--muted); fill: none; stroke-width: 2; }
 .tlink { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; text-decoration: none; border-bottom: 1px solid var(--line); transition: padding .25s var(--ease); }
 .tlink:last-child { border-bottom: 0; }
 .tlink b { font-weight: 500; display: block; }
@@ -358,7 +341,6 @@ footer .wrap { padding-block: 28px; display: flex; justify-content: space-betwee
 .enter .hero h1 { animation-duration: 520ms; }
 .enter .hero .lede { animation: support 480ms var(--ease) 90ms both; }
 .enter .hero-search { animation: support 440ms var(--ease) 150ms both; }
-.enter .hero .counts { animation: fade 400ms ease 220ms both; }
 .enter .crumbs { animation: fade 300ms ease both; }
 .q-in { animation: slideIn 220ms var(--ease) both; }
 .answer, .feedback { animation: rise 200ms var(--ease) both; }
@@ -417,24 +399,18 @@ footer .wrap { padding-block: 28px; display: flex; justify-content: space-betwee
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-property: color, background-color, border-color, opacity, box-shadow !important; }
-  .enter h1, .enter .lede, .enter .hero-search, .enter .counts, .enter .crumbs, .q-in, .answer, .feedback, .tabpanel.swap { animation: fade 200ms ease both !important; }
+  .enter h1, .enter .lede, .enter .hero-search, .enter .crumbs, .q-in, .answer, .feedback, .tabpanel.swap { animation: fade 200ms ease both !important; }
   main > section, .deb > div, .pager, .tl li, .steps li, .chart .bar, .chart .ln, .chart .area, .chart .pt, .chart .val, .sec-h h2::after, .hl-sweep, .opt.wrong, .list-in > * { animation: none !important; }
   .chart .ln { stroke-dasharray: none; }
 }
 /* ---------- Pastel accents (text and accents only; backgrounds stay white or black) ---------- */
 ::selection { background: var(--lav-soft); color: var(--ink); }
 .hl-sweep { background: linear-gradient(var(--butter-soft), var(--butter-soft)) no-repeat 0 88% / 100% 34%; border-radius: 2px; padding: 0 2px; }
-@keyframes sweep { from { background-size: 0% 34%; } to { background-size: 100% 34%; } }
-.counts div:nth-child(1) b { color: var(--p1); }
-.counts div:nth-child(2) b { color: var(--p3); }
-.counts div:nth-child(3) b { color: var(--lav); }
-.counts div:nth-child(4) b { color: var(--p2); }
 .tag { border-color: transparent; background: var(--subtle); }
 .tag.p1 { background: var(--p1-soft); color: var(--p1); }
 .tag.p2 { background: var(--p2-soft); color: var(--p2); }
 .tag.p3 { background: var(--p3-soft); color: var(--p3); }
 .tag.plain { background: var(--subtle); color: var(--muted); }
-.paper:nth-child(1) h2 { color: var(--ink); }
 .tlink b { transition: color .2s; }
 .toc a.on { border-left-color: var(--lav); }
 .ov h3::before { content: ""; width: 8px; height: 8px; border-radius: 3px; margin-right: 10px; vertical-align: 2px; background: var(--chart-b); }
@@ -472,7 +448,7 @@ html.vt-theme::view-transition-old(root), html.vt-theme::view-transition-new(roo
 @media (prefers-reduced-motion: reduce) {
   #confetti { display: none; }
 }
-/* ---------- Second Reading: type and colour refinement ----------
+/* ---------- Type and colour refinement ----------
    Editorial serif for headings, a news grotesque for reading, mono only for data.
    Colour: ink and paper do the work; one lavender accent; paper colours appear only as small dots. */
 :root { --arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M9 4l4 4-4 4'/%3E%3C/svg%3E"); }
@@ -488,17 +464,13 @@ h3 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.005em; }
 a { text-underline-offset: .2em; text-decoration-thickness: 1px; }
 :focus-visible { outline-color: var(--lav); }
 /* Labels: sans, not a monospace costume */
-.tag, .paper .sub, .toc .toc-h, .setup h3, .deb-col h4, .quiz-top, .prompt small, .count-note, .pager small, .tlink span, .tbl thead th, .k, .legend, .tab-meta, .box-meta { font-family: var(--sans) !important; letter-spacing: .01em; }
-.paper .sub, .toc .toc-h, .setup h3, .deb-col h4, .tbl thead th, .k { font-size: .74rem !important; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.tag, .toc .toc-h, .setup h3, .deb-col h4, .quiz-top, .prompt small, .count-note, .pager small, .tlink span, .tbl thead th, .k, .legend, .tab-meta, .box-meta { font-family: var(--sans) !important; letter-spacing: .01em; }
+.toc .toc-h, .setup h3, .deb-col h4, .tbl thead th, .k { font-size: .74rem !important; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
 .prompt small { font-size: .78rem !important; text-transform: none; letter-spacing: 0; font-weight: 500; }
 .tlink span, .count-note, .pager small { font-size: .82rem !important; }
 .tab-meta, .box-meta { color: var(--muted); font-size: .9rem; margin: 0 0 4px; }
 .box-meta { margin: -6px 0 12px; }
 /* Quiet colour: back to ink, with one accent */
-.hero h1 .soft { color: var(--muted); }
-.counts { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 22px 0 0; color: var(--muted); font-size: .95rem; }
-.counts b { font: inherit; font-weight: 600; color: var(--ink); letter-spacing: 0; }
-.counts span:not(:last-child)::after { content: ""; display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--line-2); margin-left: 20px; vertical-align: middle; }
 .score { color: var(--ink); font-weight: 500; letter-spacing: -0.03em; }
 .done-h { font-size: 1.1rem; font-family: var(--sans); font-weight: 600; color: var(--muted); }
 .ao .box b.big, .ao .box:nth-child(n) b.big { color: var(--ink); font-weight: 500; letter-spacing: -0.02em; }
@@ -513,7 +485,6 @@ nav.main a.on { color: var(--ink); }
 .letter { color: var(--ink); border-bottom-color: var(--line-2); font-family: var(--serif); font-weight: 500; }
 .toc a.on { color: var(--ink); }
 .toc-ind { background: var(--ink); }
-.paper .sub { color: var(--muted); }
 .tlink:hover b { color: var(--ink); }
 .ov h3::before { display: none; }
 .ov li::before, .deb li::before, .box ul li::before { background: var(--line-2); }
@@ -533,7 +504,7 @@ nav.main a.on { color: var(--ink); }
 .deb-col.yes { background: none; }
 .deb-col.no { background: none; }
 .deb-col.yes h4, .deb-col.no h4 { color: var(--ink); }
-.paper > .tag, .crumbs .tag { align-self: flex-start; }
+.crumbs .tag { align-self: flex-start; }
 main > section { margin-top: 64px; }
 /* Drawn arrows instead of text glyphs */
 .sec-h a::after, .link::after, .quick .go::after { content: ""; width: .85em; height: .85em; margin-left: 6px; vertical-align: -1px; background: currentColor; -webkit-mask: var(--arrow) center / contain no-repeat; mask: var(--arrow) center / contain no-repeat; }
@@ -560,7 +531,7 @@ main > section { margin-top: 64px; }
 }
 :root[data-theme="dark"] { --p2-strong: #f7b1bf; }
 .tag.real { color: var(--p2-strong); }
-.counts, .tl-y, .chart text, .score, .quiz-top, .sn, .pn, .mk { font-variant-numeric: tabular-nums; }
+.tl-y, .chart text, .score, .quiz-top, .sn, .pn, .mk { font-variant-numeric: tabular-nums; }
 .tbl td, .tbl th { font-variant-numeric: normal; }
 /* Nav labels shorten on phones so every item fits */
 .nl-s { display: none; }
@@ -708,14 +679,6 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
   main { padding-top: 28px; }
 }
 /* Home: three-step path instead of a duplicate link grid */
-.howto ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 40px; counter-reset: step; }
-.howto li { counter-increment: step; color: var(--ink-2); font-size: .95rem; position: relative; }
-.howto li::before { content: counter(step); display: block; font-family: var(--serif); line-height: 1; color: var(--muted); }
-.howto li b { display: block; color: var(--ink); font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin-bottom: 4px; }
-@media (max-width: 760px) {
-  .howto ol { grid-template-columns: 1fr; }
-  .howto li { border-bottom: 1px solid var(--line); padding-bottom: 18px; }
-}
 /* Topic: past-paper strip and section */
 .came-strip { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; margin-top: 22px; text-decoration: none; font-size: .95rem; font-weight: 600; color: var(--ink); padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; transition: border-color 150ms ease, background-color 150ms ease; min-height: 44px; }
 .came-strip:hover { border-color: var(--line-2); background: var(--subtle); }
@@ -773,11 +736,6 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
   .az a { min-width: 40px; min-height: 44px; }
 }
 /* ---------- v7: third review fixes ---------- */
-.howto { margin-top: 44px; }
-.howto ol { border-top: 0; border-bottom: 1px solid var(--line); }
-.howto li { padding: 0 0 22px; }
-.howto li::before { font-size: 1.5rem; margin-bottom: 6px; }
-.howto + section { margin-top: 48px !important; }
 .quiz-card + .btns { margin-top: 36px; }
 @media (max-width: 860px) {
   .search input { height: 44px; }
@@ -785,13 +743,66 @@ h2.count-note { font: inherit; font-size: .82rem; color: var(--muted); letter-sp
   .pick summary, .toggle, .crumbs a, .sec-h a, .head-actions .link, .came-strip { min-height: 44px; display: inline-flex; align-items: center; }
   .plan summary { min-height: 44px; display: flex; align-items: center; }
 }
+/* ---------- Home: one sentence, one search, then the topics ---------- */
+:root { --p1-strong: #1f7a55; --p3-strong: #3a5cc4; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --p1-strong: #a3e6c6; --p3-strong: #adc4fb; }
+}
+:root[data-theme="dark"] { --p1-strong: #a3e6c6; --p3-strong: #adc4fb; }
+body.is-home .search { visibility: hidden; }
+.hero { max-width: none; padding-block: clamp(16px, 7vh, 72px) 0; }
+.hero h1 { margin: 0; max-width: 15ch; font-size: clamp(2.75rem, 8vw, 5.25rem); line-height: 1.02; letter-spacing: -0.03em; }
+.hero .hl-sweep { padding: 0; white-space: nowrap; background-position: 0 86%; background-size: 100% 26%; }
+@keyframes sweep { from { background-size: 0% 26%; } to { background-size: 100% 26%; } }
+.hero-search { margin-top: clamp(28px, 5vh, 44px); max-width: 620px; }
+.hero-search input { height: 60px; padding-left: 52px; border-radius: 16px; border-color: var(--line-2); box-shadow: 0 1px 2px rgba(12, 12, 13, .04), 0 8px 24px -12px rgba(12, 12, 13, .12); transition: border-color 150ms ease, box-shadow 150ms ease; }
+.hero-search input::placeholder { color: var(--muted); }
+.hero-search svg { left: 19px; width: 20px; height: 20px; transition: stroke 150ms ease; }
+.hero-search:focus-within svg { stroke: var(--lav); }
+.hero-search input:focus { border-color: var(--lav); box-shadow: 0 0 0 4px var(--lav-soft); }
+main > .shelf { margin-top: clamp(56px, 11vh, 112px); }
+.band-1 { --pc: var(--p1-strong); }
+.band-2 { --pc: var(--p2-strong); }
+.band-3 { --pc: var(--p3-strong); }
+.band { position: relative; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 0 48px; padding-block: 28px 64px; }
+.band::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; border-radius: 1px; background: var(--pc); transform-origin: left; }
+.band-h { position: sticky; top: 88px; align-self: start; }
+.band-h h2 { margin: 0; color: var(--pc); font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.05; letter-spacing: -0.02em; }
+.band-h p { margin: 8px 0 0; color: var(--muted); font-size: 1rem; max-width: 24ch; text-wrap: balance; }
+.band-b h3 { margin: 24px 0 2px; font-family: var(--sans); font-size: .85rem; font-weight: 600; letter-spacing: 0; color: var(--muted); }
+.band-b h3:first-child { margin-top: 6px; }
+.band-l { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+.band .tlink { min-height: 56px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.band .tlink:last-child { border-bottom: 1px solid var(--line); }
+.band .tlink b { font-size: 1.02rem; }
+.band .tlink > div { transform-origin: left center; }
+.band .tlink:active > div { transform: scale(.98); transition-duration: 80ms; }
+@media (hover: hover) and (pointer: fine) {
+  .band .tlink:hover b { color: var(--pc); }
+  .band .tlink:hover .arr { color: var(--pc); }
+}
+@media (max-width: 860px) {
+  .hero { padding-block: 20px 0; }
+  .hero-search input { font-size: 1rem; padding-right: 12px; }
+  .band { grid-template-columns: minmax(0, 1fr); padding-block: 24px 40px; }
+  .band-h { position: static; margin-bottom: 14px; }
+  .band-h p { max-width: none; }
+  .band-l { grid-template-columns: minmax(0, 1fr); }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .band::before { animation: grow auto linear both; animation-timeline: view(); animation-range: entry 0% entry 320px; }
+    .band-b { animation: rise-sm auto var(--ease) both; animation-timeline: view(); animation-range: entry 0% entry 160px; }
+    main > .shelf { animation: none; }
+  }
+}
 </style>
 
 <div class="progress-top" aria-hidden="true"><i id="scrollbar"></i></div>
 <canvas id="confetti" aria-hidden="true"></canvas>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home"><span class="mark-sq" aria-hidden="true"><i><b></b><b></b><b></b></i></span>Second Reading</a>
+    <a class="brand" href="#home"><span class="mark-sq" aria-hidden="true"><i><b></b><b></b><b></b></i></span>Politics Revision</a>
     <nav class="main" aria-label="Main">
       <span class="nav-pill" aria-hidden="true"></span>
       <a href="#home" data-nav="home">Topics</a>
@@ -3316,24 +3327,18 @@ window.VERDICTS = {
 
   /* ---------- Home ---------- */
   function home() {
-    const col = p => {
+    const band = p => {
       const ts = TOPICS.filter(t => t.paper === p);
       const areas = [...new Set(ts.map(t => t.area))];
-      return '<div class="paper">' + ptag(p) + '<h2>' + PAPERS[p].long + '</h2>' +
-        areas.map(a => '<div class="sub">' + a + '</div>' + ts.filter(t => t.area === a).map(t =>
-          '<a class="tlink" href="#topic-' + t.id + '"><div><b>' + esc(t.title) + '</b><span>' + t.terms.length + ' terms · ' + t.examples.length + ' examples</span></div><span class="arr" aria-hidden="true"></span></a>').join('')).join('') + '</div>';
+      return '<div class="band band-' + p + '"><div class="band-h"><h2>' + PAPERS[p].name + '</h2><p>' + PAPERS[p].long + '</p></div><div class="band-b">' +
+        areas.map(a => (areas.length > 1 ? '<h3>' + a + '</h3>' : '') + '<div class="band-l">' + ts.filter(t => t.area === a).map(t =>
+          '<a class="tlink" href="#topic-' + t.id + '"><div><b>' + esc(t.title) + '</b></div><span class="arr" aria-hidden="true"></span></a>').join('') + '</div>').join('') +
+        '</div></div>';
     };
     return '<div class="hero">' +
-      '<h1>Politics, <span class="soft">on second reading.</span></h1>' +
-      '<p class="lede">Revision for Edexcel A Level Politics. Read a topic overview, look up any <span class="hl-sweep">key term</span>, grab an example for an essay, or test yourself.</p>' +
-      '<div class="hero-search">' + ICON + '<input id="hsearch" type="search" placeholder="Try “Salisbury”, “Miller” or “veto”" autocomplete="off"></div>' +
-      '<p class="counts">' + [[TOPICS.length, 'topics'], [TERMS.length, 'key terms'], [EXAMPLES.length, 'examples'], [RECALL.length, 'quiz facts']].map(c => '<span><b>' + c[0] + '</b> ' + c[1] + '</span>').join('') + '</p></div>' +
-      '<section class="howto" aria-label="How to use this site"><ol>' +
-      '<li><b>Read the topic.</b> Overview, diagrams and the key debates with a verdict.</li>' +
-      '<li><b>Learn the language.</b> Key terms and examples you can quote with a date and a figure.</li>' +
-      '<li><b>Practise the exam.</b> Past paper questions with essay plans, then <a href="#quiz">test yourself</a>.</li></ol></section>' +
-      '<section style="margin-top:64px"><div class="papers">' + [1, 2, 3].map(col).join('') + '</div></section>';
-
+      '<h1>Revision for Edexcel <span class="hl-sweep">A Level Politics.</span></h1>' +
+      '<div class="hero-search">' + ICON + '<input id="hsearch" type="search" aria-label="Search the site" placeholder="Search terms and examples" autocomplete="off"></div></div>' +
+      '<section class="shelf" aria-label="Topics by paper">' + [1, 2, 3].map(band).join('') + '</section>';
   }
 
   /* ---------- Topic ---------- */
@@ -3634,7 +3639,7 @@ window.VERDICTS = {
     if (h === 'quiz' && changed && quiz.run) focusQuiz();
     if (h === 'search' && wantFocus) { const c = wantFocus.caret; wantFocus = null; focusPage(c); }
     const t = h.startsWith('topic-') && byId[h.slice(6)];
-    document.title = t ? t.title + ' · Second Reading' : 'Second Reading';
+    document.title = t ? t.title + ' · Politics Revision' : 'Politics Revision';
     store.set('lastView', h);
   }
   function rerender() { const y = window.scrollY; route(); window.scrollTo({ top: y, behavior: 'instant' }); if (quiz.run) quiz.run.fresh = false; }
@@ -3707,7 +3712,7 @@ window.VERDICTS = {
     }).catch(() => {});
   });
   document.addEventListener('keydown', e => {
-    if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); gsearch.focus(); gsearch.select(); }
+    if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); const f = document.getElementById('hsearch') || gsearch; f.focus(); f.select(); }
     if (e.key === 'Escape' && document.activeElement === gsearch) gsearch.blur();
   });
   /* ---------- Extra effects ---------- */
